@@ -48,8 +48,13 @@ namespace FHT::tokenizer
 
 
 			token l_token = tokenize_identifiable(iterator, l_context_stack);
+			if (l_token._code.size() == 0)
+			{
+				continue;
+			}
+
 			l_token._header_file_path = path_p.c_str();
-			l_token._token_number = l_token_number;
+			l_token._line_number = l_token_number;
 			if (l_token._vocabulary != Vocabulary::_Undefined)
 			{
 				iterator += l_token._code.size(); // move to the next.
@@ -62,7 +67,7 @@ namespace FHT::tokenizer
 						l_token._vocabulary = Vocabulary::_LineEnd;
 						l_token._code = file_buffer_t(1, *iterator, framework::get_framework().get_memory_resource());
 						l_token._header_file_path = path_p.c_str();
-						l_token._token_number = l_token_number;
+						l_token._line_number = l_token_number;
 
 						l_list.push_back(std::move(l_token));
 						++l_token_number; // Increment the line number.
@@ -75,7 +80,7 @@ namespace FHT::tokenizer
 
 			l_token = tokenize_unidentifiable(iterator, l_context_stack);
 			l_token._header_file_path = path_p.c_str();
-			l_token._token_number = l_token_number;
+			l_token._line_number = l_token_number;
 			iterator += l_token._code.size(); // move to the next.
 			l_list.push_back(std::move(l_token));
 
@@ -86,7 +91,7 @@ namespace FHT::tokenizer
 					l_token._vocabulary = Vocabulary::_LineEnd;
 					l_token._code = file_buffer_t(1, *iterator, framework::get_framework().get_memory_resource());
 					l_token._header_file_path = path_p.c_str();
-					l_token._token_number = l_token_number;
+					l_token._line_number = l_token_number;
 
 					l_list.push_back(std::move(l_token));
 					++l_token_number; // Increment the line number.
@@ -255,7 +260,7 @@ namespace FHT::tokenizer
 			return l_token; // return if the text is a preprocessor directive.
 		}
 
-		if (context_stack_p.back() != FHT::Context::_EnumStructFieldInitialValue)
+		if (context_stack_p.back() != FHT::Context::_EnumStructFieldValue)
 		{
 			tokenize_string_literal(l_token, code_iterator_p, context_stack_p);
 			if (l_token._vocabulary != Vocabulary::_Undefined)
@@ -374,8 +379,30 @@ namespace FHT::tokenizer
 				break;
 
 			default:
-				l_tmp._vocabulary = Vocabulary::_Undefined;
-				tokenize_string_literal(l_tmp, code_iterator_p, context_stack_p);
+		/*		l_tmp._vocabulary = Vocabulary::_Undefined;
+				tokenize_comment(l_tmp, code_iterator_p, context_stack_p);
+
+				if (l_tmp._vocabulary == Vocabulary::_Undefined)
+				{
+					tokenize_string_literal(l_tmp, code_iterator_p, context_stack_p);
+				}
+
+				if (context_stack_p.back() != FHT::Context::_CharLiteral &&
+					context_stack_p.back() != FHT::Context::_RawTextLiteral &&
+					context_stack_p.back() != FHT::Context::_StringLiteral)
+				{
+					if (l_tmp._vocabulary == Vocabulary::_Undefined)
+					{
+						tokenize_preprocessor(l_tmp, code_iterator_p, context_stack_p);
+					}
+
+					if (l_tmp._vocabulary == Vocabulary::_Undefined)
+					{
+						tokenize_other(l_tmp, code_iterator_p, context_stack_p);
+					}
+
+				}
+
 				switch (l_tmp._vocabulary)
 				{
 				case Vocabulary::_CharLiteral:
@@ -389,9 +416,46 @@ namespace FHT::tokenizer
 					l_tmp._code.clear();
 					continue;
 
+
+				case Vocabulary::_LineComment:
+					l_token._code += l_tmp._code;
+					code_iterator_p += l_tmp._code.length();
+					l_tmp._code.clear();
+					continue;
+
+				case Vocabulary::_LineEnd:
+					l_token._code += *code_iterator_p;
+					++code_iterator_p;
+					continue;
+
+
+				case Vocabulary::_CommentBegin:
+					_FE_FALLTHROUGH_;
+				case Vocabulary::_CommentBody:
+					_FE_FALLTHROUGH_;
+				case Vocabulary::_CommentEnd:
+					l_token._code += l_tmp._code;
+					code_iterator_p += l_tmp._code.length();
+					l_tmp._code.clear();
+					continue;
+
+
+				case Vocabulary::_Preprocessor:
+					l_token._code += l_tmp._code;
+					code_iterator_p += l_tmp._code.length();
+					l_tmp._code.clear();
+					continue;
+				case Vocabulary::_PreprocessorDirective:
+					_FE_FALLTHROUGH_;
+				case Vocabulary::_PreprocessorNextLine:
+					l_token._code += *code_iterator_p;
+					++code_iterator_p;
+					break;
+
+
 				default:
 					break;
-				}
+				}*/
 				break;
 			}
 			l_token._code += *code_iterator_p;
@@ -737,7 +801,7 @@ namespace FHT::tokenizer
 					context_stack_p.pop_back();
 				}
 			}
-			else
+			else if (context_stack_p.back() != FHT::Context::_RawTextLiteral)
 			{
 				context_stack_p.emplace_back(FHT::Context::_CharLiteral);
 			}
@@ -963,14 +1027,7 @@ namespace FHT::tokenizer
 
 
 		case 'c':
-			
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"const") }, u8"const")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Const;
-				out_token_p._code = u8"const";
-			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"constexpr") }, u8"constexpr")
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"constexpr") }, u8"constexpr")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_Constexpr;
@@ -987,6 +1044,12 @@ namespace FHT::tokenizer
 			{
 				out_token_p._vocabulary = Vocabulary::_Constinit;
 				out_token_p._code = u8"constinit";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"const") }, u8"const")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Const;
+				out_token_p._code = u8"const";
 			}
 			break;
 
@@ -1345,7 +1408,7 @@ namespace FHT::tokenizer
 
 	void tokenize_enum_struct(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p)
 	{
-		if ((context_stack_p.back() != FHT::Context::_EnumStruct) && (context_stack_p.back() != FHT::Context::_EnumStructFieldInitialValue))
+		if ((context_stack_p.back() != FHT::Context::_EnumStruct) && (context_stack_p.back() != FHT::Context::_EnumStructFieldValue))
 		{
 			auto l_enum_keyword_end_pos = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p, u8'\n');
 			out_token_p._code.assign(code_iterator_p, l_enum_keyword_end_pos->_end);
@@ -1396,12 +1459,12 @@ namespace FHT::tokenizer
 
 			if (*code_iterator_p == '=')
 			{
-				context_stack_p.emplace_back(FHT::Context::_EnumStructFieldInitialValue);
+				context_stack_p.emplace_back(FHT::Context::_EnumStructFieldValue);
 				out_token_p._vocabulary = Vocabulary::_EnumStructField;
 				return;
 			}
 
-			if (context_stack_p.back() == FHT::Context::_EnumStructFieldInitialValue)
+			if (context_stack_p.back() == FHT::Context::_EnumStructFieldValue)
 			{
 				while (*code_iterator_p != '\n')
 				{

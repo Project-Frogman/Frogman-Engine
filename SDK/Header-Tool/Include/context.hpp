@@ -42,7 +42,7 @@ namespace FHT
 
 		_Namespace,
 
-		_EnumStructFieldInitialValue,
+		_EnumStructFieldValue,
 
 		_FrogmanEngineSystemMacro
 	};

@@ -27,566 +27,566 @@ limitations under the License.
 // SECTION 0: FE_SYSTEM
 // ============================================================================
 
-//FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
-//void system(class FE::world& world) noexcept
-//{
-//	// System implementation
-//}
+FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
+void system(class FE::world& world) noexcept
+{
+	// System implementation
+}
 
-//FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
-//void           system2(FE::world& comptr_p) noexcept;
-//
-//FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
-//void system3(FE::world& comptr_p);
-//
-//FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
-//void system4(FE::world& comptr_p)
-//{
-//
-//}
-//
-//
-//
-//
-//// ============================================================================
-//// SECTION 1: Global Namespace with FE Macros
-//// ============================================================================
-//
-//// Global enum struct with FE macro
-//FE_ENUM_STRUCT();
-//enum struct GlobalGameState
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct [[nodiscard]] GlobalGameState2
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct _NODISCARD_ GlobalGameState3
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct _NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct [[nodiscard]] _MAYBE_UNUSED_ GlobalGameState5
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct _NODISCARD_ [[maybe_unused]] GlobalGameState6
-//{
-//	MainMenu,
-//	InGame,
-//	Paused,
-//	GameOver
-//};
-//
-//
-//
-//
-//// Global enum struct with explicit type
-//FE_ENUM_STRUCT();
-//enum struct GlobalEntityType : uint16_t
-//{
-//	Player = 0,
-//	Enemy = 1,
-//	Projectile = 100,
-//	Pickup = 200
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct [[nodiscard]] GlobalEntityType2 : uint16_t
-//{
-//	Player = 0,
-//	Enemy = 1,
-//	Projectile = 100,
-//	Pickup = 200
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct _NODISCARD_ GlobalEntityType3 : uint16_t
-//{
-//	Player = 0,
-//	Enemy = 1,
-//	Projectile = 100,
-//	Pickup = 200
-//};
-//
-//FE_ENUM_STRUCT();
-//enum struct _NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4 : uint16_t
-//{
-//	Player = 0,
-//	Enemy = 1,
-//	Projectile = 100,
-//	Pickup = 200
-//};
-//
-//
-//
-//
-//// Global struct with FE macro - POD style
-//struct GlobalTransform2D
-//{
-//	FE_STRUCT();
-//	float _x;
-//	float _y;
-//	float _rotation;
-//};
-//
-//
-//
-//
-//// Global struct with FE macro - with methods
-//struct GlobalVelocity
-//{
-//	FE_STRUCT();
-//	float _vx;
-//	float _vy;
-//
-//	GlobalVelocity();
-//	GlobalVelocity(float vx_p, float vy_p);
-//	~GlobalVelocity();
-//
-//	float magnitude() const;
-//	void normalize();
-//	static GlobalVelocity zero();
-//};
-//
-//// Global struct with FE macro - with inheritance
-//
-//struct GlobalRigidBody : public GlobalVelocity
-//{
-//	FE_STRUCT();
-//	float _mass;
-//	float _friction;
-//
-//	GlobalRigidBody();
-//	virtual ~GlobalRigidBody();
-//	virtual void apply_force(float fx_p, float fy_p);
-//};
-//
-//
-//
-//
-//// Global class with FE macro - simple
-//
-//class GlobalGameObject
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject();
-//	~GlobalGameObject();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//// Global class with FE macro - attr
-//class GlobalGameObject2
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject2();
-//	~GlobalGameObject2();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//class [[maybe_unused]] GlobalGameObject3
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject3();
-//	~GlobalGameObject3();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//class GlobalGameObject4
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject4();
-//	~GlobalGameObject4();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//class _MAYBE_UNUSED_ GlobalGameObject5
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject5();
-//	~GlobalGameObject5();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//class _MAYBE_UNUSED_ GlobalGameObject6
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject6();
-//	~GlobalGameObject6();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//class [[maybe_unused]] GlobalGameObject7
-//{
-//	FE_CLASS();
-//public:
-//	GlobalGameObject7();
-//	~GlobalGameObject7();
-//
-//	void set_active(bool active_p);
-//	bool is_active() const;
-//
-//private:
-//	bool _is_active;
-//	uint32_t _object_id;
-//	GlobalGameState _state;
-//};
-//
-//
-//
-//
-//// Global class with FE macro - with multiple access specifiers
-//class GlobalComponentBase
-//{
-//	FE_CLASS();
-//protected:
-//	bool _enabled;
-//	uint64_t _component_id;
-//
-//public:
-//	GlobalComponentBase() {}
-//	virtual ~GlobalComponentBase() {}
-//
-//	virtual void on_create() = 0;
-//	virtual void on_update(float delta_p) = 0;
-//	virtual void on_destroy() = 0;
-//
-//	bool is_enabled() const noexcept;
-//	void set_enabled(bool enabled_p) noexcept;
-//
-//private:
-//	GlobalGameState _state;
-//};
-//
-//// Global class with FE macro - virtual inheritance
-//class GlobalRenderableComponent : public GlobalComponentBase
-//{
-//	FE_CLASS();
-//public:
-//	GlobalRenderableComponent();
-//	virtual ~GlobalRenderableComponent() override;
-//
-//	void on_create() override;
-//	void on_update(float delta_p) override;
-//	void on_destroy() override;
-//
-//	void set_sprite_id(uint32_t sprite_id_p);
-//
-//protected:
-//	uint32_t _sprite_id;
-//	float _alpha;
-//
-//private:
-//	bool _visible;
-//};
-//
-//// Global class with FE macro - final keyword
-//class GlobalSingletonManager final
-//{
-//	FE_CLASS();
-//public:
-//	GlobalSingletonManager(const GlobalSingletonManager&) = delete;
-//	GlobalSingletonManager& operator=(const GlobalSingletonManager&) = delete;
-//	GlobalSingletonManager(GlobalSingletonManager&&) = delete;
-//	GlobalSingletonManager& operator=(GlobalSingletonManager&&) = delete;
-//
-//	static GlobalSingletonManager& get_instance();
-//
-//	void initialize();
-//	void shutdown();
-//
-//private:
-//	GlobalSingletonManager();
-//	~GlobalSingletonManager();
-//
-//	bool _initialized;
-//};
-//
-//
-//
-//
-//// ============================================================================
-//// SECTION 2: Namespace with FE Macros
-//// ============================================================================
-//
-//BEGIN_NAMESPACE(FE::Test)
-//
-//void escape()
-//{
-//
-//}
-//
-//// Enum struct with FE macro - simple
-//FE_ENUM_STRUCT();
-//enum struct InputState
-//{
-//	Released,
-//	Pressed,
-//	Held,
-//	JustReleased
-//};
-//
-//// Enum struct with FE macro - explicit type uint8_t
-//FE_ENUM_STRUCT();
-//enum struct RenderLayer : uint8_t
-//{
-//	Background = 0,
-//	Gameplay = 1,
-//	UI = 2,
-//	Debug = 3,
-//	PostProcess = 255
-//};
-//
-//// Enum struct with FE macro - explicit type int64_t
-//FE_ENUM_STRUCT();
-//enum struct EntityID : int64_t
-//{
-//	Invalid = -1,
-//	First = 0,
-//	MaxEntities = 9223372036854775807LL
-//};
-//
-//// Enum struct with FE macro - single value
-//FE_ENUM_STRUCT();
-//enum struct DefaultWorldTag
-//{
-//	MainWorld
-//};
-//
-//// Enum struct with FE macro - empty (edge case)
-//FE_ENUM_STRUCT();
-//enum struct ReservedEnum
-//{
-//};
-//
-//// Struct with FE macro - simple POD
-//struct Position
-//{
-//	FE_STRUCT();
-//	float _x;
-//	float _y;
-//};
-//
-//// Struct with FE macro - multiple fields on same line
-//struct Bounds
-//{
-//	FE_STRUCT();
-//	float _left, _top, _right, _bottom;
-//};
-//
-//// Struct with FE macro - with constructor
-//struct Size
-//{
-//	FE_STRUCT();
-//	float _width;
-//	float _height;
-//
-//	Size();
-//	Size(float width_p, float height_p);
-//};
-//
-//// Struct with FE macro - with various method types
-//struct Transform
-//{
-//	FE_STRUCT();
-//	float _x;
-//	float _y;
-//	float _rotation;
-//
-//	// Constructors
-//	Transform();
-//	Transform(float x_p, float y_p, float rotation_p);
-//	Transform(const Transform& other_p);
-//	Transform(Transform&& other_p) noexcept;
-//
-//	// Destructor
-//	~Transform();
-//
-//	// Assignment operators
-//	Transform& operator=(const Transform& other_p);
-//	Transform& operator=(Transform&& other_p) noexcept;
-//
-//	// Const methods
-//	float get_angle_radians() const;
-//	Position get_position() const;
-//
-//	// Non-const methods
-//	void translate(float dx_p, float dy_p);
-//	void rotate(float angle_p);
-//
-//	// Static methods
-//	static Transform identity();
-//	static Transform from_position(const Position& pos_p);
-//
-//	// Inline methods
-//	inline float get_x() const { return _x; }
-//	inline void set_x(float x_p) { _x = x_p; }
-//
-//	// Constexpr methods
-//	constexpr float sum_components() const { return _x + _y + _rotation; }
-//};
-//
-//// Struct with FE macro - with inheritance (single)
-//struct AnimatedTransform : public Transform
-//{
-//	FE_STRUCT();
-//	float _animation_speed;
-//	float _current_frame;
-//
-//	AnimatedTransform();
-//	virtual ~AnimatedTransform();
-//	virtual void update(float delta_p);
-//	virtual void reset_animation();
-//};
-//
-//// Struct with FE macro - with static members
-//struct GameConfig
-//{
-//	FE_STRUCT();
-//	static const uint32_t MAX_PLAYERS = 4;
-//	static const float DEFAULT_TIMESTEP;
-//	static constexpr uint64_t FRAME_BUFFER_SIZE = 8192;
-//
-//	bool _fullscreen;
-//	bool _vsync;
-//	uint32_t _target_fps;
-//
-//	static void load_from_file(const char* path_p);
-//	static void save_to_file(const char* path_p);
-//	static GameConfig& get_default();
-//};
-//
-//// Struct with FE macro - with bitfields
-//struct EntityFlags
-//{
-//	FE_STRUCT();
-//	uint32_t _is_visible : 1;
-//	uint32_t _is_collidable : 1;
-//	uint32_t _is_kinematic : 1;
-//	uint32_t _is_trigger : 1;
-//	uint32_t _reserved : 28;
-//};
-//
-//// Class with FE macro - simple with private members only
-//class Component
-//{
-//	FE_CLASS();
-//private:
-//	uint32_t _id;
-//	float _priority;
-//};
-//
-//// Class with FE macro - with public section
-//class SpriteComponent
-//{
-//	FE_CLASS();
-//public:
-//	SpriteComponent();
-//	~SpriteComponent();
-//
-//	void set_sprite(uint32_t sprite_id_p);
-//	uint32_t get_sprite() const;
-//
-//private:
-//	uint32_t _sprite_id;
-//};
-//
-//// Class with FE macro - with all access specifiers
-//class PhysicsComponent
-//{
-//	FE_CLASS();
-//public:
-//	PhysicsComponent();
-//	~PhysicsComponent();
-//
-//	void apply_impulse(float x_p, float y_p);
-//	float mass;
-//
-//protected:
-//	void update_internal(float delta_p);
-//	float _velocity_x;
-//
-//private:
-//	void calculate_forces();
-//	float _mass;
-//};
+FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
+void           system2(FE::world& comptr_p) noexcept;
+
+FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
+void system3(FE::world& comptr_p);
+
+FE_SYSTEM(_EngineInitialization, WorldTagEnumType);
+void system4(FE::world& comptr_p)
+{
+
+}
+
+
+
+
+// ============================================================================
+// SECTION 1: Global Namespace with FE Macros
+// ============================================================================
+
+// Global enum struct with FE macro
+FE_ENUM_STRUCT();
+enum struct GlobalGameState
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+FE_ENUM_STRUCT();
+enum struct [[nodiscard]] GlobalGameState2
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+FE_ENUM_STRUCT();
+enum struct _NODISCARD_ GlobalGameState3
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+FE_ENUM_STRUCT();
+enum struct _NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+FE_ENUM_STRUCT();
+enum struct [[nodiscard]] _MAYBE_UNUSED_ GlobalGameState5
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+FE_ENUM_STRUCT();
+enum struct _NODISCARD_ [[maybe_unused]] GlobalGameState6
+{
+	MainMenu,
+	InGame,
+	Paused,
+	GameOver
+};
+
+
+
+
+// Global enum struct with explicit type
+FE_ENUM_STRUCT();
+enum struct GlobalEntityType : uint16_t
+{
+	Player = 0,
+	Enemy = 1,
+	Projectile = 100,
+	Pickup = 200
+};
+
+FE_ENUM_STRUCT();
+enum struct [[nodiscard]] GlobalEntityType2 : uint16_t
+{
+	Player = 0,
+	Enemy = 1,
+	Projectile = 100,
+	Pickup = 200
+};
+
+FE_ENUM_STRUCT();
+enum struct _NODISCARD_ GlobalEntityType3 : uint16_t
+{
+	Player = 0,
+	Enemy = 1,
+	Projectile = 100,
+	Pickup = 200
+};
+
+FE_ENUM_STRUCT();
+enum struct _NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4 : uint16_t
+{
+	Player = 0,
+	Enemy = 1,
+	Projectile = 100,
+	Pickup = 200
+};
+
+
+
+
+// Global struct with FE macro - POD style
+struct GlobalTransform2D
+{
+	FE_STRUCT();
+	float _x;
+	float _y;
+	float _rotation;
+};
+
+
+
+
+// Global struct with FE macro - with methods
+struct GlobalVelocity
+{
+	FE_STRUCT();
+	float _vx;
+	float _vy;
+
+	GlobalVelocity();
+	GlobalVelocity(float vx_p, float vy_p);
+	~GlobalVelocity();
+
+	float magnitude() const;
+	void normalize();
+	static GlobalVelocity zero();
+};
+
+// Global struct with FE macro - with inheritance
+
+struct GlobalRigidBody : public GlobalVelocity
+{
+	FE_STRUCT();
+	float _mass;
+	float _friction;
+
+	GlobalRigidBody();
+	virtual ~GlobalRigidBody();
+	virtual void apply_force(float fx_p, float fy_p);
+};
+
+
+
+
+// Global class with FE macro - simple
+
+class GlobalGameObject
+{
+	FE_CLASS();
+public:
+	GlobalGameObject();
+	~GlobalGameObject();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+// Global class with FE macro - attr
+class GlobalGameObject2
+{
+	FE_CLASS();
+public:
+	GlobalGameObject2();
+	~GlobalGameObject2();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+class [[maybe_unused]] GlobalGameObject3
+{
+	FE_CLASS();
+public:
+	GlobalGameObject3();
+	~GlobalGameObject3();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+class GlobalGameObject4
+{
+	FE_CLASS();
+public:
+	GlobalGameObject4();
+	~GlobalGameObject4();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+class _MAYBE_UNUSED_ GlobalGameObject5
+{
+	FE_CLASS();
+public:
+	GlobalGameObject5();
+	~GlobalGameObject5();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+class _MAYBE_UNUSED_ GlobalGameObject6
+{
+	FE_CLASS();
+public:
+	GlobalGameObject6();
+	~GlobalGameObject6();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+class [[maybe_unused]] GlobalGameObject7
+{
+	FE_CLASS();
+public:
+	GlobalGameObject7();
+	~GlobalGameObject7();
+
+	void set_active(bool active_p);
+	bool is_active() const;
+
+private:
+	bool _is_active;
+	uint32_t _object_id;
+	GlobalGameState _state;
+};
+
+
+
+
+// Global class with FE macro - with multiple access specifiers
+class GlobalComponentBase
+{
+	FE_CLASS();
+protected:
+	bool _enabled;
+	uint64_t _component_id;
+
+public:
+	GlobalComponentBase() {}
+	virtual ~GlobalComponentBase() {}
+
+	virtual void on_create() = 0;
+	virtual void on_update(float delta_p) = 0;
+	virtual void on_destroy() = 0;
+
+	bool is_enabled() const noexcept;
+	void set_enabled(bool enabled_p) noexcept;
+
+private:
+	GlobalGameState _state;
+};
+
+// Global class with FE macro - virtual inheritance
+class GlobalRenderableComponent : public GlobalComponentBase
+{
+	FE_CLASS();
+public:
+	GlobalRenderableComponent();
+	virtual ~GlobalRenderableComponent() override;
+
+	void on_create() override;
+	void on_update(float delta_p) override;
+	void on_destroy() override;
+
+	void set_sprite_id(uint32_t sprite_id_p);
+
+protected:
+	uint32_t _sprite_id;
+	float _alpha;
+
+private:
+	bool _visible;
+};
+
+// Global class with FE macro - final keyword
+class GlobalSingletonManager final
+{
+	FE_CLASS();
+public:
+	GlobalSingletonManager(const GlobalSingletonManager&) = delete;
+	GlobalSingletonManager& operator=(const GlobalSingletonManager&) = delete;
+	GlobalSingletonManager(GlobalSingletonManager&&) = delete;
+	GlobalSingletonManager& operator=(GlobalSingletonManager&&) = delete;
+
+	static GlobalSingletonManager& get_instance();
+
+	void initialize();
+	void shutdown();
+
+private:
+	GlobalSingletonManager();
+	~GlobalSingletonManager();
+
+	bool _initialized;
+};
+
+
+
+
+// ============================================================================
+// SECTION 2: Namespace with FE Macros
+// ============================================================================
+
+BEGIN_NAMESPACE(FE::Test)
+
+void escape()
+{
+
+}
+
+// Enum struct with FE macro - simple
+FE_ENUM_STRUCT();
+enum struct InputState
+{
+	Released,
+	Pressed,
+	Held,
+	JustReleased
+};
+
+// Enum struct with FE macro - explicit type uint8_t
+FE_ENUM_STRUCT();
+enum struct RenderLayer : uint8_t
+{
+	Background = 0,
+	Gameplay = 1,
+	UI = 2,
+	Debug = 3,
+	PostProcess = 255
+};
+
+// Enum struct with FE macro - explicit type int64_t
+FE_ENUM_STRUCT();
+enum struct EntityID : int64_t
+{
+	Invalid = -1,
+	First = 0,
+	MaxEntities = 9223372036854775807LL
+};
+
+// Enum struct with FE macro - single value
+FE_ENUM_STRUCT();
+enum struct DefaultWorldTag
+{
+	MainWorld
+};
+
+// Enum struct with FE macro - empty (edge case)
+FE_ENUM_STRUCT();
+enum struct ReservedEnum
+{
+};
+
+// Struct with FE macro - simple POD
+struct Position
+{
+	FE_STRUCT();
+	float _x;
+	float _y;
+};
+
+// Struct with FE macro - multiple fields on same line
+struct Bounds
+{
+	FE_STRUCT();
+	float _left, _top, _right, _bottom;
+};
+
+// Struct with FE macro - with constructor
+struct Size
+{
+	FE_STRUCT();
+	float _width;
+	float _height;
+
+	Size();
+	Size(float width_p, float height_p);
+};
+
+// Struct with FE macro - with various method types
+struct Transform
+{
+	FE_STRUCT();
+	float _x;
+	float _y;
+	float _rotation;
+
+	// Constructors
+	Transform();
+	Transform(float x_p, float y_p, float rotation_p);
+	Transform(const Transform& other_p);
+	Transform(Transform&& other_p) noexcept;
+
+	// Destructor
+	~Transform();
+
+	// Assignment operators
+	Transform& operator=(const Transform& other_p);
+	Transform& operator=(Transform&& other_p) noexcept;
+
+	// Const methods
+	float get_angle_radians() const;
+	Position get_position() const;
+
+	// Non-const methods
+	void translate(float dx_p, float dy_p);
+	void rotate(float angle_p);
+
+	// Static methods
+	static Transform identity();
+	static Transform from_position(const Position& pos_p);
+
+	// Inline methods
+	inline float get_x() const { return _x; }
+	inline void set_x(float x_p) { _x = x_p; }
+
+	// Constexpr methods
+	constexpr float sum_components() const { return _x + _y + _rotation; }
+};
+
+// Struct with FE macro - with inheritance (single)
+struct AnimatedTransform : public Transform
+{
+	FE_STRUCT();
+	float _animation_speed;
+	float _current_frame;
+
+	AnimatedTransform();
+	virtual ~AnimatedTransform();
+	virtual void update(float delta_p);
+	virtual void reset_animation();
+};
+
+// Struct with FE macro - with static members
+struct GameConfig
+{
+	FE_STRUCT();
+	static const uint32_t MAX_PLAYERS = 4;
+	static const float DEFAULT_TIMESTEP;
+	static constexpr uint64_t FRAME_BUFFER_SIZE = 8192;
+
+	bool _fullscreen;
+	bool _vsync;
+	uint32_t _target_fps;
+
+	static void load_from_file(const char* path_p);
+	static void save_to_file(const char* path_p);
+	static GameConfig& get_default();
+};
+
+// Struct with FE macro - with bitfields
+struct EntityFlags
+{
+	FE_STRUCT();
+	uint32_t _is_visible : 1;
+	uint32_t _is_collidable : 1;
+	uint32_t _is_kinematic : 1;
+	uint32_t _is_trigger : 1;
+	uint32_t _reserved : 28;
+};
+
+// Class with FE macro - simple with private members only
+class Component
+{
+	FE_CLASS();
+private:
+	uint32_t _id;
+	float _priority;
+};
+
+// Class with FE macro - with public section
+class SpriteComponent
+{
+	FE_CLASS();
+public:
+	SpriteComponent();
+	~SpriteComponent();
+
+	void set_sprite(uint32_t sprite_id_p);
+	uint32_t get_sprite() const;
+
+private:
+	uint32_t _sprite_id;
+};
+
+// Class with FE macro - with all access specifiers
+class PhysicsComponent
+{
+	FE_CLASS();
+public:
+	PhysicsComponent();
+	~PhysicsComponent();
+
+	void apply_impulse(float x_p, float y_p);
+	float mass;
+
+protected:
+	void update_internal(float delta_p);
+	float _velocity_x;
+
+private:
+	void calculate_forces();
+	float _mass;
+};
 
 // Class with FE macro - with virtual methods
 class EntityBase
@@ -606,333 +606,333 @@ protected:
 private:
 	uint32_t _entity_id;
 };
-//
-//// Class with FE macro - derived with override
-//class EnemyEntity : public EntityBase
-//{
-//	FE_CLASS();
-//public:
-//	EnemyEntity();
-//	virtual ~EnemyEntity() override;
-//
-//	void on_spawn() override;
-//	void on_tick(float delta_p) override;
-//	int get_type_id() const override;
-//
-//protected:
-//	void cleanup() override;
-//
-//private:
-//	float _health;
-//};
-//
-//// Class with FE macro - final class
-//class PlayerEntity final : public EntityBase
-//{
-//	FE_CLASS();
-//public:
-//	PlayerEntity();
-//	~PlayerEntity() override;
-//
-//	void on_tick(float delta_p) override final;
-//
-//private:
-//	float _score;
-//};
-//
-//// Class with FE macro - with deleted methods
-//class NonCopyableEntity
-//{
-//	FE_CLASS();
-//public:
-//	NonCopyableEntity();
-//	~NonCopyableEntity();
-//
-//	NonCopyableEntity(const NonCopyableEntity&) = delete;
-//	NonCopyableEntity& operator=(const NonCopyableEntity&) = delete;
-//	NonCopyableEntity(NonCopyableEntity&&) = delete;
-//	NonCopyableEntity& operator=(NonCopyableEntity&&) = delete;
-//
-//private:
-//	uint64_t _unique_id;
-//};
-//
-//// Class with FE macro - with static methods and members
-//class EntityFactory
-//{
-//	FE_CLASS();
-//public:
-//	static void initialize();
-//	static EntityBase* create_entity(int type_id_p);
-//	static const EntityFactory& get_instance();
-//
-//	static int s_entity_count;
-//	static constexpr float s_spawn_radius = 100.0f;
-//
-//private:
-//	EntityFactory() {}
-//	~EntityFactory() {}
-//
-//	static int s_next_id;
-//	static void register_type(int type_id_p);
-//};
-//
-//// Class with FE macro - with multiple inheritance
-//class IUpdatable
-//{
-//	FE_CLASS();
-//public:
-//	virtual ~IUpdatable();
-//	virtual void update(float delta_p) = 0;
-//
-//protected:
-//	float _last_update_time;
-//};
-//
-//class IRenderable
-//{
-//	FE_CLASS();
-//public:
-//	virtual ~IRenderable();
-//	virtual void render() = 0;
-//
-//protected:
-//	uint32_t _render_layer;
-//};
-//
-//class UpdatableRenderable : public IUpdatable, public IRenderable
-//{
-//	FE_CLASS();
-//public:
-//	UpdatableRenderable();
-//	~UpdatableRenderable() override;
-//
-//	void update(float delta_p) override;
-//	void render() override;
-//
-//private:
-//	bool _dirty;
-//};
-//
-//// Class with FE macro - abstract interface
-//
-//class IGameSystem
-//{
-//	FE_CLASS();
-//public:
-//	virtual ~IGameSystem() = default;
-//
-//	virtual void initialize() = 0;
-//	virtual void tick(float delta_p) = 0;
-//	virtual void render() = 0;
-//	virtual void shutdown() = 0;
-//
-//	virtual const char* get_system_name() const = 0;
-//	virtual uint32_t get_priority() const = 0;
-//};
-//
-//union att
-//{
-//
-//};
-//
-//// Class with FE macro - implementing interface
-//class RenderSystem : public IGameSystem
-//{
-//	FE_CLASS();
-//public:
-//	RenderSystem();
-//	~RenderSystem() override;
-//
-//	void initialize() override;
-//	void tick(float delta_p) override;
-//	void render() override;
-//	void shutdown() override;
-//
-//	const char* get_system_name() const override;
-//	uint32_t get_priority() const override;
-//
-//private:
-//	uint32_t _render_target;
-//	bool _is_initialized;
-//};
-//
-//
-//END_NAMESPACE
-//
-//
-//
-//
-//// ============================================================================
-//// SECTION 3: Nested Namespaces with FE Macros
-//// ============================================================================
-//
-//BEGIN_NAMESPACE(FE::Test::Nested)
-//
-//FE_ENUM_STRUCT();
-//enum struct NestedInputType
-//{
-//	Keyboard,
-//	Mouse,
-//	Gamepad,
-//	Touch
-//};
-//
-//struct NestedInput
-//{
-//	FE_STRUCT();
-//	int _device_id;
-//	float _value;
-//};
-//
-//class NestedInputManager
-//{
-//	FE_CLASS();
-//public:
-//	NestedInputManager();
-//	~NestedInputManager();
-//
-//	void process_input();
-//
-//private:
-//	bool _enabled;
-//};
-//
-//END_NAMESPACE
-//
-//BEGIN_NAMESPACE(FE::Test::Nested::Deep)
-//
-//FE_ENUM_STRUCT();
-//enum struct DeepActionType
-//{
-//	Move,
-//	Attack
-//};
-//
-//struct DeepAction
-//{
-//	FE_STRUCT();
-//	DeepActionType _type;
-//	float _intensity;
-//};
-//
-//class DeepActionHandler
-//{
-//	FE_CLASS();
-//public:
-//	void handle_action(const DeepAction& action_p);
-//};
-//
-//END_NAMESPACE
-//
-//
-//
-//
-//// ============================================================================
-//// SECTION 4: Edge Cases and Complex Scenarios with FE Macros
-//// ============================================================================
-//
-//BEGIN_NAMESPACE(FE::Test::EdgeCases)
-//
-//// Struct with FE macro - nested structs
-//struct OuterData
-//{
-//	FE_STRUCT();
-//
-//	struct InnerData
-//	{
-//		FE_STRUCT();
-//		int _value;
-//	};
-//
-//	InnerData _data;
-//	float _scale;
-//};
-//
-//// Class with FE macro - nested classes
-//class OuterSystem
-//{
-//	FE_CLASS();
-//public:
-//	class InnerSystem
-//	{
-//		FE_CLASS();
-//	public:
-//		InnerSystem();
-//		void process();
-//
-//	private:
-//		int _state;
-//	};
-//
-//	OuterSystem();
-//	void run();
-//
-//private:
-//	InnerSystem _subsystem;
-//	bool _active;
-//};
-//
-//// Enum struct with FE macro - large values
-//FE_ENUM_STRUCT();
-//enum struct LargeIDType : uint64_t
-//{
-//	None = 0,
-//	Small = 100,
-//	Medium = 1000000,
-//	Large = 1000000000,
-//	Maximum = 18446744073709551615ULL
-//};
-//
-//
-//// Enum struct with FE macro - character type
-//FE_ENUM_STRUCT();
-//enum struct CharacterEnum : char
-//{
-//	TypeA = 'A',
-//	TypeB = 'B',
-//	TypeC = 'C'
-//};
-//
-//// Struct with FE macro - array members
-//struct ArrayContainer
-//{
-//	FE_STRUCT();
-//	int _simple_array[10];
-//	float _matrix[4][4];
-//	uint32_t _constant_buffer[64];
-//};
-//
-//// Class with FE macro - complex pointer types
-//class PointerManager
-//{
-//	FE_CLASS();
-//public:
-//	void process_data(int* ptr_p);
-//	void process_multi(int** ptr_ptr_p);
-//	void process_const(const int* const* const ptr_p);
-//
-//	int* get_data();
-//	const int* get_const_data() const;
-//
-//private:
-//	int* _data_ptr;
-//	int** _indirect_ptr;
-//	const int* _const_ptr;
-//};
-//
-//// Struct with FE macro - function pointers
-//struct CallbackContainer
-//{
-//	FE_STRUCT();
-//	void (*_on_update)();
-//	int (*_on_event)(int, float);
-//	void (*_callback_array[8])(int);
-//
-//	using EventCallback = void (*)(int, int);
-//	EventCallback _typed_callback;
-//};
-//
-//END_NAMESPACE
-//
+
+// Class with FE macro - derived with override
+class EnemyEntity : public EntityBase
+{
+	FE_CLASS();
+public:
+	EnemyEntity();
+	virtual ~EnemyEntity() override;
+
+	void on_spawn() override;
+	void on_tick(float delta_p) override;
+	int get_type_id() const override;
+
+protected:
+	void cleanup() override;
+
+private:
+	float _health;
+};
+
+// Class with FE macro - final class
+class PlayerEntity final : public EntityBase
+{
+	FE_CLASS();
+public:
+	PlayerEntity();
+	~PlayerEntity() override;
+
+	void on_tick(float delta_p) override final;
+
+private:
+	float _score;
+};
+
+// Class with FE macro - with deleted methods
+class NonCopyableEntity
+{
+	FE_CLASS();
+public:
+	NonCopyableEntity();
+	~NonCopyableEntity();
+
+	NonCopyableEntity(const NonCopyableEntity&) = delete;
+	NonCopyableEntity& operator=(const NonCopyableEntity&) = delete;
+	NonCopyableEntity(NonCopyableEntity&&) = delete;
+	NonCopyableEntity& operator=(NonCopyableEntity&&) = delete;
+
+private:
+	uint64_t _unique_id;
+};
+
+// Class with FE macro - with static methods and members
+class EntityFactory
+{
+	FE_CLASS();
+public:
+	static void initialize();
+	static EntityBase* create_entity(int type_id_p);
+	static const EntityFactory& get_instance();
+
+	static int s_entity_count;
+	static constexpr float s_spawn_radius = 100.0f;
+
+private:
+	EntityFactory() {}
+	~EntityFactory() {}
+
+	static int s_next_id;
+	static void register_type(int type_id_p);
+};
+
+// Class with FE macro - with multiple inheritance
+class IUpdatable
+{
+	FE_CLASS();
+public:
+	virtual ~IUpdatable();
+	virtual void update(float delta_p) = 0;
+
+protected:
+	float _last_update_time;
+};
+
+class IRenderable
+{
+	FE_CLASS();
+public:
+	virtual ~IRenderable();
+	virtual void render() = 0;
+
+protected:
+	uint32_t _render_layer;
+};
+
+class UpdatableRenderable : public IUpdatable, public IRenderable
+{
+	FE_CLASS();
+public:
+	UpdatableRenderable();
+	~UpdatableRenderable() override;
+
+	void update(float delta_p) override;
+	void render() override;
+
+private:
+	bool _dirty;
+};
+
+// Class with FE macro - abstract interface
+
+class IGameSystem
+{
+	FE_CLASS();
+public:
+	virtual ~IGameSystem() = default;
+
+	virtual void initialize() = 0;
+	virtual void tick(float delta_p) = 0;
+	virtual void render() = 0;
+	virtual void shutdown() = 0;
+
+	virtual const char* get_system_name() const = 0;
+	virtual uint32_t get_priority() const = 0;
+};
+
+union att
+{
+
+};
+
+// Class with FE macro - implementing interface
+class RenderSystem : public IGameSystem
+{
+	FE_CLASS();
+public:
+	RenderSystem();
+	~RenderSystem() override;
+
+	void initialize() override;
+	void tick(float delta_p) override;
+	void render() override;
+	void shutdown() override;
+
+	const char* get_system_name() const override;
+	uint32_t get_priority() const override;
+
+private:
+	uint32_t _render_target;
+	bool _is_initialized;
+};
+
+
+END_NAMESPACE
+
+
+
+
+// ============================================================================
+// SECTION 3: Nested Namespaces with FE Macros
+// ============================================================================
+
+BEGIN_NAMESPACE(FE::Test::Nested)
+
+FE_ENUM_STRUCT();
+enum struct NestedInputType
+{
+	Keyboard,
+	Mouse,
+	Gamepad,
+	Touch
+};
+
+struct NestedInput
+{
+	FE_STRUCT();
+	int _device_id;
+	float _value;
+};
+
+class NestedInputManager
+{
+	FE_CLASS();
+public:
+	NestedInputManager();
+	~NestedInputManager();
+
+	void process_input();
+
+private:
+	bool _enabled;
+};
+
+END_NAMESPACE
+
+BEGIN_NAMESPACE(FE::Test::Nested::Deep)
+
+FE_ENUM_STRUCT();
+enum struct DeepActionType
+{
+	Move,
+	Attack
+};
+
+struct DeepAction
+{
+	FE_STRUCT();
+	DeepActionType _type;
+	float _intensity;
+};
+
+class DeepActionHandler
+{
+	FE_CLASS();
+public:
+	void handle_action(const DeepAction& action_p);
+};
+
+END_NAMESPACE
+
+
+
+
+// ============================================================================
+// SECTION 4: Edge Cases and Complex Scenarios with FE Macros
+// ============================================================================
+
+BEGIN_NAMESPACE(FE::Test::EdgeCases)
+
+// Struct with FE macro - nested structs
+struct OuterData
+{
+	FE_STRUCT();
+
+	struct InnerData
+	{
+		FE_STRUCT();
+		int _value;
+	};
+
+	InnerData _data;
+	float _scale;
+};
+
+// Class with FE macro - nested classes
+class OuterSystem
+{
+	FE_CLASS();
+public:
+	class InnerSystem
+	{
+		FE_CLASS();
+	public:
+		InnerSystem();
+		void process();
+
+	private:
+		int _state;
+	};
+
+	OuterSystem();
+	void run();
+
+private:
+	InnerSystem _subsystem;
+	bool _active;
+};
+
+// Enum struct with FE macro - large values
+FE_ENUM_STRUCT();
+enum struct LargeIDType : uint64_t
+{
+	None = 0,
+	Small = 100,
+	Medium = 1000000,
+	Large = 1000000000,
+	Maximum = 18446744073709551615ULL
+};
+
+
+// Enum struct with FE macro - character type
+FE_ENUM_STRUCT();
+enum struct CharacterEnum : char
+{
+	TypeA = 'A',
+	TypeB = 'B',
+	TypeC = 'C'
+};
+
+// Struct with FE macro - array members
+struct ArrayContainer
+{
+	FE_STRUCT();
+	int _simple_array[10];
+	float _matrix[4][4];
+	uint32_t _constant_buffer[64];
+};
+
+// Class with FE macro - complex pointer types
+class PointerManager
+{
+	FE_CLASS();
+public:
+	void process_data(int* ptr_p);
+	void process_multi(int** ptr_ptr_p);
+	void process_const(const int* const* const ptr_p);
+
+	int* get_data();
+	const int* get_const_data() const;
+
+private:
+	int* _data_ptr;
+	int** _indirect_ptr;
+	const int* _const_ptr;
+};
+
+// Struct with FE macro - function pointers
+struct CallbackContainer
+{
+	FE_STRUCT();
+	void (*_on_update)();
+	int (*_on_event)(int, float);
+	void (*_callback_array[8])(int);
+
+	using EventCallback = void (*)(int, int);
+	EventCallback _typed_callback;
+};
+
+END_NAMESPACE
+
 #endif // TEST_REFLEXTREE_GENERATION_HPP
