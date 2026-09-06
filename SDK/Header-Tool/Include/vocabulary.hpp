@@ -51,11 +51,13 @@ enum struct Vocabulary : FE::uint32
 	_StringLiteral, _CharLiteral, _NumberValue,
 	_Operator, _AssignmentOperator,
 
-	_Virtual, _Override, _Final,
+	_Virtual, _Override, _Final, _This,
 
 	_Private, _Protected, _Public,
 
 	_Static, _ThreadLocal,
+
+	_Mutable, _Extern, _Friend, _Using, _Typedef, _Alignas,
 
 	_Const, _Volatile,
 	_Reference, _Pointer,
@@ -69,16 +71,18 @@ enum struct Vocabulary : FE::uint32
 	_LeftBracket, _RightBracket,
 	_LeftCurlyBracket, _RightCurlyBracket,
 
-	_CallingConvention, _FnReturnType, _FnIdentifier, _FnParameterList, _FnBody,
+	//_CallingConvention, _FnReturnType, _FnIdentifier, _FnParameterList, _FnBody,
 
 	_StaticAssert,
 
 	_FrogmanEngineBaseClassReflectionMacro,
-	_FrogmanEngineClassReflectionMacro,
-	_FrogmanEngineStructReflectionMacro,
+
 	_FrogmanEnginePropertyReflectionMacro,
 	_FrogmanEngineStaticMethodReflectionMacro,
 	_FrogmanEngineMethodReflectionMacro,
+
+	_FrogmanEngineClassReflectionMacro,
+	_FrogmanEngineStructReflectionMacro,
 	_FrogmanEngineEnumStructReflectionMacro,
 	_FrogmanEngineSystemMacro, _FrogmanEngineSystemArgSysCallPhase, _FrogmanEngineSystemArgWorldTagEnum,
 
@@ -96,11 +100,13 @@ const tsl::htrie_map<var::ASCII, Vocabulary> g_vocabulary =
 	{ "BEGIN_NAMESPACE", Vocabulary::_BeginNamespace }, { "END_NAMESPACE", Vocabulary::_EndNamespace },
 	{ "::", Vocabulary::_NamespaceConcatenator },
 
-	{ "virtual", Vocabulary::_Virtual}, { "override", Vocabulary::_Override}, { "final", Vocabulary::_Final},
+	{ "virtual", Vocabulary::_Virtual}, { "override", Vocabulary::_Override}, { "final", Vocabulary::_Final}, { "this", Vocabulary::_This },
 
 	{ "private", Vocabulary::_Private }, { "protected", Vocabulary::_Protected }, { "public", Vocabulary::_Public },
 
 	{ "static", Vocabulary::_Static }, { "thread_local", Vocabulary::_ThreadLocal },
+
+	{ "mutable", Vocabulary::_Mutable }, { "extern", Vocabulary::_Extern }, { "friend", Vocabulary::_Friend }, { "using", Vocabulary::_Using }, { "typedef", Vocabulary::_Typedef }, { "alignas", Vocabulary::_Alignas },
 
 	{ "const", Vocabulary::_Const }, { "volatile", Vocabulary::_Volatile},
 
@@ -109,6 +115,12 @@ const tsl::htrie_map<var::ASCII, Vocabulary> g_vocabulary =
 	{ "inline", Vocabulary::_Inline }, { "__forceinline", Vocabulary::_ForceInline }, { "_FE_FORCE_INLINE_", Vocabulary::_FrogmanEngineForceInline },
 
 	{ "static_assert", Vocabulary::_StaticAssert },
+
+	{ "FE_CLASS_HAS_A_BASE", Vocabulary::_FrogmanEngineBaseClassReflectionMacro },
+
+	{ "FE_PROPERTY", Vocabulary::_FrogmanEnginePropertyReflectionMacro },
+	{ "FE_STATIC_METHOD", Vocabulary::_FrogmanEngineStaticMethodReflectionMacro },
+	{ "FE_METHOD", Vocabulary::_FrogmanEngineMethodReflectionMacro },
 
 	{ "FE_CLASS", Vocabulary::_FrogmanEngineClassReflectionMacro },
 	{ "FE_STRUCT", Vocabulary::_FrogmanEngineStructReflectionMacro },

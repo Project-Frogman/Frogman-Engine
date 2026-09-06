@@ -297,11 +297,6 @@ namespace FHT::parser
 			var::uint64 l_name_length = 0;
 			for (auto character = l_node._this_class_name.rbegin(); character != l_node._this_class_name.rend(); ++character)
 			{
-				if (*character <= ' ')
-				{
-					++l_name_length;
-					break;
-				}
 				++l_name_length;
 			}
 
@@ -350,24 +345,25 @@ namespace FHT::parser
 
 			case Vocabulary::_AnyDecl:
 				{
-					auto l_virtual_keyword_pos = out_token_iterator_p->_code.find(u8"virtual");
-					if (l_virtual_keyword_pos == std::string::npos) // break if it does not contain "virtual"; and
+					--out_token_iterator_p;
+					Vocabulary l_prev_token = out_token_iterator_p->_vocabulary;
+					++out_token_iterator_p;
+					if (l_prev_token != Vocabulary::_Virtual) // break if it does not contain "virtual"; and
 					{
 						break;
 					}
 
-					if (FE::algorithm::string::space_insensitive_contains(	out_token_iterator_p->_code.c_str() + l_virtual_keyword_pos,
-																			out_token_iterator_p->_code.length() - l_virtual_keyword_pos,
-																			u8"()"
-																			) == false) // break if it does not contain "()"; and
+					auto l_it = out_token_iterator_p->_code.rbegin();
+					while (*l_it != u8')')
 					{
-						break;
+						if (l_it == out_token_iterator_p->_code.rend())
+						{
+							break;
+						}
+						++l_it;
 					}
 
-					if (FE::algorithm::string::space_insensitive_contains(	out_token_iterator_p->_code.c_str() + l_virtual_keyword_pos,
-																			out_token_iterator_p->_code.length() - l_virtual_keyword_pos,
-																			u8"=0"
-																			) == false) // break if it does not contain "=0".
+					if (FE::algorithm::string::space_insensitive_contains(l_it.operator->(), l_it.operator->() - out_token_iterator_p->_code.begin().operator->(), u8"=0") == false) // break if it does not contain "=0".
 					{
 						break;
 					}
@@ -623,7 +619,7 @@ namespace FHT::parser
 
 		for (auto i = 0; i < l_node._sysname.length(); ++i)
 		{
-			if (l_node._sysname[0] == ' ')
+			if (l_node._sysname[0] <= ' ')
 			{
 				l_node._sysname.erase(0, 1);
 				continue;

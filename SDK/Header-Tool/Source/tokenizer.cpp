@@ -962,20 +962,115 @@ namespace FHT::tokenizer
 			break;
 
 
+		case 'c':
+			
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"const") }, u8"const")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Const;
+				out_token_p._code = u8"const";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"constexpr") }, u8"constexpr")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Constexpr;
+				out_token_p._code = u8"constexpr";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"consteval") }, u8"consteval")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Consteval;
+				out_token_p._code = u8"consteval";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"constinit") }, u8"constinit")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Constinit;
+				out_token_p._code = u8"constinit";
+			}
+			break;
+
+
+		case 'e':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"extern") }, u8"extern")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Extern;
+				out_token_p._code = u8"extern";
+			}
+			break;
+
+
+		case 'f':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"friend") }, u8"friend")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Friend;
+				out_token_p._code = u8"friend";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"final") }, u8"final")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Final;
+				out_token_p._code = u8"final";
+			}
+			break;
+
+
+		case 'i':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"inline") }, u8"inline")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Inline;
+				out_token_p._code = u8"inline";
+			}
+			break;
+
+
+		case 'm':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"mutable") }, u8"mutable")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Mutable;
+				out_token_p._code = u8"mutable";
+			}
+			break;
+
+
+		case 'n':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"noexcept") }, u8"noexcept")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Noexcept;
+				out_token_p._code = u8"noexcept";
+			}
+			break;
+
+
+		case 'o':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"override") }, u8"override")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Override;
+				out_token_p._code = u8"override";
+			}
+			break;
+
+
 		case 'p':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,6 }, u8"public")
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"public") }, u8"public")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_Public;
 				out_token_p._code = u8"public";
 			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,7 }, u8"private")
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"private") }, u8"private")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_Private;
 				out_token_p._code = u8"private";
 			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,9 }, u8"protected")
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"protected") }, u8"protected")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_Protected;
@@ -984,8 +1079,72 @@ namespace FHT::tokenizer
 			break;
 
 
+		case 's':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"static") }, u8"static")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Static;
+				out_token_p._code = u8"static";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"static_assert") }, u8"static_assert")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_StaticAssert;
+				out_token_p._code = u8"static_assert";
+			}
+			break;
+
+
+		case 't':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"this") }, u8"this")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_This;
+				out_token_p._code = u8"this";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"thread_local") }, u8"thread_local")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_ThreadLocal;
+				out_token_p._code = u8"thread_local";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"typedef") }, u8"typedef")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Typedef;
+				out_token_p._code = u8"typedef";
+			}
+			break;
+
+
+		case 'u':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"using") }, u8"using")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Using;
+				out_token_p._code = u8"using";
+			}
+			break;
+
+
+		case 'v':
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"volatile") }, u8"volatile")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Volatile;
+				out_token_p._code = u8"volatile";
+			}
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"virtual") }, u8"virtual")
+				!= std::nullopt)
+			{
+				out_token_p._vocabulary = Vocabulary::_Virtual;
+				out_token_p._code = u8"virtual";
+			}
+			break;
+
+
 		case ':':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,2 }, u8"::")
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"::") }, u8"::")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_NamespaceConcatenator;
@@ -999,78 +1158,20 @@ namespace FHT::tokenizer
 			break;
 
 
-		case 'i':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,6 }, u8"inline")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Inline;
-				out_token_p._code = u8"inline";
-			}
-			break;
-
-
 		case '_':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,13 }, u8"__forceinline")
+			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"__forceinline") }, u8"__forceinline")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_ForceInline;
 				out_token_p._code = u8"__forceinline";
 			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,17 }, u8"_FE_FORCE_INLINE_")
+			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,FE::algorithm::string::compiletime::length(u8"_FE_FORCE_INLINE_") }, u8"_FE_FORCE_INLINE_")
 				!= std::nullopt)
 			{
 				out_token_p._vocabulary = Vocabulary::_FrogmanEngineForceInline;
 				out_token_p._code = u8"_FE_FORCE_INLINE_";
 			}
 		break;
-
-
-		case 's':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,6 }, u8"static")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Static;
-				out_token_p._code = u8"static";
-			}
-			break;
-
-
-		case 'v':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,4 }, u8"volatile")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Volatile;
-				out_token_p._code = u8"volatile";
-			}
-			break;
-
-
-		case 'c':
-			if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,4 }, u8"const")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Const;
-				out_token_p._code = u8"const";
-			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,7 }, u8"constexpr")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Constexpr;
-				out_token_p._code = u8"constexpr";
-			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,6 }, u8"consteval")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Consteval;
-				out_token_p._code = u8"consteval";
-			}
-			else if (FE::algorithm::string::find_the_first_within_range<var::UTF8>(code_iterator_p, FE::algorithm::string::range{ 0,6 }, u8"constinit")
-				!= std::nullopt)
-			{
-				out_token_p._vocabulary = Vocabulary::_Constinit;
-				out_token_p._code = u8"constinit";
-			}
-			break;
 
 
 		default:
@@ -1089,6 +1190,18 @@ namespace FHT::tokenizer
 			it.key(tl_s_key_buffer); // populate the key buffer.
 			switch (it.value())
 			{
+			case Vocabulary::_FrogmanEngineBaseClassReflectionMacro:
+				_FE_FALLTHROUGH_;
+
+			case Vocabulary::_FrogmanEnginePropertyReflectionMacro:
+				_FE_FALLTHROUGH_;
+
+			case Vocabulary::_FrogmanEngineStaticMethodReflectionMacro:
+				_FE_FALLTHROUGH_;
+
+			case Vocabulary::_FrogmanEngineMethodReflectionMacro:
+				_FE_FALLTHROUGH_;
+
 			case Vocabulary::_FrogmanEngineClassReflectionMacro:
 				_FE_FALLTHROUGH_;
 
@@ -1155,7 +1268,12 @@ namespace FHT::tokenizer
 		auto l_class_keyword_end_pos = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p, u8'\n');
 		out_token_p._code.assign(code_iterator_p, l_class_keyword_end_pos->_begin);
 
-		if (FE::algorithm::string::space_insensitive_contains(out_token_p._code.c_str(), out_token_p._code.length(), u8"class") == false)
+		while (out_token_p._code.front() <= ' ')
+		{
+			out_token_p._code.erase(0, 1);
+		}
+
+		if (out_token_p._code.starts_with(u8"class") == false)
 		{
 			out_token_p._code.clear();
 			return;
@@ -1190,7 +1308,12 @@ namespace FHT::tokenizer
 		auto l_struct_keyword_end_pos = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p, u8'\n');
 		out_token_p._code.assign(code_iterator_p, l_struct_keyword_end_pos->_begin);
 
-		if (FE::algorithm::string::space_insensitive_contains(out_token_p._code.c_str(), out_token_p._code.length(), u8"struct") == false)
+		while (out_token_p._code.front() <= ' ')
+		{
+			out_token_p._code.erase(0, 1);
+		}
+
+		if (out_token_p._code.starts_with(u8"struct") == false)
 		{
 			out_token_p._code.clear();
 			return;
@@ -1226,15 +1349,17 @@ namespace FHT::tokenizer
 		{
 			auto l_enum_keyword_end_pos = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p, u8'\n');
 			out_token_p._code.assign(code_iterator_p, l_enum_keyword_end_pos->_end);
-			if (FE::algorithm::string::space_insensitive_contains(out_token_p._code.c_str(), out_token_p._code.length(), u8"enum struct") == false)
+
+			while (out_token_p._code.front() <= ' ')
 			{
-				auto l_struct_keyword_end_pos = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p + l_enum_keyword_end_pos->_end, u8'\n');
-				out_token_p._code.assign(code_iterator_p, l_enum_keyword_end_pos->_end + l_struct_keyword_end_pos->_end);
-				if (FE::algorithm::string::space_insensitive_contains(out_token_p._code.c_str(), out_token_p._code.length(), u8"enum struct") == false)
-				{
-					out_token_p._code.clear();
-					return; // not an enum struct.
-				}
+				out_token_p._code.erase(0, 1);
+			}
+
+
+			if (out_token_p._code.starts_with(u8"enum") == false)
+			{
+				out_token_p._code.clear();
+				return;
 			}
 
 
