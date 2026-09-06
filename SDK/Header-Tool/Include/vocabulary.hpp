@@ -41,7 +41,7 @@ enum struct Vocabulary : FE::uint32
 
 	_Class, _Struct, _EnumStruct,
 	_ClassStructEnumForwardDeclaration,
-	_FieldType, _FieldIdentifier, _EnumStructField, _EnumStructFieldInitialValue,
+	_FieldType, _FieldIdentifier, _EnumStructField, _EnumStructFieldValue,
 
 	_Colon, _Semicolon, _Comma,
 
