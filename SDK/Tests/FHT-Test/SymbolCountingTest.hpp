@@ -26,142 +26,142 @@ limitations under the License.
 // ============================================================================
 
 // Global enum struct - simple
-enum struct GlobalStatus
-{
-	Inactive,
-	Active,
-	Pending
-};
-
-// Global enum struct - with explicit underlying type
-enum struct GlobalErrorCode : uint16_t
-{
-	Success = 0,
-	GeneralError = 1,
-	InvalidInput = 100,
-	OutOfMemory = 200
-};
-
-// Global enum struct - with trailing comma
-enum struct GlobalPriority : int32_t
-{
-	Low,
-	Medium,
-	High,
-};
-
-// Global struct - POD style
-struct GlobalPoint
-{
-	float _x;
-	float _y;
-	float _z;
-};
-
-// Global struct - with constructor and methods
-struct GlobalVector
-{
-	float _x;
-	float _y;
-	float _z;
-
-	GlobalVector();
-	GlobalVector(float x_p, float y_p, float z_p);
-	~GlobalVector();
-
-	float magnitude() const;
-	void normalize();
-	static GlobalVector zero();
-};
-
-// Global struct - with inheritance
-struct GlobalTransform
-{
-	float _rotation;
-	float _scale;
-
-	GlobalTransform();
-	virtual ~GlobalTransform();
-	virtual void update(float delta_p);
-};
-
-// Global class - simple
-class GlobalEntity
-{
-public:
-	GlobalEntity();
-	~GlobalEntity();
-
-	void set_id(uint32_t id_p);
-	uint32_t get_id() const;
-
-private:
-	uint32_t _id;
-	GlobalStatus _status;
-};
-
-// Global class - with multiple access specifiers
-class GlobalComponent
-{
-protected:
-	bool _is_enabled;
-	uint64_t _component_id;
-
-public:
-	GlobalComponent();
-	virtual ~GlobalComponent();
-
-	virtual void initialize() = 0;
-	virtual void update(float delta_p) = 0;
-	virtual void shutdown() = 0;
-
-	bool is_enabled() const noexcept;
-	void set_enabled(bool enabled_p) noexcept;
-
-private:
-	GlobalStatus _status;
-};
-
-// Global class - with virtual inheritance
-class GlobalRenderComponent : public GlobalComponent
-{
-public:
-	GlobalRenderComponent();
-	virtual ~GlobalRenderComponent() override;
-
-	void initialize() override;
-	void update(float delta_p) override;
-	void shutdown() override;
-
-protected:
-	float _opacity;
-
-private:
-	uint32_t _render_id;
-};
-
-// Global class - final keyword
-class GlobalSingleton final
-{
-public:
-	GlobalSingleton(const GlobalSingleton&) = delete;
-	GlobalSingleton& operator=(const GlobalSingleton&) = delete;
-	GlobalSingleton(GlobalSingleton&&) = delete;
-	GlobalSingleton& operator=(GlobalSingleton&&) = delete;
-
-	static GlobalSingleton& get_instance();
-
-private:
-	GlobalSingleton();
-	~GlobalSingleton();
-
-	int _state;
-};
-
-// Forward declarations - global
-struct GlobalForwardStruct;
-class GlobalForwardClass;
-enum struct GlobalForwardEnum;
+//enum struct GlobalStatus
+//{
+//	Inactive,
+//	Active,
+//	Pending
+//};
+//
+//// Global enum struct - with explicit underlying type
+//enum struct GlobalErrorCode : uint16_t
+//{
+//	Success = 0,
+//	GeneralError = 1,
+//	InvalidInput = 100,
+//	OutOfMemory = 200
+//};
+//
+//// Global enum struct - with trailing comma
+//enum struct GlobalPriority : int32_t
+//{
+//	Low,
+//	Medium,
+//	High,
+//};
+//
+//// Global struct - POD style
+//struct GlobalPoint
+//{
+//	float _x;
+//	float _y;
+//	float _z;
+//};
+//
+//// Global struct - with constructor and methods
+//struct GlobalVector
+//{
+//	float _x;
+//	float _y;
+//	float _z;
+//
+//	GlobalVector();
+//	GlobalVector(float x_p, float y_p, float z_p);
+//	~GlobalVector();
+//
+//	float magnitude() const;
+//	void normalize();
+//	static GlobalVector zero();
+//};
+//
+//// Global struct - with inheritance
+//struct GlobalTransform
+//{
+//	float _rotation;
+//	float _scale;
+//
+//	GlobalTransform();
+//	virtual ~GlobalTransform();
+//	virtual void update(float delta_p);
+//};
+//
+//// Global class - simple
+//class GlobalEntity
+//{
+//public:
+//	GlobalEntity();
+//	~GlobalEntity();
+//
+//	void set_id(uint32_t id_p);
+//	uint32_t get_id() const;
+//
+//private:
+//	uint32_t _id;
+//	GlobalStatus _status;
+//};
+//
+//// Global class - with multiple access specifiers
+//class GlobalComponent
+//{
+//protected:
+//	bool _is_enabled;
+//	uint64_t _component_id;
+//
+//public:
+//	GlobalComponent();
+//	virtual ~GlobalComponent();
+//
+//	virtual void initialize() = 0;
+//	virtual void update(float delta_p) = 0;
+//	virtual void shutdown() = 0;
+//
+//	bool is_enabled() const noexcept;
+//	void set_enabled(bool enabled_p) noexcept;
+//
+//private:
+//	GlobalStatus _status;
+//};
+//
+//// Global class - with virtual inheritance
+//class GlobalRenderComponent : public GlobalComponent
+//{
+//public:
+//	GlobalRenderComponent();
+//	virtual ~GlobalRenderComponent() override;
+//
+//	void initialize() override;
+//	void update(float delta_p) override;
+//	void shutdown() override;
+//
+//protected:
+//	float _opacity;
+//
+//private:
+//	uint32_t _render_id;
+//};
+//
+//// Global class - final keyword
+//class GlobalSingleton final
+//{
+//public:
+//	GlobalSingleton(const GlobalSingleton&) = delete;
+//	GlobalSingleton& operator=(const GlobalSingleton&) = delete;
+//	GlobalSingleton(GlobalSingleton&&) = delete;
+//	GlobalSingleton& operator=(GlobalSingleton&&) = delete;
+//
+//	static GlobalSingleton& get_instance();
+//
+//private:
+//	GlobalSingleton();
+//	~GlobalSingleton();
+//
+//	int _state;
+//};
+//
+//// Forward declarations - global
+//struct GlobalForwardStruct;
+//class GlobalForwardClass;
+//enum struct GlobalForwardEnum;
 
 
 // ============================================================================
@@ -171,200 +171,196 @@ enum struct GlobalForwardEnum;
 BEGIN_NAMESPACE(FE::Test)
 
 // Enum struct - simple
-enum struct Color // 
-{
-	Red,
+/* try filter me */enum /* try filter me */ struct /* try filter me */ Color /* try filter me */ // try filter me
+/* try filter me */ { /* try filter me */ // try filter me
+	/* try filter me */ Red, // Try filter me
 	Green,
 	Blue,
 	Yellow
-};
+/* try filter me */};
 
 // Enum struct - with explicit type uint8_t
-enum struct ByteStatus : uint8_t
-{
-	Idle = 0,
+/* try filter me */enum/* try filter me */struct/* try filter me */ByteStatus/* try filter me */:uint8_t/* try filter me *///  try filter me
+/* try filter me */ {/* try filter me */// try filter me
+	/* try filter me */Idle = 0,// Try filter me
 	Running = 1,
 	Paused = 2,
 	Stopped = 3,
 	Error = 255
-};
+/* try filter me */};
 
 // Enum struct - with explicit type int64_t
-enum struct LongCode : int64_t
-{
-	MinValue = -9223372036854775807LL,
+/* try filter me */enum /* try filter me */ struct /* try filter me */ LongCode /* try filter me */ : /* try filter me */ int64_t /* try filter me */ { /* try filter me */ // try filter me
+	/* try filter me */ MinValue = -9223372036854775807LL, // Try filter me
 	Zero = 0,
 	MaxValue = 9223372036854775807LL
-};
+/* try filter me */};
 
 // Enum struct - with only one value
-enum struct SingleValue
-{
-	Only
-};
+/* try filter me */enum/* try filter me */struct/* try filter me */SingleValue/* try filter me */{/* try filter me */// Try filter me
+	/* try filter me */Only// Try filter me
+/* try filter me */};
 
- Enum struct - empty (edge case)
-enum struct EmptyEnum { _ };
+// Enum struct - empty (edge case)
+/* try filter me */enum/* try filter me */struct/* try filter me */EmptyEnum/* try filter me */{ /* try filter me */_/* try filter me */ }; // Try filter me
 
 // Forward declarations
-struct ForwardDeclaredStruct;
-class ForwardDeclaredClass;
+/* try filter me */struct/* try filter me */ForwardDeclaredStruct;/* try filter me *///try filter me
+/* try filter me */class/* try filter me */ForwardDeclaredClass;/* try filter me */ //try filter me
 
 // Struct - simple POD
-struct Point2D
-{
-	float _x;
+/* try filter me */struct /* try filter me */ Point2D {/* try filter me */ // Try filter me
+	/* try filter me */ float _x; /* try filter me */
 	float _y;
-};
+/* try filter me */};
 
 // Struct - multiple fields on same line
-struct Rectangle
-{
-	float _x, _y, _width, _height;
-};
+/* try filter me */struct/* try filter me */Rectangle/* try filter me */{/* try filter me */// Try filter me
+	/* try filter me */float _x, _y, _width, _height;// Try filter me
+/* try filter me */};
 
 // Struct - with constructor
-struct Point3D
-{
+/* try filter me */struct /* try filter me */Point3D/* try filter me */ // try filter me
+/* try filter me */ { /* try filter me */ ///* try filter me */
 	float _x;
 	float _y;
 	float _z;
 
 	Point3D();
 	Point3D(float x_p, float y_p, float z_p);
-};
-
-// Struct - with various method types
-struct Vector3D
-{
-	float _x;
-	float _y;
-	float _z;
-
-	// Constructors
-	Vector3D();
-	Vector3D(float x_p, float y_p, float z_p);
-	Vector3D(const Vector3D& other_p);
-	Vector3D(Vector3D&& other_p) noexcept;
-
-	// Destructor
-	~Vector3D();
-
-	// Assignment operators
-	Vector3D& operator=(const Vector3D& other_p);
-	Vector3D& operator=(Vector3D&& other_p) noexcept;
-
-	// Const methods
-	float magnitude() const;
-	float dot(const Vector3D& other_p) const;
-	float length_squared() const noexcept;
-
-	// Non-const methods
-	void normalize();
-	void scale(float factor_p);
-
-	// Static methods
-	static Vector3D zero();
-	static Vector3D one();
-	static Vector3D up();
-
-	// Inline methods
-	inline float get_x() const { return _x; }
-	inline void set_x(float x_p) { _x = x_p; }
-
-	// Constexpr methods
-	constexpr float sum() const { return _x + _y + _z; }
-
-	// Operator overloading
-	Vector3D operator+(const Vector3D& other_p) const;
-	Vector3D operator-(const Vector3D& other_p) const;
-	Vector3D operator*(float scalar_p) const;
-	bool operator==(const Vector3D& other_p) const;
-	bool operator!=(const Vector3D& other_p) const;
-};
-
-// Struct - with inheritance (single)
-struct Transform
-{
-	float _rotation;
-	float _scale;
-
-	Transform();
-	virtual ~Transform();
-	virtual void update(float delta_p);
-	virtual void reset();
-};
-
-struct PhysicsTransform
-{
-	float _mass;
-	float _velocity;
-
-	PhysicsTransform();
-	~PhysicsTransform();
-
-	void apply_force(float force_p);
-	void update(float delta_p) override;
-};
-
-// Struct - with static members
-struct Configuration
-{
-	static const uint32_t MAX_ENTITIES = 1000;
-	static const float DEFAULT_TIMESTEP;
-	static constexpr uint64_t BUFFER_SIZE = 4096;
-
-	bool _enable_physics;
-	bool _enable_rendering;
-	uint32_t _max_fps;
-
-	static void load(const char* path_p);
-	static void save(const char* path_p);
-	static Configuration& get_default();
-};
-
-// Struct - with bitfields
-struct Flags
-{
-	uint32_t _is_visible : 1;
-	uint32_t _is_collidable : 1;
-	uint32_t _is_static : 1;
-	uint32_t _is_dynamic : 1;
-	uint32_t _reserved : 28;
-};
-
-// Struct - with volatile and const members
-struct VolatileData
-{
-	volatile int _counter;
-	const uint32_t _id;
-	volatile const bool _flag;
-
-	VolatileData(uint32_t id_p);
-};
-
-// Struct - with pointer and reference members
-struct PointerData
-{
-	int* _ptr;
-	const int* _const_ptr;
-	int** _ptr_ptr;
-	int* const _const_ptr_to_int;
-	const int* const _const_ptr_to_const_int;
-
-	void process(int& ref_p);
-	void process_const(const int& ref_p) const;
-	void process_pointer(int* ptr_p);
-	void process_const_pointer(const int* ptr_p);
-};
+/* try filter me */};
+//
+//// Struct - with various method types
+//struct Vector3D
+//{
+//	float _x;
+//	float _y;
+//	float _z;
+//
+//	// Constructors
+//	Vector3D();
+//	Vector3D(float x_p, float y_p, float z_p);
+//	Vector3D(const Vector3D& other_p);
+//	Vector3D(Vector3D&& other_p) noexcept;
+//
+//	// Destructor
+//	~Vector3D();
+//
+//	// Assignment operators
+//	Vector3D& operator=(const Vector3D& other_p);
+//	Vector3D& operator=(Vector3D&& other_p) noexcept;
+//
+//	// Const methods
+//	float magnitude() const;
+//	float dot(const Vector3D& other_p) const;
+//	float length_squared() const noexcept;
+//
+//	// Non-const methods
+//	void normalize();
+//	void scale(float factor_p);
+//
+//	// Static methods
+//	static Vector3D zero();
+//	static Vector3D one();
+//	static Vector3D up();
+//
+//	// Inline methods
+//	inline float get_x() const { return _x; }
+//	inline void set_x(float x_p) { _x = x_p; }
+//
+//	// Constexpr methods
+//	constexpr float sum() const { return _x + _y + _z; }
+//
+//	// Operator overloading
+//	Vector3D operator+(const Vector3D& other_p) const;
+//	Vector3D operator-(const Vector3D& other_p) const;
+//	Vector3D operator*(float scalar_p) const;
+//	bool operator==(const Vector3D& other_p) const;
+//	bool operator!=(const Vector3D& other_p) const;
+//};
+//
+//// Struct - with inheritance (single)
+//struct Transform
+//{
+//	float _rotation;
+//	float _scale;
+//
+//	Transform();
+//	virtual ~Transform();
+//	virtual void update(float delta_p);
+//	virtual void reset();
+//};
+//
+//struct PhysicsTransform
+//{
+//	float _mass;
+//	float _velocity;
+//
+//	PhysicsTransform();
+//	~PhysicsTransform();
+//
+//	void apply_force(float force_p);
+//	void update(float delta_p) override;
+//};
+//
+//// Struct - with static members
+//struct Configuration
+//{
+//	static const uint32_t MAX_ENTITIES = 1000;
+//	static const float DEFAULT_TIMESTEP;
+//	static constexpr uint64_t BUFFER_SIZE = 4096;
+//
+//	bool _enable_physics;
+//	bool _enable_rendering;
+//	uint32_t _max_fps;
+//
+//	static void load(const char* path_p);
+//	static void save(const char* path_p);
+//	static Configuration& get_default();
+//};
+//
+//// Struct - with bitfields
+//struct Flags
+//{
+//	uint32_t _is_visible : 1;
+//	uint32_t _is_collidable : 1;
+//	uint32_t _is_static : 1;
+//	uint32_t _is_dynamic : 1;
+//	uint32_t _reserved : 28;
+//};
+//
+//// Struct - with volatile and const members
+//struct VolatileData
+//{
+//	volatile int _counter;
+//	const uint32_t _id;
+//	volatile const bool _flag;
+//
+//	VolatileData(uint32_t id_p);
+//};
+//
+//// Struct - with pointer and reference members
+//struct PointerData
+//{
+//	int* _ptr;
+//	const int* _const_ptr;
+//	int** _ptr_ptr;
+//	int* const _const_ptr_to_int;
+//	const int* const _const_ptr_to_const_int;
+//
+//	void process(int& ref_p);
+//	void process_const(const int& ref_p) const;
+//	void process_pointer(int* ptr_p);
+//	void process_const_pointer(const int* ptr_p);
+//};
 
 // Class - simple with private members only
-class SimpleClass
-{
+/* try filter me */class /* try filter me */ SimpleClass /* try filter me */ // /* try filter me */
+	/* try filter me */ { /* try filter me */
 private:
 	int _value;
 	float _data;
-};
+/* try filter me */};/* try filter me */
 
 // Class - with public section
 class PublicClass
