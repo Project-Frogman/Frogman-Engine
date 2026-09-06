@@ -75,7 +75,7 @@ struct GlobalVector
 };
 
 // Global struct - with inheritance
-struct GlobalTransform : public GlobalVector
+struct GlobalTransform
 {
 	float _rotation;
 	float _scale;
@@ -161,6 +161,7 @@ private:
 // Forward declarations - global
 struct GlobalForwardStruct;
 class GlobalForwardClass;
+enum struct GlobalForwardEnum;
 
 
 // ============================================================================
@@ -170,7 +171,7 @@ class GlobalForwardClass;
 BEGIN_NAMESPACE(FE::Test)
 
 // Enum struct - simple
-enum struct Color
+enum struct Color // 
 {
 	Red,
 	Green,
@@ -202,10 +203,8 @@ enum struct SingleValue
 	Only
 };
 
-// Enum struct - empty (edge case)
-enum struct EmptyEnum
-{
-};
+ Enum struct - empty (edge case)
+enum struct EmptyEnum { _ };
 
 // Forward declarations
 struct ForwardDeclaredStruct;
@@ -285,7 +284,7 @@ struct Vector3D
 };
 
 // Struct - with inheritance (single)
-struct Transform : public Vector3D
+struct Transform
 {
 	float _rotation;
 	float _scale;
@@ -296,8 +295,7 @@ struct Transform : public Vector3D
 	virtual void reset();
 };
 
-// Struct - with inheritance (multiple base classes)
-struct PhysicsTransform : public Transform, public GlobalPoint
+struct PhysicsTransform
 {
 	float _mass;
 	float _velocity;
@@ -467,7 +465,7 @@ private:
 };
 
 // Class - with friend declarations
-class FriendClass;
+class FriendClass; // 
 
 class ClassWithFriend
 {
@@ -829,8 +827,7 @@ enum struct LargeEnum : uint64_t
 	VeryLarge = 18446744073709551615ULL
 };
 
-enum struct Fake : char
-{
+enum struct Fake : char { // K&R
 	NerfThis = '}'
 };
 

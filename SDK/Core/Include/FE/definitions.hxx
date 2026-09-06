@@ -148,23 +148,28 @@ limitations under the License.
     using base_type = base_class; 
 #endif
 
+#ifdef FE_CLASS
+    #error FE_CLASS is a reserved Frogman Engine macro keyword.
+#else
+    #define FE_CLASS() // THis is an indicator for the FHT.
+#endif
+
+#ifdef FE_STRUCT
+    #error FE_STRUCT is a reserved Frogman Engine macro keyword.
+#else
+    #define FE_STRUCT() // THis is an indicator for the FHT.
+#endif
+
 #ifdef FE_ENUM_STRUCT
     #error FE_ENUM_STRUCT is a reserved Frogman Engine macro keyword.
 #else
     #define FE_ENUM_STRUCT() // THis is an indicator for the FHT.
 #endif
 
-#ifdef FE_CLASS
-    #error FE_CLASS is a reserved Frogman Engine macro keyword.
+#ifdef ENABLE_SERIALIZATION
+    #error ENABLE_SERIALIZATION is a reserved Frogman Engine macro keyword.
 #else
-#define FE_CLASS() using IsSerializable = decltype(true); // This is an indicator for the FE runtime reflection.
-#endif
-
-
-#ifdef FE_STRUCT
-    #error FE_STRUCT is a reserved Frogman Engine macro keyword.
-#else
-    #define FE_STRUCT() FE_CLASS()
+#define ENABLE_SERIALIZATION() using IsSerializable = decltype(true); // This is an indicator for the FE runtime reflection.
 #endif
 
 
@@ -174,9 +179,5 @@ limitations under the License.
 #define STBI_REALLOC(p, s) _aligned_realloc(p, s, FE::CPU_L1_cache_line::size)
 #define STBI_FREE(p) _aligned_free(p)
 
-
-
-
- 
 
 #endif
