@@ -316,11 +316,13 @@ namespace FHT::tokenizer
 		}
 
 
+
+
 		tokenize_template_body(l_token, code_iterator_p, context_stack_p);
 
 
 
-		// tokenize union/functions as undefined
+
 		l_token._code.reserve(100);
 		while (*code_iterator_p != '{')
 		{
@@ -332,9 +334,12 @@ namespace FHT::tokenizer
 			l_token._code += *code_iterator_p;
 			++code_iterator_p;
 		}
+
+
+
+
 		file_buffer_t l_brace_stack(framework::get_framework().get_memory_resource());
 		token l_tmp = { ._code{ framework::get_framework().get_memory_resource()} };
-
 		do
 		{
 			switch (*code_iterator_p)
@@ -379,83 +384,6 @@ namespace FHT::tokenizer
 				break;
 
 			default:
-		/*		l_tmp._vocabulary = Vocabulary::_Undefined;
-				tokenize_comment(l_tmp, code_iterator_p, context_stack_p);
-
-				if (l_tmp._vocabulary == Vocabulary::_Undefined)
-				{
-					tokenize_string_literal(l_tmp, code_iterator_p, context_stack_p);
-				}
-
-				if (context_stack_p.back() != FHT::Context::_CharLiteral &&
-					context_stack_p.back() != FHT::Context::_RawTextLiteral &&
-					context_stack_p.back() != FHT::Context::_StringLiteral)
-				{
-					if (l_tmp._vocabulary == Vocabulary::_Undefined)
-					{
-						tokenize_preprocessor(l_tmp, code_iterator_p, context_stack_p);
-					}
-
-					if (l_tmp._vocabulary == Vocabulary::_Undefined)
-					{
-						tokenize_other(l_tmp, code_iterator_p, context_stack_p);
-					}
-
-				}
-
-				switch (l_tmp._vocabulary)
-				{
-				case Vocabulary::_CharLiteral:
-					l_token._code += *code_iterator_p;
-					++code_iterator_p;
-					continue;
-
-				case Vocabulary::_StringLiteral:
-					l_token._code += l_tmp._code;
-					code_iterator_p += l_tmp._code.length();
-					l_tmp._code.clear();
-					continue;
-
-
-				case Vocabulary::_LineComment:
-					l_token._code += l_tmp._code;
-					code_iterator_p += l_tmp._code.length();
-					l_tmp._code.clear();
-					continue;
-
-				case Vocabulary::_LineEnd:
-					l_token._code += *code_iterator_p;
-					++code_iterator_p;
-					continue;
-
-
-				case Vocabulary::_CommentBegin:
-					_FE_FALLTHROUGH_;
-				case Vocabulary::_CommentBody:
-					_FE_FALLTHROUGH_;
-				case Vocabulary::_CommentEnd:
-					l_token._code += l_tmp._code;
-					code_iterator_p += l_tmp._code.length();
-					l_tmp._code.clear();
-					continue;
-
-
-				case Vocabulary::_Preprocessor:
-					l_token._code += l_tmp._code;
-					code_iterator_p += l_tmp._code.length();
-					l_tmp._code.clear();
-					continue;
-				case Vocabulary::_PreprocessorDirective:
-					_FE_FALLTHROUGH_;
-				case Vocabulary::_PreprocessorNextLine:
-					l_token._code += *code_iterator_p;
-					++code_iterator_p;
-					break;
-
-
-				default:
-					break;
-				}*/
 				break;
 			}
 			l_token._code += *code_iterator_p;
@@ -946,14 +874,35 @@ namespace FHT::tokenizer
 		switch (*code_iterator_p)
 		{
 		case '{':
+			switch (context_stack_p.back())
+			{
+			case FHT::Context::_Class:
+				_FE_FALLTHROUGH_;
+			case FHT::Context::_Struct:
+				return;
+
+			default:
+				break;
+			}
 			out_token_p._vocabulary = Vocabulary::_LeftCurlyBracket;
 			out_token_p._code = *code_iterator_p;
 			break;
 
 		case '}':
-			if (context_stack_p.back() == FHT::Context::_EnumStruct)
+			switch (context_stack_p.back())
 			{
+			case FHT::Context::_Class:
+				_FE_FALLTHROUGH_;
+			case FHT::Context::_Struct:
 				context_stack_p.pop_back();
+				break;
+
+			case FHT::Context::_EnumStruct:
+				context_stack_p.pop_back();
+				break;
+
+			default:
+				break;
 			}
 			out_token_p._vocabulary = Vocabulary::_RightCurlyBracket;
 			out_token_p._code = *code_iterator_p;
@@ -1343,18 +1292,28 @@ namespace FHT::tokenizer
 		}
 
 
-		code_iterator_p += out_token_p._code.length();
 		tokenize_class_struct_enum_forward_decl_and_using_namespace(out_token_p, code_iterator_p);
 		if (out_token_p._vocabulary != Vocabulary::_Undefined)
 		{
 			return; // return if the text is a forward declaration.
 		}
-
+		code_iterator_p += out_token_p._code.length();
 
 		tokenize_template_body(out_token_p, code_iterator_p, context_stack_p);
-
+		if (out_token_p._vocabulary != Vocabulary::_Undefined)
+		{
+			return; // return if the text is a forward declaration.
+		}
 
 		out_token_p._vocabulary = Vocabulary::_Class;
+		context_stack_p.push_back(FHT::Context::_Class);
+
+		auto l_k_and_r_style = out_token_p._code.find(u8'{');
+		if (l_k_and_r_style != std::string::npos)
+		{
+			out_token_p._code.erase(l_k_and_r_style, out_token_p._code.length() - l_k_and_r_style);
+			return;
+		}
 
 		// copy until '{'
 		while (*code_iterator_p != '{')
@@ -1362,8 +1321,6 @@ namespace FHT::tokenizer
 			out_token_p._code += *code_iterator_p;
 			++code_iterator_p;
 		}
-
-		// THROW_CPP_SYNTAX_ERROR(*code_iterator_p != ';', "C++ Code Syntax Error C2143: missing ';' after class declaration");
 	}
 
 	void tokenize_struct(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p)
@@ -1383,18 +1340,28 @@ namespace FHT::tokenizer
 		}
 
 
-		code_iterator_p += out_token_p._code.length();
 		tokenize_class_struct_enum_forward_decl_and_using_namespace(out_token_p, code_iterator_p);
 		if (out_token_p._vocabulary != Vocabulary::_Undefined)
 		{
 			return; // return if the text is a forward declaration.
 		}
-
+		code_iterator_p += out_token_p._code.length();
 
 		tokenize_template_body(out_token_p, code_iterator_p, context_stack_p);
-
+		if (out_token_p._vocabulary != Vocabulary::_Undefined)
+		{
+			return; // return if the text is a forward declaration.
+		}
 
 		out_token_p._vocabulary = Vocabulary::_Struct;
+		context_stack_p.push_back(FHT::Context::_Struct);
+
+		auto l_k_and_r_style = out_token_p._code.find(u8'{');
+		if (l_k_and_r_style != std::string::npos)
+		{
+			out_token_p._code.erase(l_k_and_r_style, out_token_p._code.length() - l_k_and_r_style);
+			return;
+		}
 
 		// copy until '{'
 		while (*code_iterator_p != '{')
@@ -1402,8 +1369,6 @@ namespace FHT::tokenizer
 			out_token_p._code += *code_iterator_p;
 			++code_iterator_p;
 		}
-
-		//THROW_CPP_SYNTAX_ERROR(*code_iterator_p != ';', "C++ Code Syntax Error C2143: missing ';' after class declaration");
 	}
 
 	void tokenize_enum_struct(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p)
@@ -1429,13 +1394,25 @@ namespace FHT::tokenizer
 			THROW_CPP_SYNTAX_ERROR(context_stack_p.back() == FHT::Context::_Template, "C++ Code Syntax Error C3113: an 'enum' cannot be a template");
 
 
-			code_iterator_p += out_token_p._code.length();
 			tokenize_class_struct_enum_forward_decl_and_using_namespace(out_token_p, code_iterator_p);
 			if (out_token_p._vocabulary != Vocabulary::_Undefined)
 			{
 				return; // return if the text is a forward declaration.
 			}
 
+
+			out_token_p._vocabulary = Vocabulary::_EnumStruct;
+			context_stack_p.emplace_back(FHT::Context::_EnumStruct);
+
+			auto l_k_and_r_style = out_token_p._code.find(u8'{');
+			if (l_k_and_r_style != std::string::npos)
+			{
+				out_token_p._code.erase(l_k_and_r_style, out_token_p._code.length() - l_k_and_r_style);
+				return;
+			}
+
+			code_iterator_p += out_token_p._code.length();
+			
 			// copy until '{'
 			while (*code_iterator_p != '{')
 			{
@@ -1443,8 +1420,6 @@ namespace FHT::tokenizer
 				++code_iterator_p;
 			}
 
-			out_token_p._vocabulary = Vocabulary::_EnumStruct;
-			context_stack_p.emplace_back(FHT::Context::_EnumStruct);
 			return;
 		}
 		
@@ -1503,7 +1478,7 @@ namespace FHT::tokenizer
 					++code_iterator_p;
 				}
 				context_stack_p.pop_back();
-				out_token_p._vocabulary = Vocabulary::_EnumStructFieldInitialValue;
+				out_token_p._vocabulary = Vocabulary::_EnumStructFieldValue;
 				return;
 			}
 
@@ -1641,15 +1616,11 @@ namespace FHT::tokenizer
 
 	void tokenize_class_struct_enum_forward_decl_and_using_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p)
 	{
-		const auto l_begin = code_iterator_p;
-
 		while (*code_iterator_p != '{')
 		{
 			if (*code_iterator_p == ';')
 			{
 				out_token_p._vocabulary = Vocabulary::_ClassStructEnumForwardDeclaration;
-				out_token_p._code.append(l_begin, code_iterator_p - l_begin);
-				out_token_p._code += *code_iterator_p;
 				return;
 			}
 

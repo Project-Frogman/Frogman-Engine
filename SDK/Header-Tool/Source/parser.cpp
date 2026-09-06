@@ -34,7 +34,7 @@ namespace FHT::parser
 			std::cout << "Frogman Engine Header Tool: the total number of classes is " << l_total_nums._classes << '\n';
 			std::cout << "Frogman Engine Header Tool: the total number of structs is " << l_total_nums._structs << "\n";
 			std::cout << "Frogman Engine Header Tool: the total number of enum structs is " << l_total_nums._enum_structs << "\n";
-			std::cout << "Frogman Engine Header Tool: the total number of the Frogman Engine ECS framework system methods is " << l_total_nums._systems << "\n\n";
+			std::cout << "Frogman Engine Header Tool: the total number of the Frogman Engine ECS system methods is " << l_total_nums._systems << "\n\n";
 		}
 
 		header_file_root l_root = 
@@ -60,14 +60,6 @@ namespace FHT::parser
 		{
 			switch (iterator->_vocabulary)
 			{
-			case Vocabulary::_FrogmanEngineEnumStructReflectionMacro:
-				l_context_stack.push_back(Context::_EnumStruct);
-				while (iterator->_vocabulary != Vocabulary::_RightParen)
-				{
-					++iterator;
-				}
-				break;
-
 			case Vocabulary::_FrogmanEngineSystemMacro:
 				l_root._system_fptrs.emplace_back(build_ecs_system_node(u8"::", iterator, token_list_p.end()));
 				break;
@@ -92,11 +84,9 @@ namespace FHT::parser
 				break;
 
 			case Vocabulary::_EnumStruct:
-				if (l_context_stack.back() == Context::_EnumStruct)
-				{
-					l_root._enum_structs.emplace_back(build_enum_struct_node(u8"::", iterator, token_list_p.end()));
-					l_context_stack.pop_back();
-				}
+				l_context_stack.push_back(Context::_EnumStruct);
+				l_root._enum_structs.emplace_back(build_enum_struct_node(u8"::", iterator, token_list_p.end()));
+				l_context_stack.pop_back();
 				break;
 
 
@@ -184,15 +174,6 @@ namespace FHT::parser
 			case Vocabulary::_EndNamespace:
 				return l_node;
 
-
-			case Vocabulary::_FrogmanEngineEnumStructReflectionMacro:
-				context_stack_p.push_back(Context::_EnumStruct);
-				while (out_token_iterator_p->_vocabulary != Vocabulary::_RightParen)
-				{
-					++out_token_iterator_p;
-				}
-				break;
-
 			case Vocabulary::_FrogmanEngineSystemMacro:
 				if (context_stack_p.back() == Context::_Class || context_stack_p.back() == Context::_Struct)
 				{
@@ -221,18 +202,16 @@ namespace FHT::parser
 				break;
 
 			case Vocabulary::_EnumStruct:
-				if (context_stack_p.back() == Context::_EnumStruct)
-				{
-					l_node._enum_structs.emplace_back(build_enum_struct_node(l_node._target_namespace_name, out_token_iterator_p, end_p));
-					context_stack_p.pop_back();
-				}
+				context_stack_p.push_back(Context::_EnumStruct);
+				l_node._enum_structs.emplace_back(build_enum_struct_node(l_node._target_namespace_name, out_token_iterator_p, end_p));
+				context_stack_p.pop_back();
 				break;
 
 
 			default:
+				++out_token_iterator_p;
 				break;
 			}
-			++out_token_iterator_p;
 		}
 
 		return l_node;
@@ -254,7 +233,7 @@ namespace FHT::parser
 		{	// trim 'class'
 			constexpr auto l_class = u8"class";
 			auto l_class_keyword_len = l_node._this_class_name.find(l_class);
-			FE_ASSERT(l_class_keyword_len != std::string::npos);
+			THROW_CPP_SYNTAX_ERROR(l_class_keyword_len == std::string::npos, "Frogman Engine C++ Syntax Error: 'class' keyword is missing from a class");
 
 			l_class_keyword_len += FE::algorithm::string::length(l_class);
 			l_node._this_class_name.erase(0, l_class_keyword_len);
@@ -288,44 +267,21 @@ namespace FHT::parser
 			}
 		}
 
+
+		auto l_final_keyword_pos = l_node._this_class_name.find(u8"final");
+		if (l_final_keyword_pos != std::string::npos)
+		{
+			if (l_node._this_class_name[l_final_keyword_pos-1] <= ' ')
+			{
+				l_node._this_class_name.erase(l_final_keyword_pos, FE::algorithm::string::compiletime::length("final"));
+			}
+		}
+
 		while (l_node._this_class_name.back() <= ' ')
 		{
 			l_node._this_class_name.pop_back();
 		}
 
-		{	// count class identifier length
-			var::uint64 l_name_length = 0;
-			for (auto character = l_node._this_class_name.rbegin(); character != l_node._this_class_name.rend(); ++character)
-			{
-				++l_name_length;
-			}
-
-			if (l_name_length != l_node._this_class_name.length())
-			{
-				auto l_second_word_pos = (l_node._this_class_name.length() - l_name_length) + 1;
-				constexpr auto l_final = u8"final";
-				auto l_final_keyword_pos = FE::algorithm::string::find_the_first<var::UTF8>(l_node._this_class_name.c_str() + l_second_word_pos, l_final);
-				if (l_final_keyword_pos != std::nullopt)
-				{
-					l_node._this_class_name.erase(l_second_word_pos + l_final_keyword_pos->_begin, l_final_keyword_pos->_end - l_final_keyword_pos->_begin);
-				}
-				else
-				{
-					l_node._this_class_name.erase(0, l_second_word_pos);
-				}
-
-				while (l_node._this_class_name.length() > 0)
-				{
-					if (l_node._this_class_name.back() <= ' ')
-					{
-						l_node._this_class_name.pop_back();
-						continue;
-					}
-					break;
-				}
-			}
-
-		}
 		l_node._this_class_name.insert(0, parent_namespace_p);
 
 
@@ -393,7 +349,7 @@ namespace FHT::parser
 			{	// trim 'struct'
 				constexpr auto l_struct = u8"struct";
 				auto l_struct_keyword_len = l_node._identifier.find(l_struct);
-				FE_ASSERT(l_struct_keyword_len != std::string::npos);
+				THROW_CPP_SYNTAX_ERROR(l_struct_keyword_len == std::string::npos, "Frogman Engine C++ Syntax Error: 'struct' keyword is missing from a struct");
 
 				l_struct_keyword_len += FE::algorithm::string::length(l_struct);
 				l_node._identifier.erase(0, l_struct_keyword_len);
@@ -418,37 +374,13 @@ namespace FHT::parser
 				l_node._identifier.erase(0, l_space_length);
 			}
 
-			{
-				auto l_struct_extension = l_node._identifier.find(':');
-				if (l_struct_extension != std::string::npos)
-				{
-					l_node._identifier.erase(l_struct_extension, l_node._identifier.length() - l_struct_extension);
-				}
-			}
+			THROW_CPP_SYNTAX_ERROR(l_node._identifier.find(':') != std::string::npos, "Frogman Engine C++ Syntax Error: structs must not be polymorphic.");
 
 			while (l_node._identifier.back() <= ' ')
 			{
 				l_node._identifier.pop_back();
 			}
 
-			{	// count class identifier length
-				var::uint64 l_name_length = 0;
-				for (auto character = l_node._identifier.rbegin(); character != l_node._identifier.rend(); ++character)
-				{
-					if (*character <= ' ')
-					{
-						++l_name_length;
-						break;
-					}
-					++l_name_length;
-				}
-
-				if (l_name_length != l_node._identifier.length())
-				{
-					l_node._identifier.erase(0, (l_node._identifier.length() - l_name_length) + 1);
-				}
-
-			}
 			l_node._identifier.insert(0, parent_namespace_p);
 		}
 
@@ -489,7 +421,8 @@ namespace FHT::parser
 		{	// trim 'enum struct'
 			constexpr auto l_struct = u8"struct";
 			auto l_enum_end_pos = l_node._target_enum_struct_name.find(l_struct);
-			FE_ASSERT(l_enum_end_pos != std::string::npos);
+			
+			THROW_CPP_SYNTAX_ERROR(l_enum_end_pos == std::string::npos, "Frogman Engine C++ Reflection Syntax Error: enum & enum class unsupported; please use enum struct instead.");
 
 			FE::uint64 l_enum_struct_len = l_enum_end_pos + FE::algorithm::string::length(l_struct);
 			l_node._target_enum_struct_name.erase(0, l_enum_struct_len);
@@ -527,24 +460,6 @@ namespace FHT::parser
 			l_node._target_enum_struct_name.pop_back();
 		}
 		
-		{	// count enum struct identifier length
-			var::uint64 l_name_length = 0;
-			for (auto character = l_node._target_enum_struct_name.rbegin(); character != l_node._target_enum_struct_name.rend(); ++character)
-			{
-				if (*character <= ' ')
-				{
-					++l_name_length;
-					break;
-				}
-				++l_name_length;
-			}
-
-			if (l_name_length != l_node._target_enum_struct_name.length())
-			{
-				l_node._target_enum_struct_name.erase(0, (l_node._target_enum_struct_name.length()-l_name_length)+1);
-			}
-			
-		}
 		l_node._target_enum_struct_name.insert(0, parent_namespace_p);
 
 
