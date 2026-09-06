@@ -28,19 +28,18 @@ program_options::program_options(FE::int32 argc_p, FE::ASCII** argv_p) noexcept
 		{ "-path-to-project=", "\0" }
 		}),
 
-	m_fno_options({
-		{ "-fno-copyright-notice", false },
+	m_bool_options({
 		{ "-fno-reflection-helper", false },
 		{ "-fno-op", false },
-		{ "-fno-write", false }
+		{ "-frequire-reflection-marker", false }
 		}),
 		m_argc(argc_p),
 		m_argv(argv_p)
 {
 	for (var::int32 i = 0; i < argc_p; ++i)
 	{
-		auto l_result = m_fno_options.find(argv_p[i]);
-		if (l_result == m_fno_options.end())
+		auto l_result = m_bool_options.find(argv_p[i]);
+		if (l_result == m_bool_options.end())
 		{
 			__parse_path_options(argv_p[i]);
 			continue;

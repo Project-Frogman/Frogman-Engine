@@ -52,13 +52,13 @@ FE::int32 header_tool::launch(FE::int32 argc_p, FE::ASCII** argv_p)
 	__load_reflection_data();
 	m_FHT_error_codes = FE::framework::framework_base::get_framework().get_enum_reflection().retrieve_enum_struct_metadata("::FrogmanEngineHeaderToolError");
 
-	if (get_program_options().is_fno_op_defined() == true)
+	if (get_program_options().get_fno_op() == true)
 	{
 		std::cerr << "\n\nFrogman Engine Header Tool: No operation will be done. Exiting the program.\n\n";
 		std::exit(0);
 	}
 
-	if (*(get_program_options().get_path_to_copyright_notice()) != '\0')
+	if (get_program_options().should_check_for_copyright_notice() == true)
 	{
 		m_copyright_notice = FHT::file_io::read_copyright_notice(argc_p, argv_p);
 	}
@@ -84,7 +84,7 @@ FE::int32 header_tool::run()
 	FE::uint64 l_number_of_files = m_mapped_header_files.size();
 	std::mutex l_log_lock;
 
-	if (get_program_options().is_fno_copyright_notice_defined() == false)
+	if (get_program_options().should_check_for_copyright_notice() == true)
 	{
 		for (var::uint64 i = 0; i < l_number_of_files; ++i)
 		{
@@ -117,11 +117,11 @@ FE::int32 header_tool::run()
 		{
 			return l_exit_code;
 		}
+		l_taskflow.clear();
 	}
 
-	l_taskflow.clear();
 
-	if (get_program_options().is_fno_reflection_helper_defined() == false)
+	if (get_program_options().get_fno_reflection_helper() == false)
 	{
 		for (var::uint64 i = 0; i < l_number_of_files; ++i)
 		{
@@ -181,20 +181,16 @@ FE::int32 header_tool::run()
 					//std::cout << "\n";
 				}
 			);
-		}
 
-		// Now, run it.
-		l_executor.run(l_taskflow).wait();
-		// The number of threads can be scaled via the '-max-concurrency=n' option.
+			// Now, run it.
+			l_executor.run(l_taskflow).wait();
+			// The number of threads can be scaled via the '-max-concurrency=n' option.
 
-		if (0 != l_exit_code)
-		{
-			return l_exit_code;
-		}
+			if (0 != l_exit_code)
+			{
+				return l_exit_code;
+			}
 
-		// generate the reflection code in the generated.cpp file.
-		if (get_program_options().is_fno_write_defined() == false)
-		{
 			FHT::reflexcode_generator::generate_reflexcode(m_metadata_set);
 		}
 	}
