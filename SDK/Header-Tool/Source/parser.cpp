@@ -277,9 +277,14 @@ namespace FHT::parser
 			}
 		}
 
-		while (l_node._this_class_name.back() <= ' ')
+		while (l_node._this_class_name.length() > 0)
 		{
-			l_node._this_class_name.pop_back();
+			if (l_node._this_class_name.back() <= ' ')
+			{
+				l_node._this_class_name.pop_back();
+				continue;
+			}
+			break;
 		}
 
 		l_node._this_class_name.insert(0, parent_namespace_p);
@@ -376,11 +381,16 @@ namespace FHT::parser
 
 			THROW_CPP_SYNTAX_ERROR(l_node._identifier.find(':') != std::string::npos, "Frogman Engine C++ Syntax Error: structs must not be polymorphic.");
 
-			while (l_node._identifier.back() <= ' ')
+			while (l_node._identifier.length() > 0)
 			{
-				l_node._identifier.pop_back();
+				if (l_node._identifier.back() <= ' ')
+				{
+					l_node._identifier.pop_back();
+					continue;
+				}
+				break;
 			}
-
+	
 			l_node._identifier.insert(0, parent_namespace_p);
 		}
 
@@ -455,9 +465,14 @@ namespace FHT::parser
 			}
 		}
 		
-		while (l_node._target_enum_struct_name.back() <= ' ')
+		while (l_node._target_enum_struct_name.length() > 0)
 		{
-			l_node._target_enum_struct_name.pop_back();
+			if (l_node._target_enum_struct_name.back() <= ' ')
+			{
+				l_node._target_enum_struct_name.pop_back();
+				continue;
+			}
+			break;
 		}
 		
 		l_node._target_enum_struct_name.insert(0, parent_namespace_p);
@@ -516,13 +531,13 @@ namespace FHT::parser
 			}
 		}
 	ExitLoop:
-		while (out_token_iterator_p->_vocabulary != Vocabulary::_AnyDecl)
+		while (out_token_iterator_p->_vocabulary != Vocabulary::_AnyDecl
+			&& out_token_iterator_p->_vocabulary != Vocabulary::_ClassStructEnumMethodForwardDeclaration)
 		{
 			++out_token_iterator_p;
 		}
 
 		THROW_CPP_SYNTAX_ERROR(out_token_iterator_p->_code.starts_with(u8"void") == false, "Frogman Engine C++ Reflection Syntax Error: this function cannot be qualified as the Frogman Engine ECS system method; the function signature requirement is: void(::FE::world&).");
-		THROW_CPP_SYNTAX_ERROR(out_token_iterator_p->_vocabulary != Vocabulary::_AnyDecl, "Frogman Engine C++ Reflection Syntax Error: this function cannot be qualified as the Frogman Engine ECS system method; the function signature requirement is: void(::FE::world&).");
 		l_node._sysname = out_token_iterator_p->_code;
 
 		constexpr auto l_void_keyword = u8"void";
@@ -532,15 +547,17 @@ namespace FHT::parser
 
 		THROW_CPP_SYNTAX_ERROR(FE::algorithm::string::space_insensitive_contains(l_node._sysname.c_str(), l_node._sysname.length(), u8"world&") == false, "Frogman Engine C++ Reflection Syntax Error: this function cannot be qualified as the Frogman Engine ECS system method; the function signature requirement is: void(::FE::world&).");
 
+		var::uint64 l_space_length = 0;
 		for (auto i = 0; i < l_node._sysname.length(); ++i)
 		{
-			if (l_node._sysname[0] <= ' ')
+			if (l_node._sysname[i] <= ' ')
 			{
-				l_node._sysname.erase(0, 1);
+				++l_space_length;
 				continue;
 			}
 			break;
 		}
+		l_node._sysname.erase(0, l_space_length);
 
 		auto l_end_of_fn_name_pos = l_node._sysname.find('(');
 		THROW_CPP_SYNTAX_ERROR(l_end_of_fn_name_pos == identifier::npos, "Frogman Engine C++ Reflection Syntax Error: this function cannot be qualified as the Frogman Engine ECS system method; the function signature requirement is: void(::FE::world&).");

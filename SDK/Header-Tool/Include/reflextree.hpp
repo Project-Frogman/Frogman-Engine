@@ -33,6 +33,7 @@ using identifier = std::pmr::basic_string<var::UTF8>;
 
 struct class_node
 {
+	var::boolean _has_marker = false;
 	var::boolean _has_pure_virtual = false;
 	identifier _this_class_name;
 	identifier _base_class_name;
@@ -41,12 +42,14 @@ struct class_node
 
 struct struct_node
 {
+	var::boolean _has_marker = false;
 	identifier _identifier;
 };
 
 
 struct enum_struct_node
 {
+	var::boolean _has_marker = false;
 	identifier _target_enum_struct_name;
 	std::pmr::vector<identifier> _enum_struct_fields;
 };

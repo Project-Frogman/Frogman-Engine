@@ -49,6 +49,14 @@ namespace FHT::reflexcode_generator
 				continue; // skip pure virtual classes
 			}
 
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
+			}
+
 			output_class_metadata(l_metadata, *node);
 		}
 
@@ -58,6 +66,15 @@ namespace FHT::reflexcode_generator
 			{
 				continue;
 			}
+
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
+			}
+
 			output_struct_metadata(l_metadata, *node);
 		}
 
@@ -66,6 +83,14 @@ namespace FHT::reflexcode_generator
 			if (node == std::nullopt)
 			{
 				continue;
+			}
+
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
 			}
 
 			output_enum_struct_metadata(l_metadata, *node);
@@ -125,6 +150,14 @@ namespace FHT::reflexcode_generator
 				continue; // skip pure virtual classes
 			}
 
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
+			}
+
 			output_class_metadata(out_return_p, *node);
 		}
 
@@ -134,6 +167,15 @@ namespace FHT::reflexcode_generator
 			{
 				continue;
 			}
+
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
+			}
+
 			output_struct_metadata(out_return_p, *node);
 		}
 
@@ -143,6 +185,15 @@ namespace FHT::reflexcode_generator
 			{
 				continue;
 			}
+
+			if (header_tool::get_program_options().get_frequire_reflection_marker() == true)
+			{
+				if (node->_has_marker == false)
+				{
+					continue;
+				}
+			}
+
 			output_enum_struct_metadata(out_return_p, *node);
 		}
 

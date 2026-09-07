@@ -23,11 +23,11 @@ limitations under the License.
 
 
 
-enum struct Vocabulary : FE::uint32
+enum struct Vocabulary : FE::uint16
 {
 	_Undefined, _EndOfCode,
 
-	_AnyDecl,
+	_AnyDecl, _Attribute,
 
 	_LineComment, _LineEnd,
 	_CommentBegin, _CommentEnd,
@@ -39,8 +39,9 @@ enum struct Vocabulary : FE::uint32
 	_Template, _BeginTemplateArgs, _Typename, _TemplateArg, _EndTemplateArgs,
 	_TemplateBody,
 
-	_Class, _Struct, _EnumStruct,
-	_ClassStructEnumForwardDeclaration,
+	_Class, _Struct, 
+	_EnumStruct, _StructKeywordOfEnumStruct, _EnumStructIdentifier, _EnumStructExtension,
+	_ClassStructEnumMethodForwardDeclaration,
 	_FieldType, _FieldIdentifier, _EnumStructField, _EnumStructFieldValue,
 
 	_Colon, _Semicolon, _Comma,
@@ -72,6 +73,7 @@ enum struct Vocabulary : FE::uint32
 	_LeftCurlyBracket, _RightCurlyBracket,
 
 	//_CallingConvention, _FnReturnType, _FnIdentifier, _FnParameterList, _FnBody,
+	_Macro,
 
 	_StaticAssert,
 
@@ -85,6 +87,7 @@ enum struct Vocabulary : FE::uint32
 	_FrogmanEngineStructReflectionMacro,
 	_FrogmanEngineEnumStructReflectionMacro,
 	_FrogmanEngineSystemMacro, _FrogmanEngineSystemArgSysCallPhase, _FrogmanEngineSystemArgWorldTagEnum,
+	_FrogmanEngineEnableSerialization,
 
 	_PreprocessorDirective, _PreprocessorNextLine,
 	_Preprocessor,
@@ -125,7 +128,8 @@ const tsl::htrie_map<var::ASCII, Vocabulary> g_vocabulary =
 	{ "FE_CLASS", Vocabulary::_FrogmanEngineClassReflectionMacro },
 	{ "FE_STRUCT", Vocabulary::_FrogmanEngineStructReflectionMacro },
 	{ "FE_ENUM_STRUCT", Vocabulary::_FrogmanEngineEnumStructReflectionMacro },
-	{ "FE_SYSTEM", Vocabulary::_FrogmanEngineSystemMacro }
+	{ "FE_SYSTEM", Vocabulary::_FrogmanEngineSystemMacro },
+	{ "ENABLE_SERIALIZATION", Vocabulary::_FrogmanEngineEnableSerialization }
 };
 
 

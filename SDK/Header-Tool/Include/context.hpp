@@ -36,13 +36,14 @@ namespace FHT
 		_Template,
 		_TemplateArgs,
 
-		_Class,
-		_Struct,
-		_EnumStruct,
-
 		_Namespace,
 
+		_Class,
+		_Struct,
+		_EnumStruct, _EnumStructIdentifier, _EnumStructExtension, _EnumStructBody,
 		_EnumStructFieldValue,
+
+		_Attribute,
 
 		_FrogmanEngineSystemMacro
 	};

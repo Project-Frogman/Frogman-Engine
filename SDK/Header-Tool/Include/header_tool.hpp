@@ -44,8 +44,7 @@ using framework = FE::framework::framework_base;
 
 
 /*
-* Test arguments:
--fno-copyright-notice -path-to-project=C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Header-Tool\CMake C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Tests\FHT-Test\app.hpp
+
 */
 
 /*

@@ -18,6 +18,7 @@ limitations under the License.
 #include "error_code.hpp"
 #include "file_io.hpp"
 #include "parser.hpp"
+#include "preprocessor.hpp"
 #include "reflexcode_generator.hpp"
 #include "symbol_counter.hpp"
 #include "tokenizer.hpp"
@@ -149,16 +150,14 @@ FE::int32 header_tool::run()
 						FHT::tokenizer::purge_string_literals_and_backslashes(l_tokens); // removes the \, characters, and strings.
 
 						FHT::tokenizer::purge_template(l_tokens); // removes the template declarations.
-
-						FHT::tokenizer::purge_forward_declaration(l_tokens); // removes the forward declarations.
-
 						
+
 						//---------------- Throwable Methods Below This Line ----------------//
-						std::erase_if(l_tokens, [](const token& token_p) -> FE::boolean { return token_p._vocabulary == Vocabulary::_LineEnd; }); // It is a bug if this function throws.
+						std::erase_if(l_tokens, [](const token& token_p) -> FE::boolean { return token_p._vocabulary == Vocabulary::_LineEnd; });
 						
 						header_file_root l_reflection_tree;
 						l_reflection_tree = FHT::parser::build_reflextree(l_path, l_tokens); // Parse the header; throws if the C++ header file is ill-formed.
-												
+							
 
 						//---------------- Noexcept Methods Below This Line ----------------//
 						// generate and add the reflection metadata to the in-house concurrent vector. 

@@ -34,7 +34,9 @@ limitations under the License.
 
 namespace FHT::tokenizer
 {
-	_FE_NODISCARD_ std::pmr::list<token> tokenize_header(const file_buffer_t& file_p, const directory_t& path_p);
+	FE::boolean is_a_valid_letter_for_identifiers(FE::UTF8 char_p) noexcept;
+
+	_FE_NODISCARD_ std::pmr::list<token> tokenize_header(file_buffer_t& file_p, const directory_t& path_p);
 
 	// const char* p = "/* text */", f = "//text"; the 'text' is recognized as comments by FHT are purged from the token list.
 	void purge_comments(std::pmr::list<token>& out_list_p) noexcept;
@@ -65,7 +67,7 @@ namespace FHT::tokenizer
 
 	void tokenize_template(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p);
 
-
+	
 	void tokenize_other(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p) noexcept;
 
 
@@ -80,7 +82,7 @@ namespace FHT::tokenizer
 
 	void tokenize_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p);
 
-	void tokenize_class_struct_enum_forward_decl_and_using_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p);
+	void tokenize_class_struct_enum_forward_decl_and_using_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p);
 
 	void tokenize_template_body(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p);
 }

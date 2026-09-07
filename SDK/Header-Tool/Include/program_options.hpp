@@ -28,17 +28,21 @@ limitations under the License.
 // std::string_view
 #include <string_view>
 
-#include <unordered_map>
+#include <absl/container/flat_hash_map.h>
 
 
 
 
 class program_options : public FE::framework::program_option
 {
+public:
 	using base = FE::framework::program_option;
+	using defined_macros = absl::flat_hash_map<std::string_view, std::string>;
 
-	tsl::htrie_map<var::ASCII, std::basic_string<var::ASCII>> m_path_options;
-	std::unordered_map<std::basic_string_view<var::ASCII>, var::boolean> m_bool_options;
+private:
+	tsl::htrie_map<var::ASCII, std::string> m_path_options;
+	absl::flat_hash_map<std::string_view, var::boolean> m_bool_options;
+	defined_macros m_macro_map;
 
 	FE::int32 m_argc;
 	FE::ASCII** m_argv;
@@ -48,7 +52,9 @@ public:
 	virtual ~program_options() noexcept override = default;
 
 private:
-	void __parse_path_options(FE::ASCII* non_fno_option_p) noexcept;
+	FE::boolean __parse_path_options(FE::ASCII* const option_p) noexcept;
+
+	FE::boolean __parse_macro_definition(FE::ASCII* const option_p) noexcept;
 
 public:
 	FE::ASCII* get_path_to_copyright_notice() const noexcept { return m_path_options.find("-path-to-copyright-notice=").value().c_str(); }
@@ -64,6 +70,8 @@ public:
 
 	FE::ASCII* view_frequire_reflection_marker_option_title() const noexcept { return m_bool_options.find("-frequire-reflection-marker")->first.data(); }
 	FE::boolean get_frequire_reflection_marker() const noexcept { return m_bool_options.find("-frequire-reflection-marker")->second; }
+
+	const defined_macros& get_macro_map() const noexcept { return m_macro_map; }
 
 	FE::int32 get_argc() const noexcept { return m_argc; }
 	FE::ASCII** get_argv() const noexcept { return m_argv; }

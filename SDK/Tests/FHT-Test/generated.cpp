@@ -3,152 +3,226 @@
 #include <FE/framework.hxx> 
 #include <memory>
 
-#include <C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Tests\FHT-Test\SymbolCountingTest.hpp>
+#include <C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Tests\FHT-Test\ReflextreeParseTest.hpp>
 
 
 
 
 void load_reflection_data()
 {
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalComponent*(::GlobalComponent*)> >("construct ::GlobalComponent", &::std::construct_at<::GlobalComponent>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalComponent*)> >("destruct ::GlobalComponent", &::std::destroy_at<::GlobalComponent>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalSingleton*(::GlobalSingleton*)> >("construct ::GlobalSingleton", &::std::construct_at<::GlobalSingleton>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalSingleton*)> >("destruct ::GlobalSingleton", &::std::destroy_at<::GlobalSingleton>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::SimpleClass*(::SimpleClass*)> >("construct ::SimpleClass", &::std::construct_at<::SimpleClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::SimpleClass*)> >("destruct ::SimpleClass", &::std::destroy_at<::SimpleClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FullAccessClass*(::FullAccessClass*)> >("construct ::FullAccessClass", &::std::construct_at<::FullAccessClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FullAccessClass*)> >("destruct ::FullAccessClass", &::std::destroy_at<::FullAccessClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::DerivedClass*(::DerivedClass*)> >("construct ::DerivedClass", &::std::construct_at<::DerivedClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::DerivedClass*)> >("destruct ::DerivedClass", &::std::destroy_at<::DerivedClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::NonCopyableClass*(::NonCopyableClass*)> >("construct ::NonCopyableClass", &::std::construct_at<::NonCopyableClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::NonCopyableClass*)> >("destruct ::NonCopyableClass", &::std::destroy_at<::NonCopyableClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::StaticClass*(::StaticClass*)> >("construct ::StaticClass", &::std::construct_at<::StaticClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::StaticClass*)> >("destruct ::StaticClass", &::std::destroy_at<::StaticClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::ConstClass*(::ConstClass*)> >("construct ::ConstClass", &::std::construct_at<::ConstClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::ConstClass*)> >("destruct ::ConstClass", &::std::destroy_at<::ConstClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::MultipleBaseA*(::MultipleBaseA*)> >("construct ::MultipleBaseA", &::std::construct_at<::MultipleBaseA>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::MultipleBaseA*)> >("destruct ::MultipleBaseA", &::std::destroy_at<::MultipleBaseA>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::MultipleInheritance*(::MultipleInheritance*)> >("construct ::MultipleInheritance", &::std::construct_at<::MultipleInheritance>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::MultipleInheritance*)> >("destruct ::MultipleInheritance", &::std::destroy_at<::MultipleInheritance>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::VirtualDerivedA*(::VirtualDerivedA*)> >("construct ::VirtualDerivedA", &::std::construct_at<::VirtualDerivedA>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::VirtualDerivedA*)> >("destruct ::VirtualDerivedA", &::std::destroy_at<::VirtualDerivedA>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::DiamondInheritance*(::DiamondInheritance*)> >("construct ::DiamondInheritance", &::std::construct_at<::DiamondInheritance>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::DiamondInheritance*)> >("destruct ::DiamondInheritance", &::std::destroy_at<::DiamondInheritance>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::ConcreteImplementation*(::ConcreteImplementation*)> >("construct ::ConcreteImplementation", &::std::construct_at<::ConcreteImplementation>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::ConcreteImplementation*)> >("destruct ::ConcreteImplementation", &::std::destroy_at<::ConcreteImplementation>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::CallingConventionClass*(::CallingConventionClass*)> >("construct ::CallingConventionClass", &::std::construct_at<::CallingConventionClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::CallingConventionClass*)> >("destruct ::CallingConventionClass", &::std::destroy_at<::CallingConventionClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalPoint*(::GlobalPoint*)> >("construct ::GlobalPoint", &::std::construct_at<::GlobalPoint>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalPoint*)> >("destruct ::GlobalPoint", &::std::destroy_at<::GlobalPoint>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalTransform*(::GlobalTransform*)> >("construct ::GlobalTransform", &::std::construct_at<::GlobalTransform>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalTransform*)> >("destruct ::GlobalTransform", &::std::destroy_at<::GlobalTransform>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::Point2D*(::Point2D*)> >("construct ::Point2D", &::std::construct_at<::Point2D>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::Point2D*)> >("destruct ::Point2D", &::std::destroy_at<::Point2D>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::Point3D*(::Point3D*)> >("construct ::Point3D", &::std::construct_at<::Point3D>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::Point3D*)> >("destruct ::Point3D", &::std::destroy_at<::Point3D>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::Transform*(::Transform*)> >("construct ::Transform", &::std::construct_at<::Transform>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::Transform*)> >("destruct ::Transform", &::std::destroy_at<::Transform>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::Configuration*(::Configuration*)> >("construct ::Configuration", &::std::construct_at<::Configuration>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::Configuration*)> >("destruct ::Configuration", &::std::destroy_at<::Configuration>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::VolatileData*(::VolatileData*)> >("construct ::VolatileData", &::std::construct_at<::VolatileData>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::VolatileData*)> >("destruct ::VolatileData", &::std::destroy_at<::VolatileData>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::NestedClass*(::FE::Test::Nested::NestedClass*)> >("construct ::FE::Test::Nested::NestedClass", &::std::construct_at<::FE::Test::Nested::NestedClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::NestedClass*)> >("destruct ::FE::Test::Nested::NestedClass", &::std::destroy_at<::FE::Test::Nested::NestedClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::NestedPoint*(::FE::Test::Nested::NestedPoint*)> >("construct ::FE::Test::Nested::NestedPoint", &::std::construct_at<::FE::Test::Nested::NestedPoint>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::NestedPoint*)> >("destruct ::FE::Test::Nested::NestedPoint", &::std::destroy_at<::FE::Test::Nested::NestedPoint>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::Deep::DeepClass*(::FE::Test::Nested::Deep::DeepClass*)> >("construct ::FE::Test::Nested::Deep::DeepClass", &::std::construct_at<::FE::Test::Nested::Deep::DeepClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::Deep::DeepClass*)> >("destruct ::FE::Test::Nested::Deep::DeepClass", &::std::destroy_at<::FE::Test::Nested::Deep::DeepClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::Deep::DeepStruct*(::FE::Test::Nested::Deep::DeepStruct*)> >("construct ::FE::Test::Nested::Deep::DeepStruct", &::std::construct_at<::FE::Test::Nested::Deep::DeepStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::Deep::DeepStruct*)> >("destruct ::FE::Test::Nested::Deep::DeepStruct", &::std::destroy_at<::FE::Test::Nested::Deep::DeepStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::OuterClass*(::FE::Test::EdgeCases::OuterClass*)> >("construct ::FE::Test::EdgeCases::OuterClass", &::std::construct_at<::FE::Test::EdgeCases::OuterClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::OuterClass*)> >("destruct ::FE::Test::EdgeCases::OuterClass", &::std::destroy_at<::FE::Test::EdgeCases::OuterClass>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::ComplexPointers*(::FE::Test::EdgeCases::ComplexPointers*)> >("construct ::FE::Test::EdgeCases::ComplexPointers", &::std::construct_at<::FE::Test::EdgeCases::ComplexPointers>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::ComplexPointers*)> >("destruct ::FE::Test::EdgeCases::ComplexPointers", &::std::destroy_at<::FE::Test::EdgeCases::ComplexPointers>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::KitchenSink*(::FE::Test::EdgeCases::KitchenSink*)> >("construct ::FE::Test::EdgeCases::KitchenSink", &::std::construct_at<::FE::Test::EdgeCases::KitchenSink>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::KitchenSink*)> >("destruct ::FE::Test::EdgeCases::KitchenSink", &::std::destroy_at<::FE::Test::EdgeCases::KitchenSink>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::OuterStruct*(::FE::Test::EdgeCases::OuterStruct*)> >("construct ::FE::Test::EdgeCases::OuterStruct", &::std::construct_at<::FE::Test::EdgeCases::OuterStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::OuterStruct*)> >("destruct ::FE::Test::EdgeCases::OuterStruct", &::std::destroy_at<::FE::Test::EdgeCases::OuterStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::ArrayStruct*(::FE::Test::EdgeCases::ArrayStruct*)> >("construct ::FE::Test::EdgeCases::ArrayStruct", &::std::construct_at<::FE::Test::EdgeCases::ArrayStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::ArrayStruct*)> >("destruct ::FE::Test::EdgeCases::ArrayStruct", &::std::destroy_at<::FE::Test::EdgeCases::ArrayStruct>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::FunctionPointers*(::FE::Test::EdgeCases::FunctionPointers*)> >("construct ::FE::Test::EdgeCases::FunctionPointers", &::std::construct_at<::FE::Test::EdgeCases::FunctionPointers>);
-    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::FunctionPointers*)> >("destruct ::FE::Test::EdgeCases::FunctionPointers", &::std::destroy_at<::FE::Test::EdgeCases::FunctionPointers>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().associate_system(WorldTagEnumType, _EngineInitialization, &::system);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().associate_system(WorldTagEnumType, _EngineInitialization, &::system2);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().associate_system(WorldTagEnumType, _EngineInitialization, &::system3);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().associate_system(WorldTagEnumType, _EngineInitialization, &::system4);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalGameObject*(::GlobalGameObject*)> >("construct ::GlobalGameObject", &::std::construct_at<::GlobalGameObject>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalGameObject*)> >("destruct ::GlobalGameObject", &::std::destroy_at<::GlobalGameObject>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalGameObject3*(::GlobalGameObject3*)> >("construct ::GlobalGameObject3", &::std::construct_at<::GlobalGameObject3>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalGameObject3*)> >("destruct ::GlobalGameObject3", &::std::destroy_at<::GlobalGameObject3>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::_MAYBE_UNUSED_ GlobalGameObject5*(::_MAYBE_UNUSED_ GlobalGameObject5*)> >("construct ::_MAYBE_UNUSED_ GlobalGameObject5", &::std::construct_at<::_MAYBE_UNUSED_ GlobalGameObject5>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::_MAYBE_UNUSED_ GlobalGameObject5*)> >("destruct ::_MAYBE_UNUSED_ GlobalGameObject5", &::std::destroy_at<::_MAYBE_UNUSED_ GlobalGameObject5>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalGameObject7*(::GlobalGameObject7*)> >("construct ::GlobalGameObject7", &::std::construct_at<::GlobalGameObject7>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalGameObject7*)> >("destruct ::GlobalGameObject7", &::std::destroy_at<::GlobalGameObject7>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalRenderableComponent*(::GlobalRenderableComponent*)> >("construct ::GlobalRenderableComponent", &::std::construct_at<::GlobalRenderableComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalRenderableComponent*)> >("destruct ::GlobalRenderableComponent", &::std::destroy_at<::GlobalRenderableComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalTransform2D*(::GlobalTransform2D*)> >("construct ::GlobalTransform2D", &::std::construct_at<::GlobalTransform2D>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalTransform2D*)> >("destruct ::GlobalTransform2D", &::std::destroy_at<::GlobalTransform2D>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::GlobalRigidBody*(::GlobalRigidBody*)> >("construct ::GlobalRigidBody", &::std::construct_at<::GlobalRigidBody>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::GlobalRigidBody*)> >("destruct ::GlobalRigidBody", &::std::destroy_at<::GlobalRigidBody>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Component*(::FE::Test::Component*)> >("construct ::FE::Test::Component", &::std::construct_at<::FE::Test::Component>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Component*)> >("destruct ::FE::Test::Component", &::std::destroy_at<::FE::Test::Component>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::SpriteComponent*(::FE::Test::SpriteComponent*)> >("construct ::FE::Test::SpriteComponent", &::std::construct_at<::FE::Test::SpriteComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::SpriteComponent*)> >("destruct ::FE::Test::SpriteComponent", &::std::destroy_at<::FE::Test::SpriteComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::PhysicsComponent*(::FE::Test::PhysicsComponent*)> >("construct ::FE::Test::PhysicsComponent", &::std::construct_at<::FE::Test::PhysicsComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::PhysicsComponent*)> >("destruct ::FE::Test::PhysicsComponent", &::std::destroy_at<::FE::Test::PhysicsComponent>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EntityBase*(::FE::Test::EntityBase*)> >("construct ::FE::Test::EntityBase", &::std::construct_at<::FE::Test::EntityBase>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EntityBase*)> >("destruct ::FE::Test::EntityBase", &::std::destroy_at<::FE::Test::EntityBase>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EnemyEntity*(::FE::Test::EnemyEntity*)> >("construct ::FE::Test::EnemyEntity", &::std::construct_at<::FE::Test::EnemyEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EnemyEntity*)> >("destruct ::FE::Test::EnemyEntity", &::std::destroy_at<::FE::Test::EnemyEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::PlayerEntity*(::FE::Test::PlayerEntity*)> >("construct ::FE::Test::PlayerEntity", &::std::construct_at<::FE::Test::PlayerEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::PlayerEntity*)> >("destruct ::FE::Test::PlayerEntity", &::std::destroy_at<::FE::Test::PlayerEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::NonCopyableEntity*(::FE::Test::NonCopyableEntity*)> >("construct ::FE::Test::NonCopyableEntity", &::std::construct_at<::FE::Test::NonCopyableEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::NonCopyableEntity*)> >("destruct ::FE::Test::NonCopyableEntity", &::std::destroy_at<::FE::Test::NonCopyableEntity>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EntityFactory*(::FE::Test::EntityFactory*)> >("construct ::FE::Test::EntityFactory", &::std::construct_at<::FE::Test::EntityFactory>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EntityFactory*)> >("destruct ::FE::Test::EntityFactory", &::std::destroy_at<::FE::Test::EntityFactory>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::IUpdatable*(::FE::Test::IUpdatable*)> >("construct ::FE::Test::IUpdatable", &::std::construct_at<::FE::Test::IUpdatable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::IUpdatable*)> >("destruct ::FE::Test::IUpdatable", &::std::destroy_at<::FE::Test::IUpdatable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::IRenderable*(::FE::Test::IRenderable*)> >("construct ::FE::Test::IRenderable", &::std::construct_at<::FE::Test::IRenderable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::IRenderable*)> >("destruct ::FE::Test::IRenderable", &::std::destroy_at<::FE::Test::IRenderable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::UpdatableRenderable*(::FE::Test::UpdatableRenderable*)> >("construct ::FE::Test::UpdatableRenderable", &::std::construct_at<::FE::Test::UpdatableRenderable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::UpdatableRenderable*)> >("destruct ::FE::Test::UpdatableRenderable", &::std::destroy_at<::FE::Test::UpdatableRenderable>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::IGameSystem*(::FE::Test::IGameSystem*)> >("construct ::FE::Test::IGameSystem", &::std::construct_at<::FE::Test::IGameSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::IGameSystem*)> >("destruct ::FE::Test::IGameSystem", &::std::destroy_at<::FE::Test::IGameSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::RenderSystem*(::FE::Test::RenderSystem*)> >("construct ::FE::Test::RenderSystem", &::std::construct_at<::FE::Test::RenderSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::RenderSystem*)> >("destruct ::FE::Test::RenderSystem", &::std::destroy_at<::FE::Test::RenderSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Position*(::FE::Test::Position*)> >("construct ::FE::Test::Position", &::std::construct_at<::FE::Test::Position>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Position*)> >("destruct ::FE::Test::Position", &::std::destroy_at<::FE::Test::Position>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Bounds*(::FE::Test::Bounds*)> >("construct ::FE::Test::Bounds", &::std::construct_at<::FE::Test::Bounds>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Bounds*)> >("destruct ::FE::Test::Bounds", &::std::destroy_at<::FE::Test::Bounds>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Size*(::FE::Test::Size*)> >("construct ::FE::Test::Size", &::std::construct_at<::FE::Test::Size>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Size*)> >("destruct ::FE::Test::Size", &::std::destroy_at<::FE::Test::Size>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Transform*(::FE::Test::Transform*)> >("construct ::FE::Test::Transform", &::std::construct_at<::FE::Test::Transform>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Transform*)> >("destruct ::FE::Test::Transform", &::std::destroy_at<::FE::Test::Transform>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::AnimatedTransform*(::FE::Test::AnimatedTransform*)> >("construct ::FE::Test::AnimatedTransform", &::std::construct_at<::FE::Test::AnimatedTransform>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::AnimatedTransform*)> >("destruct ::FE::Test::AnimatedTransform", &::std::destroy_at<::FE::Test::AnimatedTransform>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::GameConfig*(::FE::Test::GameConfig*)> >("construct ::FE::Test::GameConfig", &::std::construct_at<::FE::Test::GameConfig>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::GameConfig*)> >("destruct ::FE::Test::GameConfig", &::std::destroy_at<::FE::Test::GameConfig>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EntityFlags*(::FE::Test::EntityFlags*)> >("construct ::FE::Test::EntityFlags", &::std::construct_at<::FE::Test::EntityFlags>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EntityFlags*)> >("destruct ::FE::Test::EntityFlags", &::std::destroy_at<::FE::Test::EntityFlags>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::NestedInputManager*(::FE::Test::Nested::NestedInputManager*)> >("construct ::FE::Test::Nested::NestedInputManager", &::std::construct_at<::FE::Test::Nested::NestedInputManager>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::NestedInputManager*)> >("destruct ::FE::Test::Nested::NestedInputManager", &::std::destroy_at<::FE::Test::Nested::NestedInputManager>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::NestedInput*(::FE::Test::Nested::NestedInput*)> >("construct ::FE::Test::Nested::NestedInput", &::std::construct_at<::FE::Test::Nested::NestedInput>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::NestedInput*)> >("destruct ::FE::Test::Nested::NestedInput", &::std::destroy_at<::FE::Test::Nested::NestedInput>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::Deep::DeepActionHandler*(::FE::Test::Nested::Deep::DeepActionHandler*)> >("construct ::FE::Test::Nested::Deep::DeepActionHandler", &::std::construct_at<::FE::Test::Nested::Deep::DeepActionHandler>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::Deep::DeepActionHandler*)> >("destruct ::FE::Test::Nested::Deep::DeepActionHandler", &::std::destroy_at<::FE::Test::Nested::Deep::DeepActionHandler>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::Nested::Deep::DeepAction*(::FE::Test::Nested::Deep::DeepAction*)> >("construct ::FE::Test::Nested::Deep::DeepAction", &::std::construct_at<::FE::Test::Nested::Deep::DeepAction>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::Nested::Deep::DeepAction*)> >("destruct ::FE::Test::Nested::Deep::DeepAction", &::std::destroy_at<::FE::Test::Nested::Deep::DeepAction>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::OuterSystem*(::FE::Test::EdgeCases::OuterSystem*)> >("construct ::FE::Test::EdgeCases::OuterSystem", &::std::construct_at<::FE::Test::EdgeCases::OuterSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::OuterSystem*)> >("destruct ::FE::Test::EdgeCases::OuterSystem", &::std::destroy_at<::FE::Test::EdgeCases::OuterSystem>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::PointerManager*(::FE::Test::EdgeCases::PointerManager*)> >("construct ::FE::Test::EdgeCases::PointerManager", &::std::construct_at<::FE::Test::EdgeCases::PointerManager>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::PointerManager*)> >("destruct ::FE::Test::EdgeCases::PointerManager", &::std::destroy_at<::FE::Test::EdgeCases::PointerManager>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::OuterData*(::FE::Test::EdgeCases::OuterData*)> >("construct ::FE::Test::EdgeCases::OuterData", &::std::construct_at<::FE::Test::EdgeCases::OuterData>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::OuterData*)> >("destruct ::FE::Test::EdgeCases::OuterData", &::std::destroy_at<::FE::Test::EdgeCases::OuterData>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::ArrayContainer*(::FE::Test::EdgeCases::ArrayContainer*)> >("construct ::FE::Test::EdgeCases::ArrayContainer", &::std::construct_at<::FE::Test::EdgeCases::ArrayContainer>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::ArrayContainer*)> >("destruct ::FE::Test::EdgeCases::ArrayContainer", &::std::destroy_at<::FE::Test::EdgeCases::ArrayContainer>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<::FE::Test::EdgeCases::CallbackContainer*(::FE::Test::EdgeCases::CallbackContainer*)> >("construct ::FE::Test::EdgeCases::CallbackContainer", &::std::construct_at<::FE::Test::EdgeCases::CallbackContainer>);
+    ::FE::framework::framework_base::get_framework().get_method_reflection().register_task< ::FE::c_style_task<void(::FE::Test::EdgeCases::CallbackContainer*)> >("destruct ::FE::Test::EdgeCases::CallbackContainer", &::std::destroy_at<::FE::Test::EdgeCases::CallbackContainer>);
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalStatus >("::GlobalStatus",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalGameState >("::GlobalGameState",
     {
-        { ::GlobalStatus::Inactive, "Inactive" },
-        { ::GlobalStatus::Active, "Active" },
-        { ::GlobalStatus::Pending, "Pending" }
+        { ::GlobalGameState::MainMenu, "MainMenu" },
+        { ::GlobalGameState::InGame, "InGame" },
+        { ::GlobalGameState::Paused, "Paused" },
+        { ::GlobalGameState::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalErrorCode >("::GlobalErrorCode",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalGameState2 >("::GlobalGameState2",
     {
-        { ::GlobalErrorCode::Success, "Success" },
-        { ::GlobalErrorCode::GeneralError, "GeneralError" },
-        { ::GlobalErrorCode::InvalidInput, "InvalidInput" },
-        { ::GlobalErrorCode::OutOfMemory, "OutOfMemory" }
+        { ::GlobalGameState2::MainMenu, "MainMenu" },
+        { ::GlobalGameState2::InGame, "InGame" },
+        { ::GlobalGameState2::Paused, "Paused" },
+        { ::GlobalGameState2::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalPriority >("::GlobalPriority",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::_NODISCARD_ GlobalGameState3 >("::_NODISCARD_ GlobalGameState3",
     {
-        { ::GlobalPriority::Low, "Low" },
-        { ::GlobalPriority::Medium, "Medium" },
-        { ::GlobalPriority::High, "High" }
+        { ::_NODISCARD_ GlobalGameState3::MainMenu, "MainMenu" },
+        { ::_NODISCARD_ GlobalGameState3::InGame, "InGame" },
+        { ::_NODISCARD_ GlobalGameState3::Paused, "Paused" },
+        { ::_NODISCARD_ GlobalGameState3::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::Color // >("::Color //",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4 >("::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4",
     {
-        { ::Color //::Red, "Red" },
-        { ::Color //::Green, "Green" },
-        { ::Color //::Blue, "Blue" },
-        { ::Color //::Yellow, "Yellow" }
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4::MainMenu, "MainMenu" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4::InGame, "InGame" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4::Paused, "Paused" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalGameState4::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::ByteStatus >("::ByteStatus",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::_MAYBE_UNUSED_ GlobalGameState5 >("::_MAYBE_UNUSED_ GlobalGameState5",
     {
-        { ::ByteStatus::Idle, "Idle" },
-        { ::ByteStatus::Running, "Running" },
-        { ::ByteStatus::Paused, "Paused" },
-        { ::ByteStatus::Stopped, "Stopped" },
-        { ::ByteStatus::Error, "Error" }
+        { ::_MAYBE_UNUSED_ GlobalGameState5::MainMenu, "MainMenu" },
+        { ::_MAYBE_UNUSED_ GlobalGameState5::InGame, "InGame" },
+        { ::_MAYBE_UNUSED_ GlobalGameState5::Paused, "Paused" },
+        { ::_MAYBE_UNUSED_ GlobalGameState5::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::LongCode >("::LongCode",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalGameState6 >("::GlobalGameState6",
     {
-        { ::LongCode::MinValue, "MinValue" },
-        { ::LongCode::Zero, "Zero" },
-        { ::LongCode::MaxValue, "MaxValue" }
+        { ::GlobalGameState6::MainMenu, "MainMenu" },
+        { ::GlobalGameState6::InGame, "InGame" },
+        { ::GlobalGameState6::Paused, "Paused" },
+        { ::GlobalGameState6::GameOver, "GameOver" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::SingleValue >("::SingleValue",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalEntityType >("::GlobalEntityType",
     {
-        { ::SingleValue::Only, "Only" }
+        { ::GlobalEntityType::Player, "Player" },
+        { ::GlobalEntityType::Enemy, "Enemy" },
+        { ::GlobalEntityType::Projectile, "Projectile" },
+        { ::GlobalEntityType::Pickup, "Pickup" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::Nested::NestedColor >("::FE::Test::Nested::NestedColor",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::GlobalEntityType2 >("::GlobalEntityType2",
     {
-        { ::FE::Test::Nested::NestedColor::Cyan, "Cyan" },
-        { ::FE::Test::Nested::NestedColor::Magenta, "Magenta" },
-        { ::FE::Test::Nested::NestedColor::Yellow, "Yellow" },
-        { ::FE::Test::Nested::NestedColor::Black, "Black" }
+        { ::GlobalEntityType2::Player, "Player" },
+        { ::GlobalEntityType2::Enemy, "Enemy" },
+        { ::GlobalEntityType2::Projectile, "Projectile" },
+        { ::GlobalEntityType2::Pickup, "Pickup" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::Nested::Deep::DeepEnum >("::FE::Test::Nested::Deep::DeepEnum",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::_NODISCARD_ GlobalEntityType3 >("::_NODISCARD_ GlobalEntityType3",
     {
-        { ::FE::Test::Nested::Deep::DeepEnum::Value1, "Value1" },
-        { ::FE::Test::Nested::Deep::DeepEnum::Value2, "Value2" }
+        { ::_NODISCARD_ GlobalEntityType3::Player, "Player" },
+        { ::_NODISCARD_ GlobalEntityType3::Enemy, "Enemy" },
+        { ::_NODISCARD_ GlobalEntityType3::Projectile, "Projectile" },
+        { ::_NODISCARD_ GlobalEntityType3::Pickup, "Pickup" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EdgeCases::LargeEnum >("::FE::Test::EdgeCases::LargeEnum",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4 >("::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4",
     {
-        { ::FE::Test::EdgeCases::LargeEnum::Zero, "Zero" },
-        { ::FE::Test::EdgeCases::LargeEnum::Small, "Small" },
-        { ::FE::Test::EdgeCases::LargeEnum::Medium, "Medium" },
-        { ::FE::Test::EdgeCases::LargeEnum::Large, "Large" },
-        { ::FE::Test::EdgeCases::LargeEnum::VeryLarge, "VeryLarge" }
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4::Player, "Player" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4::Enemy, "Enemy" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4::Projectile, "Projectile" },
+        { ::_NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4::Pickup, "Pickup" }
     });
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EdgeCases::Fake >("::FE::Test::EdgeCases::Fake",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::InputState >("::FE::Test::InputState",
     {
-        { ::FE::Test::EdgeCases::Fake::NerfThis, "NerfThis" }
+        { ::FE::Test::InputState::Released, "Released" },
+        { ::FE::Test::InputState::Pressed, "Pressed" },
+        { ::FE::Test::InputState::Held, "Held" },
+        { ::FE::Test::InputState::JustReleased, "JustReleased" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::RenderLayer >("::FE::Test::RenderLayer",
+    {
+        { ::FE::Test::RenderLayer::Background, "Background" },
+        { ::FE::Test::RenderLayer::Gameplay, "Gameplay" },
+        { ::FE::Test::RenderLayer::UI, "UI" },
+        { ::FE::Test::RenderLayer::Debug, "Debug" },
+        { ::FE::Test::RenderLayer::PostProcess, "PostProcess" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EntityID >("::FE::Test::EntityID",
+    {
+        { ::FE::Test::EntityID::Invalid, "Invalid" },
+        { ::FE::Test::EntityID::First, "First" },
+        { ::FE::Test::EntityID::MaxEntities, "MaxEntities" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::DefaultWorldTag >("::FE::Test::DefaultWorldTag",
+    {
+        { ::FE::Test::DefaultWorldTag::MainWorld, "MainWorld" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::Nested::NestedInputType >("::FE::Test::Nested::NestedInputType",
+    {
+        { ::FE::Test::Nested::NestedInputType::Keyboard, "Keyboard" },
+        { ::FE::Test::Nested::NestedInputType::Mouse, "Mouse" },
+        { ::FE::Test::Nested::NestedInputType::Gamepad, "Gamepad" },
+        { ::FE::Test::Nested::NestedInputType::Touch, "Touch" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::Nested::Deep::DeepActionType >("::FE::Test::Nested::Deep::DeepActionType",
+    {
+        { ::FE::Test::Nested::Deep::DeepActionType::Move, "Move" },
+        { ::FE::Test::Nested::Deep::DeepActionType::Attack, "Attack" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EdgeCases::LargeIDType >("::FE::Test::EdgeCases::LargeIDType",
+    {
+        { ::FE::Test::EdgeCases::LargeIDType::None, "None" },
+        { ::FE::Test::EdgeCases::LargeIDType::Small, "Small" },
+        { ::FE::Test::EdgeCases::LargeIDType::Medium, "Medium" },
+        { ::FE::Test::EdgeCases::LargeIDType::Large, "Large" },
+        { ::FE::Test::EdgeCases::LargeIDType::Maximum, "Maximum" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EdgeCases::CharacterEnum >("::FE::Test::EdgeCases::CharacterEnum",
+    {
+        { ::FE::Test::EdgeCases::CharacterEnum::TypeA, "TypeA" },
+        { ::FE::Test::EdgeCases::CharacterEnum::TypeB, "TypeB" },
+        { ::FE::Test::EdgeCases::CharacterEnum::TypeC, "TypeC" }
     });
 }

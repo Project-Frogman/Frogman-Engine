@@ -54,7 +54,7 @@ void system4(FE::world& comptr_p)
 
 // Global enum struct with FE macro
 FE_ENUM_STRUCT();
-enum struct GlobalGameState
+enum struct GlobalGameState : int
 {
 	MainMenu,
 	InGame,
@@ -151,6 +151,7 @@ enum struct _NODISCARD_ _MAYBE_UNUSED_ GlobalEntityType4 : uint16_t
 
 
 // Global struct with FE macro - POD style
+FE_STRUCT();
 struct GlobalTransform2D
 {
 	ENABLE_SERIALIZATION();
@@ -195,7 +196,7 @@ struct GlobalRigidBody
 
 
 // Global class with FE macro - simple
-
+FE_CLASS();
 class GlobalGameObject
 {
 	ENABLE_SERIALIZATION();
