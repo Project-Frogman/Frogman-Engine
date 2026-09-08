@@ -109,6 +109,6 @@ FE::boolean program_options::__parse_macro_definition(FE::ASCII* const option_p)
 		return true;
 	}
 	
-	m_macro_map[l_key] = "";
+	m_macro_map[l_key] = "1";
 	return true;
 }
