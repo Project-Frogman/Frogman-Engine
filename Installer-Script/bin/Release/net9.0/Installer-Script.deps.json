@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "Installer-Script/1.0.0": {
+        "dependencies": {
+          "FrogmanEngine.Installer.ScriptInterface": "0.0.1"
+        },
+        "runtime": {
+          "Installer-Script.dll": {}
+        }
+      },
+      "FrogmanEngine.Installer.ScriptInterface/0.0.1": {
+        "runtime": {
+          "lib/net9.0/Installer-Script-Interface.dll": {
+            "assemblyVersion": "0.0.1.0",
+            "fileVersion": "0.0.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Installer-Script/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FrogmanEngine.Installer.ScriptInterface/0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uXQN8Ve0dtn+Se5Wuhy/rkJ/+mUbQIoMfe4EGGEshLWFMXqA4USJ28kpO2tQyJ8IeiDAvXiIoupGFqq8d1i44g==",
+      "path": "frogmanengine.installer.scriptinterface/0.0.1",
+      "hashPath": "frogmanengine.installer.scriptinterface.0.0.1.nupkg.sha512"
+    }
+  }
+}

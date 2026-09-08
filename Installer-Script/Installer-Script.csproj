@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Installer_Script</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FrogmanEngine.Installer.ScriptInterface" Version="0.0.1" />
+  </ItemGroup>
+
+</Project>
