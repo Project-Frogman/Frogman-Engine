@@ -11,3 +11,4 @@ C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\Installer-Script\obj\Releas
 C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\Installer-Script\obj\Release\net9.0\refint\Installer-Script.dll
 C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\Installer-Script\obj\Release\net9.0\Installer-Script.pdb
 C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\Installer-Script\obj\Release\net9.0\ref\Installer-Script.dll
+C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\Installer-Script\obj\Release\net9.0\Installe.7CA16BAD.Up2Date

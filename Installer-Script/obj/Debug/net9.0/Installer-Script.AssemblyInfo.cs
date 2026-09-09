@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Installer-Script")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ec06963791fd8ad78e5d7f2a38f88bb344e5400")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9819d8482eb46daff1a347c1aebd538bf8e9204")]
 [assembly: System.Reflection.AssemblyProductAttribute("Installer-Script")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Installer-Script")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
