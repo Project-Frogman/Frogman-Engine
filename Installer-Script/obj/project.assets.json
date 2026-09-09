@@ -15,7 +15,7 @@
   },
   "libraries": {
     "FrogmanEngine.Installer.ScriptInterface/0.0.1": {
-      "sha512": "yGe0J6mQyg71ypS8tkQEZdUiXcYQ65O2hW5YAqRDyRp9e1d7VVuAgCDz6AwFPZexRO7LHlASNnaojF5VIUdlIw==",
+      "sha512": "7auZiKFvydhW7bhAC0E+RcMIF4EpDalv8QXh9xnZ7hGWw9dgN3YNqYbFF0g7VczilH5rrJ/Iv9NIbKhSX//Sfg==",
       "type": "package",
       "path": "frogmanengine.installer.scriptinterface/0.0.1",
       "files": [

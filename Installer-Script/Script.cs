@@ -57,9 +57,9 @@ namespace Installer.Script
 
     public class Main : Installer.ScriptMain
     {
-
+        
         string thirdPartyFolderPath = String.Empty;
-        public override IReadOnlyList<Script.Job> ScheduleJobs(Script.JobParameters parameters)
+        public override Queue<Script.Job> ScheduleJobs(Script.JobParameters parameters)
         {
             thirdPartyFolderPath = System.IO.Path.Combine(parameters.GdkInstallationPath, FrogmanEngine.ThirdPartyFolderRelativePath);
             EnqueueThirdPartyLibraryBuildJobs(parameters);
@@ -88,7 +88,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(feAudioBuildJob);
+            }; jobs.Enqueue(feAudioBuildJob);
 
 
             Script.Job feCoreBuildJob = new Script.Job
@@ -100,7 +100,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(feCoreBuildJob);
+            }; jobs.Enqueue(feCoreBuildJob);
 
 
             Script.Job feFrameworkBuildJob = new Script.Job
@@ -112,7 +112,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(feFrameworkBuildJob);
+            }; jobs.Enqueue(feFrameworkBuildJob);
 
 
             Script.Job feRendererBuildJob = new Script.Job
@@ -124,7 +124,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(feRendererBuildJob);
+            }; jobs.Enqueue(feRendererBuildJob);
 
 
             Script.Job feEngineBuildJob = new Script.Job
@@ -136,7 +136,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(feEngineBuildJob);
+            }; jobs.Enqueue(feEngineBuildJob);
 
 
             Script.Job frogmanHeaderToolBuildJob = new Script.Job
@@ -148,7 +148,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(frogmanHeaderToolBuildJob);
+            }; jobs.Enqueue(frogmanHeaderToolBuildJob);
         }
 
         private void EnqueueThirdPartyLibraryBuildJobs(JobParameters parameters)
@@ -168,26 +168,29 @@ namespace Installer.Script
                 DisplayedMessage = $"Building the ABSL version {Absl.Version} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.Arguments = String.Empty;
+                    process.StartInfo.FileName = parameters.BuildBatchFileName;
                     string abslPath = System.IO.Path.Combine(thirdPartyFolderPath,
                                           $"abseil-cpp-{Absl.Version}");
                     Directory.SetCurrentDirectory(abslPath);
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(abslBuildJob);
+            }; jobs.Enqueue(abslBuildJob);
 
 
             Script.Job boostB2BuildJob = new Script.Job
             {
                 DisplayedMessage = $"Downloading and building the Boost version {Boost.Version} ...",
                 Run = (Script.JobParameters parameters) => DownloadAndBuildBoostB2(parameters)
-            }; jobs.Add(boostB2BuildJob);
+            }; jobs.Enqueue(boostB2BuildJob);
 
             Script.Job boostDebugBuildJob = new Script.Job
             {
-                DisplayedMessage = $"Building debug version of the Boost libraries with {process.StartInfo.Arguments} ...",
+                DisplayedMessage = $"Building debug version of the Boost libraries with {Boost.DebugBuildB2Options} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.FileName = "b2.exe";
                     process.StartInfo.Arguments = Boost.DebugBuildB2Options;
                     process.StartInfo.Arguments += " ";
                     switch (parameters.VisualStudioVersion)
@@ -203,13 +206,14 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(boostDebugBuildJob);
+            }; jobs.Enqueue(boostDebugBuildJob);
 
             Script.Job boostReleaseBuildJob = new Script.Job
             {
-                DisplayedMessage = $"Building release version of the Boost libraries with {process.StartInfo.Arguments} ...",
+                DisplayedMessage = $"Building release version of the Boost libraries with {Boost.ReleaseBuildB2Options} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.FileName = "b2.exe";
                     process.StartInfo.Arguments = Boost.ReleaseBuildB2Options;
                     process.StartInfo.Arguments += " ";
                     switch (parameters.VisualStudioVersion)
@@ -225,7 +229,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(boostReleaseBuildJob);
+            }; jobs.Enqueue(boostReleaseBuildJob);
 
 
             Script.Job imGuiBuildJob = new Script.Job
@@ -233,6 +237,8 @@ namespace Installer.Script
                 DisplayedMessage = $"Building the ImGui version {ImGui.Version} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.Arguments = String.Empty;
+                    process.StartInfo.FileName = parameters.BuildBatchFileName;
                     string imguiPath = System.IO.Path.Combine(thirdPartyFolderPath,
                                           $"imgui-{ImGui.Version}");
                     Directory.SetCurrentDirectory(imguiPath);
@@ -240,7 +246,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(imGuiBuildJob);
+            }; jobs.Enqueue(imGuiBuildJob);
 
 
             Script.Job glfwBuildJob = new Script.Job
@@ -248,6 +254,8 @@ namespace Installer.Script
                 DisplayedMessage = $"Building the GLFW version {Glfw.Version} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.Arguments = String.Empty;
+                    process.StartInfo.FileName = parameters.BuildBatchFileName;
                     string glfwPath = System.IO.Path.Combine(thirdPartyFolderPath,
                                           $"glfw-{Glfw.Version}");
                     Directory.SetCurrentDirectory(glfwPath);
@@ -255,7 +263,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(glfwBuildJob);
+            }; jobs.Enqueue(glfwBuildJob);
 
 
             Script.Job lz4BuildJob = new Script.Job
@@ -263,6 +271,8 @@ namespace Installer.Script
                 DisplayedMessage = $"Building the LZ4 version {Lz4.Version} ...",
                 Run = (Script.JobParameters parameters) =>
                 {
+                    process.StartInfo.Arguments = String.Empty;
+                    process.StartInfo.FileName = parameters.BuildBatchFileName;
                     string lz4Path = System.IO.Path.Combine(thirdPartyFolderPath,
                                              $"lz4-{Lz4.Version}");
                     Directory.SetCurrentDirectory(Path.Combine(lz4Path, "build\\cmake"));
@@ -270,7 +280,7 @@ namespace Installer.Script
                     process.Start();
                     process.WaitForExit();
                 }
-            }; jobs.Add(lz4BuildJob);
+            }; jobs.Enqueue(lz4BuildJob);
         }
 
         private void DownloadAndBuildBoostB2(JobParameters parameters)
@@ -302,13 +312,8 @@ namespace Installer.Script
                 CreateNoWindow = true
             };
             process.Start();
-            process.WaitForExit();
             EnqueueMessage(process.StandardOutput.ReadToEnd());
-
-            process.StartInfo.FileName = "b2.exe";
-            process.StartInfo.RedirectStandardOutput = false;
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.CreateNoWindow = false;
+            process.WaitForExit();
         }
     }
 }
