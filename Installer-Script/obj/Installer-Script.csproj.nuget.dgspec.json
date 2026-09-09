@@ -56,6 +56,7 @@
           "targetAlias": "net9.0",
           "dependencies": {
             "FrogmanEngine.Installer.ScriptInterface": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",
               "version": "[0.0.1, )"
             }

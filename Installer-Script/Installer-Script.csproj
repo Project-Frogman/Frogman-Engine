@@ -10,7 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="FrogmanEngine.Installer.ScriptInterface" Version="0.0.1" ExcludeAssets="runtime" />
+    <PackageReference Include="FrogmanEngine.Installer.ScriptInterface" />
   </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="FrogmanEngine.Installer.ScriptInterface" ExcludeAssets="runtime" Version="0.0.1" />
+	</ItemGroup>
 
 </Project>

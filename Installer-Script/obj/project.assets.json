@@ -8,14 +8,14 @@
           "lib/net9.0/Installer-Script-Interface.dll": {}
         },
         "runtime": {
-          "lib/net9.0/Installer-Script-Interface.dll": {}
+          "lib/net9.0/_._": {}
         }
       }
     }
   },
   "libraries": {
     "FrogmanEngine.Installer.ScriptInterface/0.0.1": {
-      "sha512": "uXQN8Ve0dtn+Se5Wuhy/rkJ/+mUbQIoMfe4EGGEshLWFMXqA4USJ28kpO2tQyJ8IeiDAvXiIoupGFqq8d1i44g==",
+      "sha512": "yGe0J6mQyg71ypS8tkQEZdUiXcYQ65O2hW5YAqRDyRp9e1d7VVuAgCDz6AwFPZexRO7LHlASNnaojF5VIUdlIw==",
       "type": "package",
       "path": "frogmanengine.installer.scriptinterface/0.0.1",
       "files": [
@@ -88,6 +88,7 @@
         "targetAlias": "net9.0",
         "dependencies": {
           "FrogmanEngine.Installer.ScriptInterface": {
+            "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "target": "Package",
             "version": "[0.0.1, )"
           }

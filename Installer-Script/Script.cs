@@ -57,6 +57,7 @@ namespace Installer.Script
 
     public class Main : Installer.ScriptMain
     {
+
         string thirdPartyFolderPath = String.Empty;
         public override IReadOnlyList<Script.Job> ScheduleJobs(Script.JobParameters parameters)
         {
