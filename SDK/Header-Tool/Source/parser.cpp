@@ -83,10 +83,8 @@ namespace FHT::parser
 				l_context_stack.pop_back();
 				break;
 
-			case Vocabulary::_EnumStruct:
-				l_context_stack.push_back(Context::_EnumStruct);
+			case Vocabulary::_EnumStructIdentifier:
 				l_root._enum_structs.emplace_back(build_enum_struct_node(u8"::", iterator, token_list_p.end()));
-				l_context_stack.pop_back();
 				break;
 
 
@@ -421,28 +419,12 @@ namespace FHT::parser
 
 	_FE_NODISCARD_ enum_struct_node build_enum_struct_node(const identifier& parent_namespace_p, typename std::pmr::list<token>::const_iterator& out_token_iterator_p, typename std::pmr::list<token>::const_iterator end_p)
 	{
-		FE_ASSERT(out_token_iterator_p->_vocabulary == Vocabulary::_EnumStruct);
+		FE_ASSERT(out_token_iterator_p->_vocabulary == Vocabulary::_EnumStructIdentifier, "Assertion Failed: Enum struct identifier is missing.");
 		enum_struct_node l_node =
 		{
 			._target_enum_struct_name{ out_token_iterator_p->_code, framework::get_framework().get_memory_resource() },
 			._enum_struct_fields{ framework::get_framework().get_memory_resource() }
 		};
-
-		{	// trim 'enum struct'
-			constexpr auto l_struct = u8"struct";
-			auto l_enum_end_pos = l_node._target_enum_struct_name.find(l_struct);
-			
-			THROW_CPP_SYNTAX_ERROR(l_enum_end_pos == std::string::npos, "Frogman Engine C++ Reflection Syntax Error: enum & enum class unsupported; please use enum struct instead.");
-
-			FE::uint64 l_enum_struct_len = l_enum_end_pos + FE::algorithm::string::length(l_struct);
-			l_node._target_enum_struct_name.erase(0, l_enum_struct_len);
-		}
-
-		auto l_attr_pos = l_node._target_enum_struct_name.rfind(u8']');
-		if (l_attr_pos != std::string::npos) // has attributes
-		{
-			l_node._target_enum_struct_name.erase(0, l_attr_pos + 1); // remove the attributes
-		}
 
 		{	// trim spaces at front
 			var::uint64 l_space_length = 0;
@@ -457,14 +439,6 @@ namespace FHT::parser
 			l_node._target_enum_struct_name.erase(0, l_space_length);
 		}
 
-		{	// trim enum struct extension
-			auto l_enum_struct_extension = l_node._target_enum_struct_name.find(':');
-			if (l_enum_struct_extension != std::string::npos)
-			{
-				l_node._target_enum_struct_name.erase(l_enum_struct_extension, l_node._target_enum_struct_name.length() - l_enum_struct_extension);
-			}
-		}
-		
 		while (l_node._target_enum_struct_name.length() > 0)
 		{
 			if (l_node._target_enum_struct_name.back() <= ' ')
@@ -475,6 +449,7 @@ namespace FHT::parser
 			break;
 		}
 		
+
 		l_node._target_enum_struct_name.insert(0, parent_namespace_p);
 
 
