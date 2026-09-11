@@ -3,7 +3,7 @@
 #include <FE/framework.hxx> 
 #include <memory>
 
-#include <C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Header-Tool\Include\error_code.hpp>
+#include <C:\Users\leeho\OneDrive\문서\GitHub\Frogman-Engine\SDK\Tests\FHT-Test\NamespaceTest.hpp>
 
 
 
@@ -11,17 +11,37 @@
 void load_reflection_data()
 {
 
-    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FrogmanEngineHeaderToolError >("::FrogmanEngineHeaderToolError",
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::Color >("::FE::Test::Color",
     {
-        { ::FrogmanEngineHeaderToolError::_EmptyHeaderFile, "_EmptyHeaderFile" },
-        { ::FrogmanEngineHeaderToolError::_FatalCmdInputError_NoProgramOptionsAreGiven, "_FatalCmdInputError_NoProgramOptionsAreGiven" },
-        { ::FrogmanEngineHeaderToolError::_FatalCmdInputError_NoFilesAreGiven, "_FatalCmdInputError_NoFilesAreGiven" },
-        { ::FrogmanEngineHeaderToolError::_FatalCmdInputError_InvalidPathToCMakeProject, "_FatalCmdInputError_InvalidPathToCMakeProject" },
-        { ::FrogmanEngineHeaderToolError::_FatalError_FailedToOpenFile, "_FatalError_FailedToOpenFile" },
-        { ::FrogmanEngineHeaderToolError::_InputError_NoCopyRightNoticeIsGiven, "_InputError_NoCopyRightNoticeIsGiven" },
-        { ::FrogmanEngineHeaderToolError::_Fatal_InputError_TargetFileNotEncodedWithUTF8_BOM, "_Fatal_InputError_TargetFileNotEncodedWithUTF8_BOM" },
-        { ::FrogmanEngineHeaderToolError::_InputError_IncorrectCppSyntax, "_InputError_IncorrectCppSyntax" },
-        { ::FrogmanEngineHeaderToolError::_InputError_ParsingFailure, "_InputError_ParsingFailure" },
-        { ::FrogmanEngineHeaderToolError::_InputError_TokenizationFailure, "_InputError_TokenizationFailure" }
+        { ::FE::Test::Color::Red, "Red" },
+        { ::FE::Test::Color::Green, "Green" },
+        { ::FE::Test::Color::Blue, "Blue" },
+        { ::FE::Test::Color::Yellow, "Yellow" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::ByteStatus >("::FE::Test::ByteStatus",
+    {
+        { ::FE::Test::ByteStatus::Idle, "Idle" },
+        { ::FE::Test::ByteStatus::Running, "Running" },
+        { ::FE::Test::ByteStatus::Paused, "Paused" },
+        { ::FE::Test::ByteStatus::Stopped, "Stopped" },
+        { ::FE::Test::ByteStatus::Error, "Error" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::LongCode >("::FE::Test::LongCode",
+    {
+        { ::FE::Test::LongCode::MinValue, "MinValue" },
+        { ::FE::Test::LongCode::Zero, "Zero" },
+        { ::FE::Test::LongCode::MaxValue, "MaxValue" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::SingleValue >("::FE::Test::SingleValue",
+    {
+        { ::FE::Test::SingleValue::Only, "Only" }
+    });
+
+    ::FE::framework::framework_base::get_framework().get_enum_reflection().register_enum_struct< ::FE::Test::EmptyEnum >("::FE::Test::EmptyEnum",
+    {
+        { ::FE::Test::EmptyEnum::_, "_" }
     });
 }

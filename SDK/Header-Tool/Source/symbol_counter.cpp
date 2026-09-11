@@ -122,7 +122,7 @@ namespace FHT::symbol_counter
 				break;
 			}
 			++begin_p;
-			FE_ASSERT(begin_p != end_p, "FHT C++ syntax error C1075: the curly braces in the current header file are not closed or properly organized.");
+			THROW_CPP_SYNTAX_ERROR(begin_p == end_p, "FHT C++ syntax error C1075: the curly braces in the current header file are not closed or properly organized.");
 		} 
 		while (l_scope_stack.size() > 0);
 

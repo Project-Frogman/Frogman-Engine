@@ -116,51 +116,44 @@ namespace FHT::parser
 		l_node._system_fptrs.reserve(l_total_nums._systems);
 
 
-		l_node._target_namespace_name = parent_namespace_p;
 		switch (out_token_iterator_p->_vocabulary)
 		{
 		case Vocabulary::_BeginNamespace:
+			while (out_token_iterator_p->_vocabulary != Vocabulary::_NamespaceIdentifier)
 			{
-				auto l_right_paren = out_token_iterator_p->_code.find(u8')');
-				if (l_right_paren != identifier::npos)
-				{
-					const auto l_left_paren = out_token_iterator_p->_code.find(u8'(');
-					FE_ASSERT(l_left_paren != identifier::npos);
-					for (auto idx = l_left_paren+1; idx < l_right_paren; ++idx)
-					{
-						l_node._target_namespace_name += out_token_iterator_p->_code[idx];
-					}
-					break;
-				}
-
 				++out_token_iterator_p;
-				while (out_token_iterator_p->_vocabulary != Vocabulary::_RightParen)
-				{
-					if (out_token_iterator_p->_vocabulary == Vocabulary::_LeftParen) _FE_UNLIKELY_
-					{
-						continue;
-					}
-
-					l_node._target_namespace_name += out_token_iterator_p->_code;
-					++out_token_iterator_p;
-				}
 			}
+
+			l_node._target_namespace_name = parent_namespace_p;
+
+			while (out_token_iterator_p->_vocabulary != Vocabulary::_RightParen)
+			{
+				l_node._target_namespace_name += out_token_iterator_p->_code;
+				++out_token_iterator_p;
+			}
+			l_node._target_namespace_name += u8"::";
 			break;
 
 
 		case Vocabulary::_Namespace:
-			++out_token_iterator_p;
+			while (out_token_iterator_p->_vocabulary != Vocabulary::_NamespaceIdentifier)
+			{
+				++out_token_iterator_p;
+			}
+
+			l_node._target_namespace_name = parent_namespace_p;
+
 			while (out_token_iterator_p->_vocabulary != Vocabulary::_LeftCurlyBracket)
 			{
 				l_node._target_namespace_name += out_token_iterator_p->_code;
 				++out_token_iterator_p;
 			}
+			l_node._target_namespace_name += u8"::";
 			break;
+
 
 		_FE_NODEFAULT_;
 		}
-		l_node._target_namespace_name += u8"::";
-		++out_token_iterator_p;
 
 
 		while (out_token_iterator_p != end_p)
@@ -171,6 +164,7 @@ namespace FHT::parser
 				_FE_FALLTHROUGH_;
 			case Vocabulary::_EndNamespace:
 				return l_node;
+
 
 			case Vocabulary::_FrogmanEngineSystemMacro:
 				if (context_stack_p.back() == Context::_Class || context_stack_p.back() == Context::_Struct)
@@ -199,10 +193,8 @@ namespace FHT::parser
 				context_stack_p.pop_back();
 				break;
 
-			case Vocabulary::_EnumStruct:
-				context_stack_p.push_back(Context::_EnumStruct);
+			case Vocabulary::_EnumStructIdentifier:
 				l_node._enum_structs.emplace_back(build_enum_struct_node(l_node._target_namespace_name, out_token_iterator_p, end_p));
-				context_stack_p.pop_back();
 				break;
 
 

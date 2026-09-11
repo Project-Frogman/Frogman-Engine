@@ -167,8 +167,13 @@ limitations under the License.
 // ============================================================================
 // SECTION 2: Single-Level Namespace
 // ============================================================================
-
-BEGIN_NAMESPACE(FE::Test)
+/* try filter me *///try filter me
+BEGIN_NAMESPACE/* try filter me */
+(/* try filter me *///try filter me
+	/* try filter me */
+	/* try filter me */FE/* try filter me */::/* try filter me */Test/* try filter me *//// Nerf This! Lol!
+/* try filter me */
+)/* try filter me *///try filter me
 
 // Enum struct - simple
 /* try filter me */enum /* try filter me */ struct /* try filter me */ Color /* try filter me */ // try filter me
@@ -209,26 +214,26 @@ BEGIN_NAMESPACE(FE::Test)
 /* try filter me */class/* try filter me */ForwardDeclaredClass;/* try filter me */ //try filter me
 
 // Struct - simple POD
-/* try filter me */struct /* try filter me */ Point2D {/* try filter me */ // Try filter me
-	/* try filter me */ float _x; /* try filter me */
-	float _y;
-/* try filter me */};
-
-// Struct - multiple fields on same line
-/* try filter me */struct/* try filter me */Rectangle/* try filter me */{/* try filter me */// Try filter me
-	/* try filter me */float _x, _y, _width, _height;// Try filter me
-/* try filter me */};
+///* try filter me */struct /* try filter me */ Point2D {/* try filter me */ // Try filter me
+//	/* try filter me */ float _x; /* try filter me */
+//	float _y;
+///* try filter me */};
+//
+//// Struct - multiple fields on same line
+///* try filter me */struct/* try filter me */Rectangle/* try filter me */{/* try filter me */// Try filter me
+//	/* try filter me */float _x, _y, _width, _height;// Try filter me
+///* try filter me */};
 
 // Struct - with constructor
-/* try filter me */struct /* try filter me */Point3D/* try filter me */ // try filter me
-/* try filter me */ { /* try filter me */ ///* try filter me */
-	float _x;
-	float _y;
-	float _z;
-
-	Point3D();
-	Point3D(float x_p, float y_p, float z_p);
-/* try filter me */};
+///* try filter me */struct /* try filter me */Point3D/* try filter me */ // try filter me
+///* try filter me */ { /* try filter me */ ///* try filter me */
+//	float _x;
+//	float _y;
+//	float _z;
+//
+//	Point3D();
+//	Point3D(float x_p, float y_p, float z_p);
+///* try filter me */};
 //
 //// Struct - with various method types
 //struct Vector3D
@@ -355,344 +360,344 @@ BEGIN_NAMESPACE(FE::Test)
 //};
 
 // Class - simple with private members only
-/* try filter me */class /* try filter me */ SimpleClass /* try filter me */ // /* try filter me */
-	/* try filter me */ { /* try filter me */
-private:
-	int _value;
-	float _data;
-/* try filter me */};/* try filter me */
+///* try filter me */class /* try filter me */ SimpleClass /* try filter me */ // /* try filter me */
+//	/* try filter me */ { /* try filter me */
+//private:
+//	int _value;
+//	float _data;
+///* try filter me */};/* try filter me */
 
 // Class - with public section
-class PublicClass
-{
-public:
-	PublicClass();
-	~PublicClass();
-
-	void public_method();
-	int get_value() const;
-
-private:
-	int _private_value;
-};
-
-// Class - with all access specifiers
-class FullAccessClass
-{
-public:
-	FullAccessClass();
-	~FullAccessClass();
-
-	void public_method();
-	int public_field;
-
-protected:
-	void protected_method();
-	int _protected_field;
-
-private:
-	void private_method();
-	int _private_field;
-};
-
-// Class - with virtual methods
-class BaseClass
-{
-public:
-	BaseClass();
-	virtual ~BaseClass();
-
-	virtual void virtual_method();
-	virtual void pure_virtual_method() = 0;
-	virtual int virtual_method_with_return() const;
-
-protected:
-	virtual void protected_virtual_method();
-
-private:
-	int _base_value;
-};
-
-// Class - derived with override
-class DerivedClass : public BaseClass
-{
-public:
-	DerivedClass();
-	virtual ~DerivedClass() override;
-
-	void virtual_method() override;
-	void pure_virtual_method() override;
-	int virtual_method_with_return() const override;
-
-protected:
-	void protected_virtual_method() override;
-
-private:
-	int _derived_value;
-};
-
-// Class - final class
-class FinalClass final : public BaseClass
-{
-public:
-	FinalClass();
-	~FinalClass() override;
-
-	void pure_virtual_method() override final;
-
-private:
-	int _final_value;
-};
-
-// Class - with deleted methods
-class NonCopyableClass
-{
-public:
-	NonCopyableClass();
-	~NonCopyableClass();
-
-	NonCopyableClass(const NonCopyableClass&) = delete;
-	NonCopyableClass& operator=(const NonCopyableClass&) = delete;
-	NonCopyableClass(NonCopyableClass&&) = delete;
-	NonCopyableClass& operator=(NonCopyableClass&&) = delete;
-
-private:
-	int _value;
-};
-
-// Class - with friend declarations
-class FriendClass; // 
-
-class ClassWithFriend
-{
-public:
-	ClassWithFriend();
-
-private:
-	int _private_data;
-
-	friend class FriendClass;
-	friend void global_friend_function(const ClassWithFriend& obj_p);
-};
-
-// Class - with static methods and members
-class StaticClass
-{
-public:
-	static void static_method();
-	static int static_method_with_return();
-	static const StaticClass& get_instance();
-
-	static int s_public_static;
-	static constexpr float s_pi = 3.14159f;
-
-private:
-	StaticClass();
-	~StaticClass();
-
-	static int s_private_static;
-	static void private_static_method();
-};
-
-// Class - with thread_local members
-class ThreadLocalClass
-{
-public:
-	ThreadLocalClass();
-
-	static thread_local int tl_value;
-	static thread_local bool tl_flag;
-
-private:
-	thread_local int _instance_tl_value;
-};
-
-// Class - with constexpr, consteval, constinit
-class ConstClass
-{
-public:
-	static constexpr int s_constexpr_value = 100;
-	static constinit int s_constinit_value;
-
-	constexpr int constexpr_method() const { return 42; }
-	consteval static int consteval_method() { return 84; }
-
-private:
-	int _value;
-};
-
-// Class - with noexcept methods
-class NoexceptClass
-{
-public:
-	NoexceptClass() noexcept;
-	~NoexceptClass() noexcept;
-
-	void noexcept_method() noexcept;
-	int noexcept_method_with_return() const noexcept;
-	void conditional_noexcept() noexcept(true);
-
-private:
-	int _value;
-};
-
-// Class - with multiple inheritance
-class MultipleBaseA
-{
-public:
-	virtual ~MultipleBaseA();
-	virtual void method_a() = 0;
-
-protected:
-	int _a_value;
-};
-
-class MultipleBaseB
-{
-public:
-	virtual ~MultipleBaseB();
-	virtual void method_b() = 0;
-
-protected:
-	int _b_value;
-};
-
-class MultipleInheritance : public MultipleBaseA, public MultipleBaseB
-{
-public:
-	MultipleInheritance();
-	~MultipleInheritance() override;
-
-	void method_a() override;
-	void method_b() override;
-
-private:
-	int _derived_value;
-};
-
-// Class - with virtual inheritance
-class VirtualBase
-{
-public:
-	virtual ~VirtualBase();
-
-protected:
-	int _base_value;
-};
-
-class VirtualDerivedA : virtual public VirtualBase
-{
-public:
-	~VirtualDerivedA() override;
-
-protected:
-	int _a_value;
-};
-
-class VirtualDerivedB : virtual public VirtualBase
-{
-public:
-	~VirtualDerivedB() override;
-
-protected:
-	int _b_value;
-};
-
-class DiamondInheritance : public VirtualDerivedA, public VirtualDerivedB
-{
-public:
-	DiamondInheritance();
-	~DiamondInheritance() override;
-
-private:
-	int _diamond_value;
-};
-
-// Class - abstract interface
-class IInterface
-{
-public:
-	virtual ~IInterface() = default;
-
-	virtual void initialize() = 0;
-	virtual void update(float delta_p) = 0;
-	virtual void render() = 0;
-	virtual void shutdown() = 0;
-
-	virtual const char* get_name() const = 0;
-	virtual uint32_t get_id() const = 0;
-};
-
-// Class - implementing interface
-class ConcreteImplementation : public IInterface
-{
-public:
-	ConcreteImplementation();
-	~ConcreteImplementation() override;
-
-	void initialize() override;
-	void update(float delta_p) override;
-	void render() override;
-	void shutdown() override;
-
-	const char* get_name() const override;
-	uint32_t get_id() const override;
-
-private:
-	uint32_t _id;
-	bool _is_initialized;
-};
-
-// Class - with operator overloading
-class OperatorClass
-{
-public:
-	OperatorClass();
-	OperatorClass(int value_p);
-
-	OperatorClass operator+(const OperatorClass& other_p) const;
-	OperatorClass operator-(const OperatorClass& other_p) const;
-	OperatorClass operator*(const OperatorClass& other_p) const;
-	OperatorClass operator/(const OperatorClass& other_p) const;
-
-	OperatorClass& operator+=(const OperatorClass& other_p);
-	OperatorClass& operator-=(const OperatorClass& other_p);
-
-	bool operator==(const OperatorClass& other_p) const;
-	bool operator!=(const OperatorClass& other_p) const;
-	bool operator<(const OperatorClass& other_p) const;
-	bool operator>(const OperatorClass& other_p) const;
-	bool operator<=(const OperatorClass& other_p) const;
-	bool operator>=(const OperatorClass& other_p) const;
-
-	OperatorClass& operator++();
-	OperatorClass operator++(int);
-	OperatorClass& operator--();
-	OperatorClass operator--(int);
-
-	int& operator[](size_t index_p);
-	const int& operator[](size_t index_p) const;
-
-	explicit operator bool() const;
-	explicit operator int() const;
-
-private:
-	int _value;
-	int _data[10];
-};
-
-// Class - with calling conventions (Windows-specific)
-class CallingConventionClass
-{
-public:
-	void __cdecl cdecl_method();
-	void __stdcall stdcall_method();
-	void __fastcall fastcall_method();
-	void __vectorcall vectorcall_method();
-
-private:
-	int _value;
-};
+//class PublicClass
+//{
+//public:
+//	PublicClass();
+//	~PublicClass();
+//
+//	void public_method();
+//	int get_value() const;
+//
+//private:
+//	int _private_value;
+//};
+//
+//// Class - with all access specifiers
+//class FullAccessClass
+//{
+//public:
+//	FullAccessClass();
+//	~FullAccessClass();
+//
+//	void public_method();
+//	int public_field;
+//
+//protected:
+//	void protected_method();
+//	int _protected_field;
+//
+//private:
+//	void private_method();
+//	int _private_field;
+//};
+//
+//// Class - with virtual methods
+//class BaseClass
+//{
+//public:
+//	BaseClass();
+//	virtual ~BaseClass();
+//
+//	virtual void virtual_method();
+//	virtual void pure_virtual_method() = 0;
+//	virtual int virtual_method_with_return() const;
+//
+//protected:
+//	virtual void protected_virtual_method();
+//
+//private:
+//	int _base_value;
+//};
+//
+//// Class - derived with override
+//class DerivedClass : public BaseClass
+//{
+//public:
+//	DerivedClass();
+//	virtual ~DerivedClass() override;
+//
+//	void virtual_method() override;
+//	void pure_virtual_method() override;
+//	int virtual_method_with_return() const override;
+//
+//protected:
+//	void protected_virtual_method() override;
+//
+//private:
+//	int _derived_value;
+//};
+//
+//// Class - final class
+//class FinalClass final : public BaseClass
+//{
+//public:
+//	FinalClass();
+//	~FinalClass() override;
+//
+//	void pure_virtual_method() override final;
+//
+//private:
+//	int _final_value;
+//};
+//
+//// Class - with deleted methods
+//class NonCopyableClass
+//{
+//public:
+//	NonCopyableClass();
+//	~NonCopyableClass();
+//
+//	NonCopyableClass(const NonCopyableClass&) = delete;
+//	NonCopyableClass& operator=(const NonCopyableClass&) = delete;
+//	NonCopyableClass(NonCopyableClass&&) = delete;
+//	NonCopyableClass& operator=(NonCopyableClass&&) = delete;
+//
+//private:
+//	int _value;
+//};
+//
+//// Class - with friend declarations
+//class FriendClass; // 
+//
+//class ClassWithFriend
+//{
+//public:
+//	ClassWithFriend();
+//
+//private:
+//	int _private_data;
+//
+//	friend class FriendClass;
+//	friend void global_friend_function(const ClassWithFriend& obj_p);
+//};
+//
+//// Class - with static methods and members
+//class StaticClass
+//{
+//public:
+//	static void static_method();
+//	static int static_method_with_return();
+//	static const StaticClass& get_instance();
+//
+//	static int s_public_static;
+//	static constexpr float s_pi = 3.14159f;
+//
+//private:
+//	StaticClass();
+//	~StaticClass();
+//
+//	static int s_private_static;
+//	static void private_static_method();
+//};
+//
+//// Class - with thread_local members
+//class ThreadLocalClass
+//{
+//public:
+//	ThreadLocalClass();
+//
+//	static thread_local int tl_value;
+//	static thread_local bool tl_flag;
+//
+//private:
+//	thread_local int _instance_tl_value;
+//};
+//
+//// Class - with constexpr, consteval, constinit
+//class ConstClass
+//{
+//public:
+//	static constexpr int s_constexpr_value = 100;
+//	static constinit int s_constinit_value;
+//
+//	constexpr int constexpr_method() const { return 42; }
+//	consteval static int consteval_method() { return 84; }
+//
+//private:
+//	int _value;
+//};
+//
+//// Class - with noexcept methods
+//class NoexceptClass
+//{
+//public:
+//	NoexceptClass() noexcept;
+//	~NoexceptClass() noexcept;
+//
+//	void noexcept_method() noexcept;
+//	int noexcept_method_with_return() const noexcept;
+//	void conditional_noexcept() noexcept(true);
+//
+//private:
+//	int _value;
+//};
+//
+//// Class - with multiple inheritance
+//class MultipleBaseA
+//{
+//public:
+//	virtual ~MultipleBaseA();
+//	virtual void method_a() = 0;
+//
+//protected:
+//	int _a_value;
+//};
+//
+//class MultipleBaseB
+//{
+//public:
+//	virtual ~MultipleBaseB();
+//	virtual void method_b() = 0;
+//
+//protected:
+//	int _b_value;
+//};
+//
+//class MultipleInheritance : public MultipleBaseA, public MultipleBaseB
+//{
+//public:
+//	MultipleInheritance();
+//	~MultipleInheritance() override;
+//
+//	void method_a() override;
+//	void method_b() override;
+//
+//private:
+//	int _derived_value;
+//};
+//
+//// Class - with virtual inheritance
+//class VirtualBase
+//{
+//public:
+//	virtual ~VirtualBase();
+//
+//protected:
+//	int _base_value;
+//};
+//
+//class VirtualDerivedA : virtual public VirtualBase
+//{
+//public:
+//	~VirtualDerivedA() override;
+//
+//protected:
+//	int _a_value;
+//};
+//
+//class VirtualDerivedB : virtual public VirtualBase
+//{
+//public:
+//	~VirtualDerivedB() override;
+//
+//protected:
+//	int _b_value;
+//};
+//
+//class DiamondInheritance : public VirtualDerivedA, public VirtualDerivedB
+//{
+//public:
+//	DiamondInheritance();
+//	~DiamondInheritance() override;
+//
+//private:
+//	int _diamond_value;
+//};
+//
+//// Class - abstract interface
+//class IInterface
+//{
+//public:
+//	virtual ~IInterface() = default;
+//
+//	virtual void initialize() = 0;
+//	virtual void update(float delta_p) = 0;
+//	virtual void render() = 0;
+//	virtual void shutdown() = 0;
+//
+//	virtual const char* get_name() const = 0;
+//	virtual uint32_t get_id() const = 0;
+//};
+//
+//// Class - implementing interface
+//class ConcreteImplementation : public IInterface
+//{
+//public:
+//	ConcreteImplementation();
+//	~ConcreteImplementation() override;
+//
+//	void initialize() override;
+//	void update(float delta_p) override;
+//	void render() override;
+//	void shutdown() override;
+//
+//	const char* get_name() const override;
+//	uint32_t get_id() const override;
+//
+//private:
+//	uint32_t _id;
+//	bool _is_initialized;
+//};
+//
+//// Class - with operator overloading
+//class OperatorClass
+//{
+//public:
+//	OperatorClass();
+//	OperatorClass(int value_p);
+//
+//	OperatorClass operator+(const OperatorClass& other_p) const;
+//	OperatorClass operator-(const OperatorClass& other_p) const;
+//	OperatorClass operator*(const OperatorClass& other_p) const;
+//	OperatorClass operator/(const OperatorClass& other_p) const;
+//
+//	OperatorClass& operator+=(const OperatorClass& other_p);
+//	OperatorClass& operator-=(const OperatorClass& other_p);
+//
+//	bool operator==(const OperatorClass& other_p) const;
+//	bool operator!=(const OperatorClass& other_p) const;
+//	bool operator<(const OperatorClass& other_p) const;
+//	bool operator>(const OperatorClass& other_p) const;
+//	bool operator<=(const OperatorClass& other_p) const;
+//	bool operator>=(const OperatorClass& other_p) const;
+//
+//	OperatorClass& operator++();
+//	OperatorClass operator++(int);
+//	OperatorClass& operator--();
+//	OperatorClass operator--(int);
+//
+//	int& operator[](size_t index_p);
+//	const int& operator[](size_t index_p) const;
+//
+//	explicit operator bool() const;
+//	explicit operator int() const;
+//
+//private:
+//	int _value;
+//	int _data[10];
+//};
+//
+//// Class - with calling conventions (Windows-specific)
+//class CallingConventionClass
+//{
+//public:
+//	void __cdecl cdecl_method();
+//	void __stdcall stdcall_method();
+//	void __fastcall fastcall_method();
+//	void __vectorcall vectorcall_method();
+//
+//private:
+//	int _value;
+//};
 
 END_NAMESPACE
 
@@ -703,56 +708,56 @@ END_NAMESPACE
 
 BEGIN_NAMESPACE(FE::Test::Nested)
 
-enum
-	struct
-	NestedColor
-{
-	Cyan,
-	Magenta,
-	Yellow,
-	Black
-};
-
-struct
-	NestedPoint
-{
-	int _x;
-	int _y;
-};
-
-class
-	NestedClass
-{
-public:
-	NestedClass();
-	~NestedClass();
-
-	void method();
-
-private:
-	int _value;
-};
+//enum
+//	struct
+//	NestedColor
+//{
+//	Cyan,
+//	Magenta,
+//	Yellow,
+//	Black
+//};
+//
+//struct
+//	NestedPoint
+//{
+//	int _x;
+//	int _y;
+//};
+//
+//class
+//	NestedClass
+//{
+//public:
+//	NestedClass();
+//	~NestedClass();
+//
+//	void method();
+//
+//private:
+//	int _value;
+//};
 
 END_NAMESPACE
 
 BEGIN_NAMESPACE(FE::Test::Nested::Deep)
 
-enum struct DeepEnum
-{
-	Value1,
-	Value2
-};
-
-struct DeepStruct
-{
-	float _data;
-};
-
-class DeepClass
-{
-public:
-	void deep_method();
-};
+//enum struct DeepEnum
+//{
+//	Value1,
+//	Value2
+//};
+//
+//struct DeepStruct
+//{
+//	float _data;
+//};
+//
+//class DeepClass
+//{
+//public:
+//	void deep_method();
+//};
 
 END_NAMESPACE
 
@@ -764,190 +769,190 @@ END_NAMESPACE
 BEGIN_NAMESPACE(FE::Test::EdgeCases)
 
 
-template <typename T>
-class BraceInjectionAttackClass
-{
-	char _bowoh = '}';
-	const char* _waer = "asdadsa}d";
-};
-
-template <typename T>
-struct BraceInjectionAttackStruct
-{
-	char _bowoh = '}';
-	const char* _waer = "asdadsa}d";
-};
-
-
-// Struct with nested structs
-struct OuterStruct
-{
-	struct InnerStruct
-	{
-		int _inner_value;
-	};
-
-	InnerStruct _nested;
-	int _outer_value;
-};
-
-// Class with nested classes
-class OuterClass
-{
-public:
-	class InnerClass
-	{
-	public:
-		InnerClass();
-		void inner_method();
-
-	private:
-		int _inner_value;
-	};
-
-	OuterClass();
-	void outer_method();
-
-private:
-	InnerClass _nested;
-	int _outer_value;
-};
-
-// Enum struct with large values
-enum struct LargeEnum : uint64_t
-{
-	Zero = 0,
-	Small = 100,
-	Medium = 1000000,
-	Large = 1000000000,
-	VeryLarge = 18446744073709551615ULL
-};
-
-enum struct Fake : char { // K&R
-	NerfThis = '}'
-};
-
-// Struct with array members
-struct ArrayStruct
-{
-	int _single_array[10];
-	int _multi_array[5][5];
-	float _three_d_array[3][3][3];
-	const int _const_array[20];
-};
-
-// Class with complex pointer types
-class ComplexPointers
-{
-public:
-	void process(int* ptr_p);
-	void process(int** ptr_ptr_p);
-	void process(int*** ptr_ptr_ptr_p);
-	void process(const int* const* const ptr_p);
-	void process(volatile int* volatile ptr_p);
-
-	int* get_pointer();
-	const int* get_const_pointer() const;
-	int* const get_const_pointer_to_int();
-
-private:
-	int* _ptr;
-	int** _ptr_ptr;
-	const int* _const_ptr;
-	int* const _const_ptr_to_int;
-	const int* const _const_ptr_to_const_int;
-};
-
-// Struct with function pointers
-struct FunctionPointers
-{
-	void (*_func_ptr)();
-	int (*_func_ptr_with_args)(int, float);
-	void (*_func_ptr_array[10])(int);
-
-	using FuncPtrType = void (*)(int, int);
-	FuncPtrType _typed_func_ptr;
-};
-
-// Class with mix of everything
-class KitchenSink final : public BaseClass, public IInterface
-{
-public:
-	KitchenSink();
-	KitchenSink(int value_p);
-	KitchenSink(const KitchenSink& other_p) = delete;
-	KitchenSink(KitchenSink&& other_p) noexcept;
-	virtual ~KitchenSink() override;
-
-	KitchenSink& operator=(const KitchenSink& other_p) = delete;
-	KitchenSink& operator=(KitchenSink&& other_p) noexcept;
-
-	// From BaseClass
-	void pure_virtual_method() override final;
-
-	// From IInterface
-	void initialize() override;
-	void update(float delta_p) override;
-	void render() override;
-	void shutdown() override;
-	const char* get_name() const override;
-	uint32_t get_id() const override;
-
-	// Own methods
-	void normal_method();
-	void const_method() const;
-	void noexcept_method() noexcept;
-	void const_noexcept_method() const noexcept;
-	virtual void virtual_method();
-	virtual void virtual_const_method() const;
-
-	static void static_method();
-	static int static_method_with_return();
-	static constexpr int static_constexpr_method() { return 42; }
-
-	inline void inline_method() { ++_value; }
-	constexpr int constexpr_method() const { return _value * 2; }
-
-	// Operator overloading
-	KitchenSink operator+(const KitchenSink& other_p) const;
-	bool operator==(const KitchenSink& other_p) const;
-
-	// Pointer and reference methods
-	void process(int& ref_p);
-	void process(const int& const_ref_p) const;
-	void process(int* ptr_p);
-	void process(const int* const_ptr_p);
-	int& get_ref();
-	const int& get_const_ref() const;
-
-protected:
-	virtual void protected_virtual();
-
-	int _protected_value;
-	mutable int _mutable_value;
-
-private:
-	void private_method();
-
-	int _value;
-	float _data;
-	const uint32_t _const_id;
-	static int s_static_value;
-	static thread_local int tl_thread_value;
-	volatile bool _volatile_flag;
-	mutable int _mutable_cache;
-
-	int* _ptr;
-	const int* _const_ptr;
-	int& _ref;
-
-	friend class FriendClass;
-	friend void kitchen_sink_friend(const KitchenSink& obj_p);
-
-public:
-	static constexpr int PUBLIC_CONSTANT = 100;
-	static constinit int s_constinit;
-};
+//template <typename T>
+//class BraceInjectionAttackClass
+//{
+//	char _bowoh = '}';
+//	const char* _waer = "asdadsa}d";
+//};
+//
+//template <typename T>
+//struct BraceInjectionAttackStruct
+//{
+//	char _bowoh = '}';
+//	const char* _waer = "asdadsa}d";
+//};
+//
+//
+//// Struct with nested structs
+//struct OuterStruct
+//{
+//	struct InnerStruct
+//	{
+//		int _inner_value;
+//	};
+//
+//	InnerStruct _nested;
+//	int _outer_value;
+//};
+//
+//// Class with nested classes
+//class OuterClass
+//{
+//public:
+//	class InnerClass
+//	{
+//	public:
+//		InnerClass();
+//		void inner_method();
+//
+//	private:
+//		int _inner_value;
+//	};
+//
+//	OuterClass();
+//	void outer_method();
+//
+//private:
+//	InnerClass _nested;
+//	int _outer_value;
+//};
+//
+//// Enum struct with large values
+//enum struct LargeEnum : uint64_t
+//{
+//	Zero = 0,
+//	Small = 100,
+//	Medium = 1000000,
+//	Large = 1000000000,
+//	VeryLarge = 18446744073709551615ULL
+//};
+//
+//enum struct Fake : char { // K&R
+//	NerfThis = '}'
+//};
+//
+//// Struct with array members
+//struct ArrayStruct
+//{
+//	int _single_array[10];
+//	int _multi_array[5][5];
+//	float _three_d_array[3][3][3];
+//	const int _const_array[20];
+//};
+//
+//// Class with complex pointer types
+//class ComplexPointers
+//{
+//public:
+//	void process(int* ptr_p);
+//	void process(int** ptr_ptr_p);
+//	void process(int*** ptr_ptr_ptr_p);
+//	void process(const int* const* const ptr_p);
+//	void process(volatile int* volatile ptr_p);
+//
+//	int* get_pointer();
+//	const int* get_const_pointer() const;
+//	int* const get_const_pointer_to_int();
+//
+//private:
+//	int* _ptr;
+//	int** _ptr_ptr;
+//	const int* _const_ptr;
+//	int* const _const_ptr_to_int;
+//	const int* const _const_ptr_to_const_int;
+//};
+//
+//// Struct with function pointers
+//struct FunctionPointers
+//{
+//	void (*_func_ptr)();
+//	int (*_func_ptr_with_args)(int, float);
+//	void (*_func_ptr_array[10])(int);
+//
+//	using FuncPtrType = void (*)(int, int);
+//	FuncPtrType _typed_func_ptr;
+//};
+//
+//// Class with mix of everything
+//class KitchenSink final : public BaseClass, public IInterface
+//{
+//public:
+//	KitchenSink();
+//	KitchenSink(int value_p);
+//	KitchenSink(const KitchenSink& other_p) = delete;
+//	KitchenSink(KitchenSink&& other_p) noexcept;
+//	virtual ~KitchenSink() override;
+//
+//	KitchenSink& operator=(const KitchenSink& other_p) = delete;
+//	KitchenSink& operator=(KitchenSink&& other_p) noexcept;
+//
+//	// From BaseClass
+//	void pure_virtual_method() override final;
+//
+//	// From IInterface
+//	void initialize() override;
+//	void update(float delta_p) override;
+//	void render() override;
+//	void shutdown() override;
+//	const char* get_name() const override;
+//	uint32_t get_id() const override;
+//
+//	// Own methods
+//	void normal_method();
+//	void const_method() const;
+//	void noexcept_method() noexcept;
+//	void const_noexcept_method() const noexcept;
+//	virtual void virtual_method();
+//	virtual void virtual_const_method() const;
+//
+//	static void static_method();
+//	static int static_method_with_return();
+//	static constexpr int static_constexpr_method() { return 42; }
+//
+//	inline void inline_method() { ++_value; }
+//	constexpr int constexpr_method() const { return _value * 2; }
+//
+//	// Operator overloading
+//	KitchenSink operator+(const KitchenSink& other_p) const;
+//	bool operator==(const KitchenSink& other_p) const;
+//
+//	// Pointer and reference methods
+//	void process(int& ref_p);
+//	void process(const int& const_ref_p) const;
+//	void process(int* ptr_p);
+//	void process(const int* const_ptr_p);
+//	int& get_ref();
+//	const int& get_const_ref() const;
+//
+//protected:
+//	virtual void protected_virtual();
+//
+//	int _protected_value;
+//	mutable int _mutable_value;
+//
+//private:
+//	void private_method();
+//
+//	int _value;
+//	float _data;
+//	const uint32_t _const_id;
+//	static int s_static_value;
+//	static thread_local int tl_thread_value;
+//	volatile bool _volatile_flag;
+//	mutable int _mutable_cache;
+//
+//	int* _ptr;
+//	const int* _const_ptr;
+//	int& _ref;
+//
+//	friend class FriendClass;
+//	friend void kitchen_sink_friend(const KitchenSink& obj_p);
+//
+//public:
+//	static constexpr int PUBLIC_CONSTANT = 100;
+//	static constinit int s_constinit;
+//};
 
 END_NAMESPACE
 

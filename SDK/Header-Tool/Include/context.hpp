@@ -36,6 +36,7 @@ namespace FHT
 		_Template,
 		_TemplateArgs,
 
+		_BeginNamespace,
 		_Namespace,
 
 		_Class,

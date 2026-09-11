@@ -919,6 +919,10 @@ namespace FHT::tokenizer
 			case FHT::Context::_Struct:
 				return;
 
+			case FHT::Context::_Namespace:
+				context_stack_p.pop_back();
+				break;
+
 			default:
 				break;
 			}
@@ -932,6 +936,14 @@ namespace FHT::tokenizer
 			case FHT::Context::_Class:
 				_FE_FALLTHROUGH_;
 			case FHT::Context::_Struct:
+				context_stack_p.pop_back();
+				break;
+
+			case FHT::Context::_EnumStructBody:
+				while (context_stack_p.back() != FHT::Context::_EnumStruct)
+				{
+					context_stack_p.pop_back();
+				}
 				context_stack_p.pop_back();
 				break;
 
@@ -949,6 +961,10 @@ namespace FHT::tokenizer
 			break;
 
 		case ')':
+			if (context_stack_p.back() == FHT::Context::_BeginNamespace)
+			{
+				context_stack_p.pop_back();
+			}
 			out_token_p._vocabulary = Vocabulary::_RightParen;
 			out_token_p._code = *code_iterator_p;
 			break;
@@ -981,6 +997,10 @@ namespace FHT::tokenizer
 			break;
 
 		case '=':
+			if (context_stack_p.back() == FHT::Context::_EnumStructBody)
+			{
+				context_stack_p.push_back(FHT::Context::_EnumStructFieldValue);
+			}
 			out_token_p._vocabulary = Vocabulary::_AssignmentOperator;
 			out_token_p._code = *code_iterator_p;
 			break;
@@ -1514,6 +1534,7 @@ namespace FHT::tokenizer
 					return;
 				}
 
+
 				if (context_stack_p.back() == FHT::Context::_EnumStructFieldValue)
 				{
 					while (*code_iterator_p != '\n')
@@ -1566,10 +1587,19 @@ namespace FHT::tokenizer
 					return;
 				}
 
-				if (!(*code_iterator_p <= ' '))
+				if (is_a_valid_letter_for_identifiers(*code_iterator_p) == false)
 				{
-					out_token_p._code += *code_iterator_p;
+					if (*code_iterator_p == '=')
+					{
+						context_stack_p.emplace_back(FHT::Context::_EnumStructFieldValue);
+						out_token_p._vocabulary = Vocabulary::_EnumStructField;
+						return;
+					}
+
+					out_token_p._vocabulary = Vocabulary::_EnumStructField;
+					return;
 				}
+				out_token_p._code += *code_iterator_p;
 				++code_iterator_p;
 			}
 			out_token_p._vocabulary = Vocabulary::_EnumStructField;
@@ -1632,129 +1662,106 @@ namespace FHT::tokenizer
 
 	void tokenize_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p)
 	{
-		auto l_potential_namespace = FE::algorithm::string::find_the_first<FE::UTF8>(code_iterator_p, u8'\n');
-		out_token_p._code.assign(code_iterator_p, l_potential_namespace->_begin);
-
-
-		constexpr FE::UTF8* l_end_namespace_keyword = u8"END_NAMESPACE";
-		if (out_token_p._code.find(l_end_namespace_keyword) != std::string::npos) // found
+		switch (context_stack_p.back())
 		{
-			out_token_p._vocabulary = Vocabulary::_EndNamespace;
-			return;
-		}
-
-
-		constexpr FE::UTF8* l_begin_namespace_keyword = u8"BEGIN_NAMESPACE";
-		if (out_token_p._code.find(l_begin_namespace_keyword) != std::string::npos) // found
-		{
-			if (out_token_p._code.find('(') == std::string::npos) 
+		case FHT::Context::_BeginNamespace:
 			{
-				/* 
-				'BEGIN_NAMESPACE 
-				(' if true.
-
-				*/
-				// copy until ')'
-				while (*code_iterator_p != ')')
+				while (*code_iterator_p <= ' ')
 				{
-					THROW_CPP_SYNTAX_ERROR(*code_iterator_p == '\0', "C++ Code Syntax Error C1057: unrecognizable BEGIN_NAMESPACE macro usage.");
-
-					out_token_p._code += *code_iterator_p;
 					++code_iterator_p;
 				}
-				out_token_p._code += *code_iterator_p;
-				out_token_p._vocabulary = Vocabulary::_BeginNamespace;
+
+				var::uint64 l_identifier_end_pos = 0;
+				for (auto it = code_iterator_p; (*it != ')'); ++it)
+				{
+					if ((is_a_valid_letter_for_identifiers(*it) == false))
+					{
+						break;
+					}
+					++l_identifier_end_pos;
+				}
+				out_token_p._code.assign(code_iterator_p, l_identifier_end_pos);
+				out_token_p._vocabulary = Vocabulary::_NamespaceIdentifier;
 				return;
 			}
+			break;
 
-
-			if (out_token_p._code.find(')') == std::string::npos)
+		case FHT::Context::_Namespace:
 			{
-				/* 
-				'BEGIN_NAMESPACE(
-				)' if true.
-
-				*/
-				// copy until ')'
-				while (*code_iterator_p != ')')
+				while (*code_iterator_p <= ' ')
 				{
-					THROW_CPP_SYNTAX_ERROR(*code_iterator_p == '\0', "C++ Code Syntax Error C1057: unrecognizable BEGIN_NAMESPACE macro usage.");
-
-					out_token_p._code += *code_iterator_p;
 					++code_iterator_p;
 				}
-				out_token_p._code += *code_iterator_p;
-				out_token_p._vocabulary = Vocabulary::_BeginNamespace;
+
+				var::uint64 l_identifier_end_pos = 0;
+				for (auto it = code_iterator_p; (*it != '{'); ++it)
+				{
+					if ((is_a_valid_letter_for_identifiers(*it) == false))
+					{
+						break;
+					}
+					++l_identifier_end_pos;
+				}
+				out_token_p._code.assign(code_iterator_p, l_identifier_end_pos);
+				out_token_p._vocabulary = Vocabulary::_NamespaceIdentifier;
 				return;
 			}
+			break;
 
 
-			// 'BEGIN_NAMESPACE()' otherwise.
-			THROW_CPP_SYNTAX_ERROR(out_token_p._code.find('(') == std::string::npos, "C++ Code Syntax Error C1057: unrecognizable BEGIN_NAMESPACE macro usage.");
-			auto l_pos = out_token_p._code.find(')');
-			THROW_CPP_SYNTAX_ERROR(l_pos == std::string::npos, "C++ Code Syntax Error C1057: unrecognizable BEGIN_NAMESPACE macro usage.");
-			++l_pos; // point after )
-			out_token_p._code.resize(l_pos);
-			out_token_p._vocabulary = Vocabulary::_BeginNamespace;
+		case FHT::Context::_EnumStructBody:
+			_FE_FALLTHROUGH_;
+		case FHT::Context::_EnumStructFieldValue:
+			_FE_FALLTHROUGH_;
+		case FHT::Context::_Template:
 			return;
-		}
-
-
-		if (FE::algorithm::string::space_insensitive_contains(out_token_p._code.c_str(), out_token_p._code.length(), u8"namespace") == false
-			&& context_stack_p.back() != Context::_Namespace)
-		{
-			out_token_p._code.clear();
-			return; // not a namespace.
-		}
-
-		THROW_CPP_SYNTAX_ERROR(context_stack_p.back() == FHT::Context::_Template, "C++ Code Syntax Error C2988: unrecognizable template declaration/definition");
-
-
-		code_iterator_p += out_token_p._code.length();
-		tokenize_class_struct_enum_forward_decl_and_using_namespace(out_token_p, code_iterator_p, context_stack_p);
-		if (out_token_p._vocabulary != Vocabulary::_Undefined)
-		{
-			return; // return if the text is a using statement.
-		}
-
-
-		while (out_token_p._code.front() <= ' ') // fix it (UB)
-		{
-			out_token_p._code.erase(0, 1);
-		}
-
-		if (out_token_p._code.starts_with(u8"namespace"))
-		{
-			out_token_p._code.resize(9);
-			out_token_p._vocabulary = Vocabulary::_Namespace;
-			context_stack_p.push_back(Context::_Namespace);
-			return;
-		}
-
-
-		while (out_token_p._code.front() <= ' ')
-		{
-			out_token_p._code.erase(0, 1);
-		}
-		// copy until '{'
-		while (*code_iterator_p != '{')
-		{
-			out_token_p._code += *code_iterator_p;
-			++code_iterator_p;
-		}
-
-		while (out_token_p._code.length() > 0)
-		{
-			if (out_token_p._code.back() <= ' ')
+			
+		default:
 			{
-				out_token_p._code.pop_back();
-				continue;
+				tokenize_class_struct_enum_forward_decl_and_using_namespace(out_token_p, code_iterator_p, context_stack_p);
+				if (out_token_p._vocabulary != Vocabulary::_Undefined)
+				{
+					return; // return if the text is a forward declaration.
+				}
+
+				while (*code_iterator_p <= ' ')
+				{
+					++code_iterator_p;
+				}
+
+				var::uint64 l_namespace_keyword_end_pos = 0;
+				for (auto it = code_iterator_p; !(*it <= ' '); ++it)
+				{
+					++l_namespace_keyword_end_pos;
+				}
+				out_token_p._code.assign(code_iterator_p, l_namespace_keyword_end_pos);
+
+
+				if (out_token_p._code.starts_with(u8"END_NAMESPACE"))
+				{
+					out_token_p._vocabulary = Vocabulary::_EndNamespace;
+					out_token_p._code.resize(FE::algorithm::string::compiletime::length(u8"END_NAMESPACE"));
+					return;
+				}
+
+				if (out_token_p._code.starts_with(u8"BEGIN_NAMESPACE"))
+				{
+					out_token_p._vocabulary = Vocabulary::_BeginNamespace;
+					context_stack_p.emplace_back(FHT::Context::_BeginNamespace);
+					out_token_p._code.resize(FE::algorithm::string::compiletime::length(u8"BEGIN_NAMESPACE"));
+					return;
+				}
+
+				if (out_token_p._code.starts_with(u8"namespace"))
+				{
+					out_token_p._vocabulary = Vocabulary::_Namespace;
+					context_stack_p.emplace_back(FHT::Context::_Namespace);
+					out_token_p._code.resize(FE::algorithm::string::compiletime::length(u8"namespace"));
+					return;
+				}
 			}
 			break;
 		}
-
-		out_token_p._vocabulary = Vocabulary::_NamespaceIdentifier;
-		context_stack_p.pop_back();
 	}
 
 	void tokenize_class_struct_enum_forward_decl_and_using_namespace(token& out_token_p, typename file_buffer_t::const_pointer code_iterator_p, FHT::context_stack_t& context_stack_p)
